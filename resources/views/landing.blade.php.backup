@@ -1,0 +1,215 @@
+@extends('layouts.landing')
+
+@section('title', 'PETANGBULA - Pemantauan Tumbuh Kembang Ibu Hamil dan Balita')
+
+@section('content')
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-section">
+        <div>
+            <div class="badge"><span class="dot"></span>Posyandu Desa Sindangpanon</div>
+            <h1 class="hero-title">Pantau Tumbuh Kembang <span>Si Kecil</span> dengan Penuh Kasih 💕</h1>
+            <p class="hero-subtitle">
+                Sistem pemantauan kesehatan gizi terpadu Posyandu Desa Sindangpanon berbasis acuan standar resmi Permenkes RI No. 2 Tahun 2020.
+            </p>
+            <div class="hero-btns">
+                <a href="#cek-gizi" class="btn-primary">🩺 Cek Gizi Sekarang</a>
+            </div>
+        </div>
+        <div class="hero-image-wrapper">
+            <img src="{{ asset('images/Logo2.png') }}" alt="Logo Petangbula" class="hero-image">
+        </div>
+    </section>
+
+    <!-- INFO GRID -->
+    <section class="info-section">
+        <div class="info-header">
+            <h2>💝 Informasi & Edukasi Kesehatan</h2>
+            <p>Tips penting untuk tumbuh kembang optimal ibu dan buah hati</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🍼 ASI Eksklusif</h3>
+                <p>Memberikan nutrisi terbaik bagi tumbuh kembang balita usia 0-6 bulan secara optimal.</p>
+            </div>
+            <div class="info-card">
+                <h3>🥗 MPASI Sehat</h3>
+                <p>Panduan pemberian makanan pendamping ASI yang bergizi seimbang sesuai usianya.</p>
+            </div>
+            <div class="info-card">
+                <h3>📏 Pencegahan Stunting</h3>
+                <p>Pantau secara rutin tinggi dan berat badan balita untuk mendeteksi potensi stunting sejak dini.</p>
+            </div>
+            <div class="info-card">
+                <h3>🤰 Gizi Ibu Hamil</h3>
+                <p>Asupan zat besi dan asam folat yang cukup mencegah anemia dan risiko Kurang Energi Kronis (KEK).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JADWAL POSYANDU -->
+    <section id="jadwal" class="jadwal-section">
+        <div class="jadwal-card">
+            <h2>📅 Jadwal Posyandu</h2>
+            <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 20px;">
+                Pilih RW untuk melihat jadwal kegiatan posyandu di wilayah Anda
+            </p>
+
+            <!-- Filter RW -->
+            <form method="GET" action="{{ route('home') }}#jadwal" style="margin-bottom: 24px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                <select name="rw" class="form-control" style="max-width: 250px;" onchange="this.form.submit()">
+                    <option value="">-- Semua RW --</option>
+                    @foreach($posyandus as $p)
+                        <option value="{{ $p->rw }}" {{ $selectedRw == $p->rw ? 'selected' : '' }}>
+                            RW {{ $p->rw }} - {{ $p->nama_posyandu }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn-primary" style="padding: 12px 24px;">🔍 Filter</button>
+                @if($selectedRw)
+                    <a href="{{ route('home') }}#jadwal" class="btn-secondary" style="padding: 12px 24px;">Reset</a>
+                @endif
+            </form>
+
+            @if($jadwals->count() > 0)
+                <div style="display: grid; gap: 12px; text-align: left;">
+                    @foreach($jadwals as $j)
+                        <div style="background: #fff; padding: 16px; border-radius: 12px; border: 1px solid #fbcfe8; display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="background: linear-gradient(135deg, #ec4899, #f43f5e); color: #fff; padding: 10px 16px; border-radius: 12px; text-align: center; min-width: 80px;">
+                                <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
+                                    {{ $j->tanggal->translatedFormat('M') }}
+                                </div>
+                                <div style="font-size: 1.5rem; font-weight: 800; line-height: 1;">
+                                    {{ $j->tanggal->format('d') }}
+                                </div>
+                                <div style="font-size: 0.7rem; opacity: 0.9;">
+                                    {{ $j->tanggal->translatedFormat('Y') }}
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 800; color: #831843; font-size: 1rem; margin-bottom: 4px;">
+                                    {{ $j->kegiatan }}
+                                </div>
+                                <div style="font-size: 0.85rem; color: #6b7280;">
+                                    🕐 {{ \Carbon\Carbon::parse($j->waktu_mulai)->format('H:i') }}
+                                    @if($j->waktu_selesai)
+                                        - {{ \Carbon\Carbon::parse($j->waktu_selesai)->format('H:i') }}
+                                    @endif
+                                    | 📍 {{ $j->lokasi }}
+                                </div>
+                                @if($j->posyandu)
+                                    <div style="font-size: 0.75rem; color: #ec4899; font-weight: 700; margin-top: 6px;">
+                                        {{ $j->posyandu->nama_posyandu }} (RW {{ $j->posyandu->rw }})
+                                    </div>
+                                @endif
+                                @if($j->keterangan)
+                                    <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 6px; font-style: italic;">
+                                        "{{ $j->keterangan }}"
+                                    </div>
+                                @endif
+                            </div>
+                            <div>
+                                @if($j->tanggal->isFuture())
+                                    <span class="badge" style="background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;">Akan Datang</span>
+                                @elseif($j->tanggal->isToday())
+                                    <span class="badge" style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;">🔥 Hari Ini</span>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="jadwal-empty">
+                    <p style="font-size: 1.5rem; margin-bottom: 8px;">📅</p>
+                    <p>Belum ada jadwal posyandu
+                        @if($selectedRw)
+                            untuk <strong>RW {{ $selectedRw }}</strong>
+                        @endif
+                        . Silakan cek kembali nanti.
+                    </p>
+                </div>
+            @endif
+        </div>
+    </section>
+    
+    <!-- KALKULATOR GIZI -->
+    <section id="cek-gizi" class="kalkulator-section">
+        <div class="kalkulator-card">
+            <div class="kalkulator-header">
+                <h2>Kalkulator Status Gizi Mandiri</h2>
+                <p>Standar Baku Permenkes RI No. 2 Tahun 2020</p>
+            </div>
+
+            <div class="tab-nav">
+                <button id="btn-tab-balita" class="tab-btn active" onclick="switchTab('balita')">Kalkulator Balita</button>
+                <button id="btn-tab-bumil" class="tab-btn" onclick="switchTab('bumil')">Kalkulator Ibu Hamil</button>
+            </div>
+
+            <!-- TAB BALITA -->
+            <div id="tab-balita" class="tab-content active">
+                <div class="form-group">
+                    <label for="gender">Jenis Kelamin</label>
+                    <select id="gender" class="form-control">
+                        <option value="male">Laki-Laki</option>
+                        <option value="female">Perempuan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="umur">Umur (Bulan)</label>
+                    <input type="number" id="umur" class="form-control" placeholder="0 - 60" min="0" max="60" required>
+                </div>
+                <div class="form-group">
+                    <label for="bbRiil">Berat Badan (Kg)</label>
+                    <input type="number" id="bbRiil" step="0.1" class="form-control" placeholder="Contoh: 8.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="tbRiil">Tinggi / Panjang Badan (Cm)</label>
+                    <input type="number" id="tbRiil" step="0.1" class="form-control" placeholder="Contoh: 75.0" required>
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="hitungGiziBalita()">
+                    Hitung Status Gizi Balita
+                </button>
+                <div id="resultBalita" class="result-container"></div>
+            </div>
+
+            <!-- TAB BUMIL -->
+            <div id="tab-bumil" class="tab-content">
+                <div class="form-group">
+                    <label for="tbBumil">Tinggi Badan (cm)</label>
+                    <input type="number" id="tbBumil" step="0.1" class="form-control" placeholder="Contoh: 155" required>
+                </div>
+                <div class="form-group">
+                    <label for="bbPra">Berat Badan Sebelum Hamil (kg)</label>
+                    <input type="number" id="bbPra" step="0.1" class="form-control" placeholder="Contoh: 50" required>
+                </div>
+                <div class="form-group">
+                    <label for="bbSkrg">Berat Badan Saat Ini (kg)</label>
+                    <input type="number" id="bbSkrg" step="0.1" class="form-control" placeholder="Contoh: 55" required>
+                </div>
+                <div class="form-group">
+                    <label for="usiaHamil">Usia Kehamilan (Minggu)</label>
+                    <input type="number" id="usiaHamil" min="1" max="42" class="form-control" placeholder="1 - 42 minggu" required>
+                </div>
+                <hr class="divider">
+                <div class="form-group">
+                    <label for="lila">LiLA / Lingkar Lengan Atas (cm) <span class="help-text">(Opsional)</span></label>
+                    <input type="number" id="lila" step="0.1" class="form-control" placeholder="Contoh: 24">
+                </div>
+                <div class="form-group">
+                    <label for="hb">Hemoglobin / Hb (g/dL) <span class="help-text">(Opsional)</span></label>
+                    <input type="number" id="hb" step="0.1" class="form-control" placeholder="Contoh: 11.5">
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="hitungGiziBumil()">
+                    Hitung Status Gizi Ibu Hamil
+                </button>
+                <div id="resultBumil" class="result-container"></div>
+            </div>
+        </div>
+    </section>
+
+@endsection
+
+@push('scripts')
+<script src="{{ asset('js/dataset.js') }}"></script>
+<script src="{{ asset('js/kalkulator.js') }}"></script>
+@endpush

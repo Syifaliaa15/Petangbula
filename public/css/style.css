@@ -1,0 +1,978 @@
+/* ==========================================================================
+   PETANGBULA — STYLESHEET GLOBAL v2 (Clean & Modern)
+   Palet: Pink Utama + Abu Netral + Putih
+   Gaya: Kotak tegas, border tipis, clean
+   ========================================================================== */
+
+/* ==========================================
+   1. CSS VARIABLES (Design Tokens)
+   ========================================== */
+   :root {
+    /* Colors */
+    --pink-primary:    #EC4899;
+    --pink-dark:       #BE185D;
+    --pink-darker:     #831843;
+    --pink-soft:       #FCE7F3;
+    --pink-lighter:    #FDF2F8;
+    --pink-border:     #FBCFE8;
+    
+    --text-dark:       #1F2937;
+    --text-medium:     #4B5563;
+    --text-light:      #9CA3AF;
+    
+    --bg-white:        #FFFFFF;
+    --bg-soft:         #FAFAFA;
+    --bg-neutral:      #F9FAFB;
+    
+    --border-light:    #E5E7EB;
+    --border-medium:   #D1D5DB;
+    
+    /* Status Colors */
+    --success:         #059669;
+    --success-bg:      #ECFDF5;
+    --warning:         #D97706;
+    --warning-bg:      #FFFBEB;
+    --danger:          #DC2626;
+    --danger-bg:       #FEF2F2;
+    --info:            #2563EB;
+    --info-bg:         #EFF6FF;
+    
+    /* Shadows */
+    --shadow-sm:       0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    --shadow-md:       0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-hover:    0 4px 12px rgba(236, 72, 153, 0.12);
+    
+    /* Border Radius */
+    --radius-sm:       4px;
+    --radius-md:       6px;
+    --radius-lg:       8px;
+}
+
+/* ==========================================
+   2. RESET & BASE
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    transition: color 0.15s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================
+   3. NAVBAR (tegas, minimalis)
+   ========================================== */
+.navbar {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0;
+}
+
+.nav-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.brand-logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-link {
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    padding: 4px 0;
+}
+
+.nav-link:hover {
+    color: var(--pink-primary);
+}
+
+.nav-link.active {
+    color: var(--pink-dark);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--pink-primary);
+    border-radius: 1px;
+}
+
+/* Tombol Login di navbar — kotak tegas */
+.btn-nav-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: var(--bg-white);
+    border: 1.5px solid var(--pink-primary);
+    color: var(--pink-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-nav-login:hover {
+    background: var(--pink-primary);
+    color: var(--bg-white);
+}
+
+/* User info di navbar (kalau login) */
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-user-info {
+    text-align: right;
+    line-height: 1.3;
+}
+
+.nav-user-info .name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--pink-darker);
+}
+
+.nav-user-info .role {
+    font-size: 0.7rem;
+    color: var(--pink-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--pink-dark);
+    cursor: pointer;
+    padding: 6px;
+}
+
+/* ==========================================
+   4. HERO SECTION
+   ========================================== */
+.hero-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pink-lighter);
+    color: var(--pink-dark);
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border: 1px solid var(--pink-border);
+}
+
+.hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--pink-primary);
+    border-radius: 50%;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+}
+
+.hero-title span {
+    color: var(--pink-primary);
+}
+
+.hero-subtitle {
+    color: var(--text-medium);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 520px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==========================================
+   5. BUTTONS (kotak tegas, compact)
+   ========================================== */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--pink-primary);
+    color: var(--bg-white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background: var(--pink-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    border: 1.5px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-dark);
+    background: var(--bg-soft);
+}
+
+/* ==========================================
+   6. INFO SECTION (4 kotak tegas)
+   ========================================== */
+.info-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.info-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.info-header h2 {
+    color: var(--pink-darker);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.info-header p {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--bg-white);
+    padding: 24px 20px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    transition: all 0.15s ease;
+    text-align: left;
+}
+
+.info-card:hover {
+    border-color: var(--pink-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
+    color: var(--pink-primary);
+}
+
+.info-card h3 {
+    color: var(--pink-darker);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.info-card p {
+    color: var(--text-medium);
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   7. JADWAL POSYANDU (tabel tegas)
+   ========================================== */
+.jadwal-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
+
+.section-title {
+    color: var(--pink-darker);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.jadwal-filter {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.jadwal-table-wrapper {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+.jadwal-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.jadwal-table thead {
+    background: var(--pink-lighter);
+}
+
+.jadwal-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--pink-darker);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--pink-border);
+}
+
+.jadwal-table td {
+    padding: 16px;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+.jadwal-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.jadwal-table tbody tr:hover {
+    background: var(--pink-lighter);
+}
+
+.jadwal-date {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    padding: 8px 6px;
+    background: var(--pink-primary);
+    color: var(--bg-white);
+    border-radius: var(--radius-md);
+    line-height: 1.1;
+}
+
+.jadwal-date .day {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.jadwal-date .month {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+/* ==========================================
+   8. KALKULATOR GIZI (clean form)
+   ========================================== */
+.kalkulator-section {
+    max-width: 800px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    width: 100%;
+}
+
+.kalkulator-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.kalkulator-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.kalkulator-header h2 {
+    color: var(--pink-darker);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+}
+
+.kalkulator-header p {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* Tab navigation */
+.tab-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 28px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    margin-bottom: -1px;
+}
+
+.tab-btn:hover {
+    color: var(--pink-primary);
+}
+
+.tab-btn.active {
+    color: var(--pink-dark);
+    border-bottom-color: var(--pink-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    outline: none;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    border-color: var(--pink-primary);
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.help-text {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    font-weight: normal;
+    margin-top: 4px;
+    display: block;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-light);
+    margin: 20px 0;
+}
+
+/* Result cards */
+.result-container {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-card {
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--text-light);
+    background: var(--bg-soft);
+    font-size: 0.85rem;
+}
+
+.result-card h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    color: var(--text-medium);
+}
+
+.result-card p {
+    font-weight: 600;
+}
+
+.result-card.success {
+    background: var(--success-bg);
+    border-left-color: var(--success);
+}
+
+.result-card.success h4, .result-card.success p {
+    color: var(--success);
+}
+
+.result-card.warning {
+    background: var(--warning-bg);
+    border-left-color: var(--warning);
+}
+
+.result-card.warning h4, .result-card.warning p {
+    color: var(--warning);
+}
+
+.result-card.danger {
+    background: var(--danger-bg);
+    border-left-color: var(--danger);
+}
+
+.result-card.danger h4, .result-card.danger p {
+    color: var(--danger);
+}
+
+.result-card.info {
+    background: var(--info-bg);
+    border-left-color: var(--info);
+}
+
+.result-card.info h4, .result-card.info p {
+    color: var(--info);
+}
+
+/* ==========================================
+   9. BADGES (kotak tegas, bukan pill)
+   ========================================== */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-danger  { background: var(--danger-bg); color: var(--danger); }
+.badge-info    { background: var(--info-bg); color: var(--info); }
+.badge-secondary { background: var(--bg-neutral); color: var(--text-medium); }
+
+/* ==========================================
+   10. FOOTER
+   ========================================== */
+.footer {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-light);
+    color: var(--text-medium);
+    text-align: center;
+    padding: 24px 20px;
+    margin-top: auto;
+    font-size: 0.82rem;
+}
+
+/* ==========================================
+   11. RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+    /* ----- NAVBAR ----- */
+    .nav-wrap {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        margin-left: auto;
+    }
+    
+    .brand-logo {
+        height: 32px;
+    }
+    
+    .btn-nav-login {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+        order: 2;
+    }
+    
+    .nav-user {
+        gap: 8px;
+    }
+    
+    .nav-user-info {
+        display: none; /* Sembunyikan nama di mobile, cukup avatar */
+    }
+    
+    /* ----- HERO ----- */
+    .hero-section {
+        grid-template-columns: 1fr;
+        padding: 24px 16px 40px;
+        gap: 24px;
+        text-align: center;
+    }
+    
+    .hero-badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-title {
+        font-size: 1.65rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-btns {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .hero-image-wrapper {
+        order: -1;
+    }
+    
+    .hero-image {
+        max-width: 60%;
+        margin: 0 auto;
+    }
+    
+    /* ----- INFO SECTION ----- */
+    .info-section {
+        padding: 32px 16px;
+    }
+    
+    .info-header {
+        margin-bottom: 24px;
+    }
+    
+    .info-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .info-header p {
+        font-size: 0.82rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .info-card {
+        padding: 16px;
+    }
+    
+    .info-icon {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 10px;
+    }
+    
+    .info-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .info-card p {
+        font-size: 0.78rem;
+    }
+    
+    /* ----- JADWAL SECTION ----- */
+    .jadwal-section {
+        padding: 32px 16px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.82rem;
+    }
+    
+    .jadwal-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .jadwal-filter .form-control,
+    .jadwal-filter .btn-primary,
+    .jadwal-filter .btn-secondary {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .jadwal-table-wrapper {
+        overflow-x: auto;
+        border-radius: var(--radius-md);
+    }
+    
+    .jadwal-table {
+        min-width: 600px;
+    }
+    
+    .jadwal-table th,
+    .jadwal-table td {
+        padding: 10px 12px;
+        font-size: 0.78rem;
+    }
+    
+    .jadwal-date {
+        min-width: 44px;
+        padding: 6px 4px;
+    }
+    
+    .jadwal-date .day {
+        font-size: 1rem;
+    }
+    
+    .jadwal-date .month {
+        font-size: 0.6rem;
+    }
+    
+    /* ----- KALKULATOR ----- */
+    .kalkulator-section {
+        padding: 0 16px 40px;
+    }
+    
+    .kalkulator-card {
+        padding: 20px 16px;
+        border-radius: var(--radius-md);
+    }
+    
+    .kalkulator-header h2 {
+        font-size: 1.15rem;
+    }
+    
+    .kalkulator-header p {
+        font-size: 0.78rem;
+    }
+    
+    .tab-btn {
+        padding: 10px 12px;
+        font-size: 0.82rem;
+    }
+    
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .form-control {
+        font-size: 0.9rem; /* Cegah zoom di iOS */
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 11px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.82rem;
+    }
+    
+    .info-header h2, 
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .info-card {
+        padding: 14px;
+    }
+    
+    .kalkulator-card {
+        padding: 16px 12px;
+    }
+    
+    .jadwal-table th,
+    .jadwal-table td {
+        padding: 8px 10px;
+        font-size: 0.72rem;
+    }
+}

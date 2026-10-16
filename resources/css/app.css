@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* ==========================================
+   PETANGBULA — MONOCHROMATIC PINK THEME
+   Terinspirasi dari Buku KIA
+   ========================================== */
+@theme {
+    /* ===== Pink Scale (Single Hue) ===== */
+    --color-kia-50:  #FEF7FB;
+    --color-kia-100: #FDF2F8;
+    --color-kia-200: #FCE7F3;
+    --color-kia-300: #FBCFE8;
+    --color-kia-400: #F9A8D4;
+    --color-kia-500: #EC4899;
+    --color-kia-600: #DB2777;
+    --color-kia-700: #BE185D;
+    --color-kia-800: #9D174D;
+    --color-kia-900: #831843;
+
+    /* ===== Neutral (untuk text body) ===== */
+    --color-text-dark:   #2D1B26;
+    --color-text-medium: #6B4C5C;
+    --color-text-light:  #A88B99;
+
+    /* ===== Status Colors (untuk badge gizi) ===== */
+    --color-success: #059669;
+    --color-warning: #D97706;
+    --color-danger:  #DC2626;
+    --color-info:    #2563EB;
+
+    /* ===== Font ===== */
+    --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ==========================================
+   BASE STYLES
+   ========================================== */
+html, body {
+    background-color: #FEF7FB;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================
+   SCROLLBAR PINK
+   ========================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FDF2F8;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #F9A8D4;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #EC4899;
+}
