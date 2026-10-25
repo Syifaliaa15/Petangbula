@@ -14,10 +14,12 @@ use Illuminate\Support\Enumerable;
 class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize
 {
     protected $laporans;
+    protected array $meta;
 
-    public function __construct($laporans)
+    public function __construct($laporans, array $meta = [])
     {
         $this->laporans = $laporans;
+        $this->meta     = $meta;
     }
 
     public function collection(): Enumerable
@@ -58,9 +60,10 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
         static $no = 0;
         $no++;
 
-        $id   = $l->identitas ?? [];
-        $data = $l->data_pemeriksaan ?? [];
-        $gizi = $l->status_gizi ?? [];
+        $id   = is_array($l->identitas ?? null)        ? $l->identitas        : [];
+        $data = is_array($l->data_pemeriksaan ?? null) ? $l->data_pemeriksaan : [];
+        $gizi = is_array($l->status_gizi ?? null)      ? $l->status_gizi      : [];
+        $imun = is_array($l->imunisasi ?? null)        ? $l->imunisasi        : [];
 
         $isBalita = $l->kategori === 'balita';
 
@@ -70,8 +73,11 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
             $l->posyandu->nama_posyandu ?? '-',
             $id['nama'] ?? '-',
             $id['nik'] ?? '-',
-            ($id['jenis_kelamin'] ?? '') === 'L' ? 'Laki-laki' : (($id['jenis_kelamin'] ?? '') === 'P' ? 'Perempuan' : '-'),
-            $isBalita ? (($id['umur_bulan'] ?? '-') . ' bln') : (($id['umur'] ?? '-') . ' thn'),
+            ($id['jenis_kelamin'] ?? '') === 'L' ? 'Laki-laki'
+                : ((($id['jenis_kelamin'] ?? '') === 'P') ? 'Perempuan' : '-'),
+            $isBalita
+                ? (($id['umur_bulan'] ?? '-') . ' bln')
+                : (($id['umur'] ?? '-') . ' thn'),
             $isBalita ? ($id['nama_ibu'] ?? '-') : ($id['nama_suami'] ?? '-'),
             $data['tanggal_periksa'] ?? '-',
             $isBalita ? ($data['berat_badan'] ?? '-') : ($data['bb'] ?? '-'),
@@ -85,14 +91,11 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
             $gizi['anemia'] ?? '-',
             $gizi['td'] ?? '-',
             $isBalita ? (!empty($data['vitamin_a']) ? 'Ya' : 'Tidak') : '-',
-            ($isBalita && is_array($l->imunisasi) && count($l->imunisasi) > 0) ? implode(', ', $l->imunisasi) : '-',
+            $isBalita && !empty($imun) ? implode(', ', $imun) : '-',
             $l->tanggal_validasi ? $l->tanggal_validasi->format('d/m/Y H:i') : '-',
         ];
     }
 
-    /**
-     * PENTING: Return type harus ?array
-     */
     public function styles(Worksheet $sheet): ?array
     {
         return [

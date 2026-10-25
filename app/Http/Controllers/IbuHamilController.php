@@ -8,6 +8,7 @@ use App\Models\ImunisasiBumil;
 use App\Helpers\ZScoreHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class IbuHamilController extends Controller
 {
@@ -70,20 +71,32 @@ class IbuHamilController extends Controller
             return back()->withErrors(['posyandu_id' => 'Akun Anda tidak terhubung ke Posyandu.'])->withInput();
         }
 
+        // VALIDASI KETAT
         $validated = $request->validate([
-            'nik'                 => 'required|string|size:16|unique:ibu_hamil,nik',
-            'nama'                => 'required|string|max:255',
-            'umur'                => 'required|integer|min:15|max:60',
+            'nik'                 => 'required|string|digits:16|unique:ibu_hamil,nik',
+            'nama'                => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'umur'                => 'required|integer|min:15|max:50', // Umur realistis untuk hamil
             'klmp_dasawisma'      => 'nullable|string|max:255',
-            'hamil_ke'            => 'required|integer|min:1',
+            'hamil_ke'            => 'required|integer|min:1|max:10', // Hamil ke- realistis
             'tanggal_pendaftaran' => 'required|date|before_or_equal:today',
-            'nama_suami'          => 'nullable|string|max:255',
+            'nama_suami'          => 'nullable|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
             'alamat'              => 'nullable|string',
-            'rw'                  => 'nullable|string|max:5',
             'rt'                  => 'nullable|string|max:5',
+        ], [
+            'nik.digits' => 'NIK harus tepat 16 digit angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'umur.min' => 'Umur terlalu muda untuk hamil.',
+            'umur.max' => 'Umur terlalu tua untuk hamil.',
+            'hamil_ke.max' => 'Jumlah kehamilan tidak masuk akal.',
+            'nama_suami.regex' => 'Nama suami hanya boleh berisi huruf dan spasi.',
+            'tanggal_pendaftaran.before_or_equal' => 'Tanggal pendaftaran tidak boleh di masa depan.',
         ]);
 
         $validated['posyandu_id'] = $user->posyandu_id;
+        
+        if ($user->posyandu) {
+            $validated['rw'] = $user->posyandu->rw;
+        }
 
         IbuHamil::create($validated);
 
@@ -134,10 +147,17 @@ class IbuHamilController extends Controller
             'bb'                  => 'required|numeric|min:30|max:150',
             'lila'                => 'required|numeric|min:15|max:50',
             'hemoglobin'          => 'nullable|numeric|min:5|max:20',
-            'tablet_tambah_darah' => 'required|integer|min:0',
+            'tablet_tambah_darah' => 'required|integer|min:0|max:1000',
             'pmt_pemulihan'       => 'required|boolean',
             'tekanan_darah'       => 'nullable|string|max:20',
             'keterangan'          => 'nullable|string|max:500',
+        ], [
+            'bb.min' => 'Berat badan tidak realistis.',
+            'bb.max' => 'Berat badan tidak realistis.',
+            'lila.min' => 'LILA tidak realistis.',
+            'lila.max' => 'LILA tidak realistis.',
+            'hemoglobin.min' => 'Nilai Hemoglobin tidak valid.',
+            'hemoglobin.max' => 'Nilai Hemoglobin tidak valid.',
         ]);
 
         $statusKEK    = ZScoreHelper::statusKEK($validated['lila']);
@@ -173,6 +193,9 @@ class IbuHamilController extends Controller
         ];
 
         if ($pemeriksaanExist) {
+            if ($pemeriksaanExist->status_review === 'disetujui') {
+                return back()->with('error', 'Data yang sudah disetujui tidak dapat diubah.');
+            }
             $pemeriksaanExist->update($data);
             $pesan = "Pemeriksaan minggu ke-{$validated['target_minggu']} berhasil diperbarui!";
         } else {
@@ -187,9 +210,20 @@ class IbuHamilController extends Controller
     {
         $ibuHamil = IbuHamil::findOrFail($id);
 
-        $request->validate([
+        // Validasi dasar
+        $rules = [
             'jenis_tt'          => 'required|string',
             'tanggal_vaksinasi' => 'required|date|before_or_equal:today',
+        ];
+
+        // Tambahkan validasi after_or_equal HANYA jika tanggal pendaftaran ada
+        if ($ibuHamil->tanggal_pendaftaran) {
+            $rules['tanggal_vaksinasi'] .= '|after_or_equal:' . $ibuHamil->tanggal_pendaftaran->format('Y-m-d');
+        }
+
+        $request->validate($rules, [
+            'tanggal_vaksinasi.after_or_equal' => 'Tanggal vaksinasi tidak boleh sebelum tanggal pendaftaran/HPHT.',
+            'tanggal_vaksinasi.before_or_equal' => 'Tanggal vaksinasi tidak boleh di masa depan.'
         ]);
 
         $sudahAda = ImunisasiBumil::where('ibu_hamil_id', $ibuHamil->id)
@@ -221,23 +255,27 @@ class IbuHamilController extends Controller
         $ibuHamil = IbuHamil::findOrFail($id);
 
         $validated = $request->validate([
-            'nik'                 => 'required|string|size:16|unique:ibu_hamil,nik,' . $ibuHamil->id,
-            'nama'                => 'required|string|max:255',
-            'umur'                => 'required|integer|min:15|max:60',
+            'nik'                 => 'required|string|digits:16|unique:ibu_hamil,nik,' . $ibuHamil->id,
+            'nama'                => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'umur'                => 'required|integer|min:15|max:50',
             'klmp_dasawisma'      => 'nullable|string|max:255',
-            'hamil_ke'            => 'required|integer|min:1',
-            'tanggal_pendaftaran' => 'required|date',
-            'nama_suami'          => 'nullable|string|max:255',
+            'hamil_ke'            => 'required|integer|min:1|max:10',
+            'tanggal_pendaftaran' => 'required|date|before_or_equal:today',
+            'nama_suami'          => 'nullable|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
             'alamat'              => 'nullable|string',
-            'rw'                  => 'nullable|string|max:5',
             'rt'                  => 'nullable|string|max:5',
+        ], [
+            'nik.digits' => 'NIK harus tepat 16 digit angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'nama_suami.regex' => 'Nama suami hanya boleh berisi huruf dan spasi.',
         ]);
 
-        $validated['posyandu_id'] = $user->posyandu_id;
-        if ($user->posyandu && !isset($validated['rw'])) {
-            $validated['rw'] = $user->posyandu->rw;
+        // Auto-set RW dari posyandu kader
+        if (Auth::user()->posyandu) {
+            $validated['rw'] = Auth::user()->posyandu->rw;
         }
-        IbuHamil::create($validated);
+
+        $ibuHamil->update($validated);
 
         return redirect()->route('ibu-hamil.index')->with('success', 'Data Ibu Hamil berhasil diperbarui!');
     }
@@ -254,20 +292,21 @@ class IbuHamilController extends Controller
 
     public function hapusPemeriksaan($id)
     {
-        $pemeriksaan = PemeriksaanBumil::findOrFail($id);
-    
+        $pemeriksaan = PemeriksaanBumil::with('ibuHamil')->findOrFail($id);
         $user = Auth::user();
-        if (!$user->isAdmin() && $pemeriksaan->kader_id !== $user->id) {
-            return back()->with('error', 'Anda tidak berhak menghapus data ini.');
+
+        // Validasi Keamanan
+        if ($user->isKader() && $pemeriksaan->ibuHamil->posyandu_id !== $user->posyandu_id) {
+            abort(403, 'Anda tidak berhak menghapus data posyandu lain.');
         }
-    
+
         if ($pemeriksaan->status_review === 'disetujui') {
             return back()->with('error', 'Data yang sudah disetujui Bidan tidak dapat dihapus.');
         }
-    
+
         $ibuHamilId = $pemeriksaan->ibu_hamil_id;
         $pemeriksaan->delete();
-    
+
         return redirect()->route('ibu-hamil.show', $ibuHamilId)
             ->with('success', 'Data pemeriksaan berhasil dihapus.');
     }    

@@ -25,13 +25,10 @@ class AdminController extends Controller
         $totalIbuHamil = IbuHamil::count();
         $totalPosyandu = Posyandu::count();
 
-        // ==========================================
+                // ==========================================
         // STATISTIK BALITA — Berdasarkan Pemeriksaan Terakhir
         // ==========================================
-        // Ambil ID balita yang punya pemeriksaan
         $balitaIds = Balita::pluck('id');
-
-        // Total pemeriksaan balita (semua record, bukan per-balita)
         $totalPemeriksaanBalita = PemeriksaanBalita::count();
 
         // ------ BB/U ------
@@ -41,10 +38,11 @@ class AdminController extends Controller
             ->pluck('total', 'status_bb_u')
             ->toArray();
 
-        $giziBaik   = $bbuStats['Gizi Baik']   ?? 0;
-        $giziKurang = $bbuStats['Gizi Kurang'] ?? 0;
-        $giziLebih  = $bbuStats['Gizi Lebih']  ?? 0;
-        $giziBuruk  = $bbuStats['Gizi Buruk']  ?? 0;
+        // Label Baru Permenkes 2020
+        $giziBaik   = $bbuStats['Berat Badan Normal'] ?? 0;
+        $giziKurang = $bbuStats['Berat Badan Kurang'] ?? 0;
+        $giziLebih  = $bbuStats['Risiko Berat Badan Lebih'] ?? 0;
+        $giziBuruk  = $bbuStats['Berat Badan Sangat Kurang'] ?? 0;
 
         // ------ TB/U ------
         $tbuStats = PemeriksaanBalita::selectRaw('status_tb_u, COUNT(*) as total')
@@ -53,6 +51,7 @@ class AdminController extends Controller
             ->pluck('total', 'status_tb_u')
             ->toArray();
 
+        // Label TB/U tidak berubah
         $tbNormal      = $tbuStats['Normal']        ?? 0;
         $tbPendek      = $tbuStats['Pendek']        ?? 0;
         $tbSangatPendek= $tbuStats['Sangat Pendek'] ?? 0;
@@ -65,10 +64,14 @@ class AdminController extends Controller
             ->pluck('total', 'status_bb_tb')
             ->toArray();
 
-        $bbtbNormal       = $bbtbStats['Normal']       ?? 0;
-        $bbtbKurus        = $bbtbStats['Kurus']        ?? 0;
-        $bbtbSangatKurus  = $bbtbStats['Sangat Kurus'] ?? 0;
-        $bbtbGemuk        = $bbtbStats['Gemuk']        ?? 0;
+        // Label Baru Permenkes 2020
+        $bbtbNormal       = $bbtbStats['Gizi Baik']    ?? 0;
+        $bbtbKurus        = $bbtbStats['Gizi Kurang']  ?? 0;
+        $bbtbSangatKurus  = $bbtbStats['Gizi Buruk']   ?? 0;
+        $bbtbGemuk        = ($bbtbStats['Gizi Lebih'] ?? 0) + ($bbtbStats['Obesitas'] ?? 0);
+        
+        // Opsional: Jika Anda ingin memisahkan Obesitas di dashboard, tambahkan variabel baru
+        // $bbtbObesitas  = $bbtbStats['Obesitas']     ?? 0;
 
         // ------ Stunting / Wasting ------
         $stunting  = $tbPendek + $tbSangatPendek;
@@ -307,7 +310,8 @@ class AdminController extends Controller
             $query->where('posyandu_id', $posyanduId);
         }
 
-        $laporans  = $query->orderBy('kategori')->orderBy('id')->get();
+        // Gunakan paginate
+        $laporans  = $query->orderBy('kategori')->orderBy('id')->paginate(20)->withQueryString();
         $posyandus = Posyandu::orderBy('rw')->get();
 
         $tahunList = LaporanPosyandu::select('periode_tahun')
@@ -321,8 +325,15 @@ class AdminController extends Controller
         }
         sort($tahunList);
 
+        // TAMBAHKAN INI:
+        $bulanList = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
+        ];
+
         return view('laporan-posyandu.index', compact(
-            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId'
+            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId', 'bulanList'
         ));
     }
 

@@ -69,9 +69,9 @@ class Balita extends Model
     private function formatUsia(int $tahun, int $bulan, int $hari): string
     {
         $parts = [];
-        if ($tahun > 0) $parts[] = "{$tahun} tahun";
-        if ($bulan > 0) $parts[] = "{$bulan} bulan";
-        if ($hari > 0 || empty($parts)) $parts[] = "{$hari} hari";
+        if ($tahun > 0) $parts[] = "{$tahun}thn";
+        if ($bulan > 0) $parts[] = "{$bulan}bln";
+        if ($hari > 0 || empty($parts)) $parts[] = "{$hari}hr";
 
         return implode(' ', $parts);
     }

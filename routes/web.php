@@ -12,58 +12,33 @@ use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\JadwalPosyanduController;
 use App\Http\Controllers\LaporanExportController;
 
-/*
-|--------------------------------------------------------------------------
-| PUBLIC
-|--------------------------------------------------------------------------
-*/
+// PUBLIC
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-/*
-|--------------------------------------------------------------------------
-| AUTHENTICATION
-|--------------------------------------------------------------------------
-*/
+// AUTH
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 });
 
-Route::post('/logout', [LoginController::class, 'logout'])
-    ->name('logout')
-    ->middleware('auth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/logout-ajax', [LoginController::class, 'logoutAjax'])->name('logout.ajax')->middleware('auth');
 
-Route::post('/logout-ajax', [LoginController::class, 'logoutAjax'])
-    ->name('logout.ajax')
-    ->middleware('auth');
+Route::get('/login-success', [LoginController::class, 'loginSuccess'])->name('login.success')->middleware('auth');
 
-/*
-|--------------------------------------------------------------------------
-| AUTH CHECK (untuk JS cek session)
-|--------------------------------------------------------------------------
-*/
 Route::get('/auth/check', function () {
-    return response()->json([
-        'authenticated' => Auth::check(),
-        'user_id'       => Auth::id(),
-    ]);
+    return response()->json(['authenticated' => Auth::check(), 'user_id' => Auth::id()]);
 })->name('auth.check');
 
-/*
-|--------------------------------------------------------------------------
-| PROTECTED ROUTES
-|--------------------------------------------------------------------------
-*/
+// PROTECTED
 Route::middleware('auth')->group(function () {
 
-    // ==========================================
-    // A. KADER — Dashboard, Laporan, Jadwal CRUD
-    // ==========================================
+    // ===== KADER =====
     Route::middleware('role:kader')->prefix('kader')->name('kader.')->group(function () {
         Route::get('/dashboard', [KaderController::class, 'dashboard'])->name('dashboard');
         Route::get('/laporan-posyandu', [KaderController::class, 'laporanPosyandu'])->name('laporan.posyandu');
 
-        // ===== JADWAL POSYANDU — CRUD HANYA KADER =====
+        // JADWAL CRUD KHUSUS KADER
         Route::get('/jadwal', [JadwalPosyanduController::class, 'index'])->name('jadwal.index');
         Route::get('/jadwal/create', [JadwalPosyanduController::class, 'create'])->name('jadwal.create');
         Route::post('/jadwal', [JadwalPosyanduController::class, 'store'])->name('jadwal.store');
@@ -72,37 +47,31 @@ Route::middleware('auth')->group(function () {
         Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->name('jadwal.destroy');
     });
 
-    // ==========================================
-    // B. SHARED — Data Balita, Bumil, Riwayat Jadwal, Export
-    //    (kader, bidan, admin)
-    // ==========================================
+    // ===== SHARED (Kader, Bidan, Admin) =====
     Route::middleware('role:kader,bidan,admin')->group(function () {
-
-        // ---------- BALITA ----------
+        // BALITA
         Route::get('/balita/{id}/checkup', [BalitaController::class, 'checkup'])->name('balita.checkup');
         Route::post('/balita/{id}/checkup', [BalitaController::class, 'storeCheckup'])->name('balita.storeCheckup');
         Route::post('/balita/{id}/imunisasi', [BalitaController::class, 'simpanImunisasi'])->name('balita.imunisasi.store');
         Route::delete('/balita/pemeriksaan/{id}', [BalitaController::class, 'hapusPemeriksaan'])->name('balita.pemeriksaan.hapus');
         Route::resource('balita', BalitaController::class);
 
-        // ---------- IBU HAMIL ----------
+        // IBU HAMIL
         Route::get('/ibu-hamil/{id}/checkup', [IbuHamilController::class, 'checkup'])->name('ibu-hamil.checkup');
         Route::post('/ibu-hamil/{id}/checkup', [IbuHamilController::class, 'storeCheckup'])->name('ibu-hamil.storeCheckup');
         Route::post('/ibu-hamil/{id}/imunisasi', [IbuHamilController::class, 'simpanImunisasi'])->name('ibu-hamil.imunisasi.store');
         Route::delete('/ibu-hamil/pemeriksaan/{id}', [IbuHamilController::class, 'hapusPemeriksaan'])->name('ibu-hamil.pemeriksaan.hapus');
         Route::resource('ibu-hamil', IbuHamilController::class);
 
-        // ---------- RIWAYAT JADWAL (read-only untuk Bidan & Admin) ----------
+        // RIWAYAT JADWAL (Read-only)
         Route::get('/jadwal-riwayat', [JadwalPosyanduController::class, 'riwayat'])->name('jadwal.riwayat');
 
-        // ---------- EXPORT LAPORAN ----------
+        // EXPORT
         Route::get('/laporan-posyandu/pdf', [LaporanExportController::class, 'pdf'])->name('laporan-posyandu.pdf');
         Route::get('/laporan-posyandu/excel', [LaporanExportController::class, 'excel'])->name('laporan-posyandu.excel');
     });
 
-    // ==========================================
-    // C. BIDAN
-    // ==========================================
+    // ===== BIDAN =====
     Route::middleware('role:bidan')->prefix('bidan')->name('bidan.')->group(function () {
         Route::get('/dashboard', [BidanController::class, 'dashboard'])->name('dashboard');
         Route::get('/validasi/balita', [BidanController::class, 'validasiBalita'])->name('validasi.balita');
@@ -117,9 +86,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan/darurat', [BidanController::class, 'laporanDarurat'])->name('laporan.darurat');
     });
 
-    // ==========================================
-    // D. ADMIN
-    // ==========================================
+    // ===== ADMIN =====
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('/kelola-akun', [AdminController::class, 'kelolaAkun'])->name('kelola-akun');
@@ -131,8 +98,4 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan-posyandu', [AdminController::class, 'laporanPosyandu'])->name('laporan-posyandu');
         Route::get('/laporan-darurat', [AdminController::class, 'laporanDarurat'])->name('laporan-darurat');
     });
-
-    Route::get('/login-success', [LoginController::class, 'loginSuccess'])
-    ->name('login.success')
-    ->middleware('auth');
 });

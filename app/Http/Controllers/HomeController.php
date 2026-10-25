@@ -15,21 +15,18 @@ class HomeController extends Controller
 
         // Filter jadwal berdasarkan RW
         $selectedRw = $request->query('rw');
-        $jadwals = collect();
+        $jadwals = collect(); // Default kosong
 
+        // HANYA ambil data jika user sudah memilih RW
         if ($selectedRw) {
             $posyanduIds = $posyandus->where('rw', $selectedRw)->pluck('id');
+            
             $jadwals = JadwalPosyandu::with(['posyandu', 'kader'])
                 ->whereIn('posyandu_id', $posyanduIds)
-                ->where('tanggal', '>=', now()->subDays(30)) // tampilkan jadwal 30 hari terakhir & yang akan datang
+                // HANYA TAMPILKAN JADWAL HARI INI DAN MENDATANG
+                ->where('tanggal', '>=', now()->startOfDay()) 
                 ->orderBy('tanggal', 'asc')
-                ->get();
-        } else {
-            // Kalau tidak ada filter, tampilkan semua jadwal mendatang (maks 10)
-            $jadwals = JadwalPosyandu::with(['posyandu', 'kader'])
-                ->where('tanggal', '>=', now())
-                ->orderBy('tanggal', 'asc')
-                ->limit(10)
+                ->orderBy('waktu_mulai', 'asc')
                 ->get();
         }
 

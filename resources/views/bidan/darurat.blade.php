@@ -4,128 +4,94 @@
 @section('page-title', 'Pemeriksaan Darurat')
 @section('page-subtitle', 'Catat dan kelola kasus pemeriksaan darurat')
 
-@section('sidebar-menu')
-    <a href="{{ route('bidan.dashboard') }}" class="menu-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-        Dashboard
-    </a>
-    <a href="{{ route('bidan.validasi.balita') }}" class="menu-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Validasi Data Balita
-    </a>
-    <a href="{{ route('bidan.validasi.bumil') }}" class="menu-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Validasi Data Bumil
-    </a>
-    <a href="{{ route('bidan.darurat') }}" class="menu-item active">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        Pemeriksaan Darurat
-    </a>
-    <a href="{{ route('bidan.laporan.posyandu') }}" class="menu-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        Laporan Posyandu
-    </a>
-    <a href="{{ route('bidan.laporan.darurat') }}" class="menu-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-        Laporan Darurat
-    </a>
-@endsection
-
 @section('content')
-    <div class="card">
-        <h2 class="card-title">🚨 Form Pemeriksaan Darurat</h2>
-        <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 20px;">
-            Catat kasus pemeriksaan darurat yang membutuhkan penanganan segera.
-        </p>
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+        
+        <!-- KOLOM KIRI: FORM INPUT (2/3 Lebar) -->
+        <div class="xl:col-span-2 space-y-6">
+            <div class="bg-white border border-kia-100 rounded-2xl shadow-sm p-6">
+                <h2 class="text-lg font-bold text-kia-900 mb-4 border-b border-kia-100 pb-3">🚨 Form Pemeriksaan Darurat</h2>
+                <p class="text-sm text-gray-500 mb-6">Catat kasus pemeriksaan darurat yang membutuhkan penanganan segera.</p>
 
-        <form action="{{ route('bidan.darurat.store') }}" method="POST">
-            @csrf
+                @if($errors->any())
+                    <div class="bg-red-50 text-red-700 p-3 rounded-xl mb-4 text-sm font-medium border-l-4 border-red-500">
+                        <ul class="list-disc pl-4">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Nama Pasien <span class="required">*</span></label>
-                    <input type="text" name="nama_pasien" class="form-control" value="{{ old('nama_pasien') }}" required placeholder="Nama lengkap">
-                    @error('nama_pasien') <small style="color: #ef4444;">{{ $message }}</small> @enderror
-                </div>
+                <form action="{{ route('bidan.darurat.store') }}" method="POST">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-bold text-kia-900 mb-1.5">Nama Pasien <span class="text-red-500">*</span></label>
+                            <input type="text" name="nama_pasien" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" value="{{ old('nama_pasien') }}" required placeholder="Nama lengkap pasien">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-kia-900 mb-1.5">Kategori <span class="text-red-500">*</span></label>
+                            <select name="kategori" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" required>
+                                <option value="balita" {{ old('kategori') == 'balita' ? 'selected' : '' }}>Balita</option>
+                                <option value="bumil" {{ old('kategori') == 'bumil' ? 'selected' : '' }}>Ibu Hamil</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-kia-900 mb-1.5">Jenis Kelamin</label>
+                            <select name="jenis_kelamin" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none">
+                                <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-kia-900 mb-1.5">Tanggal <span class="text-red-500">*</span></label>
+                            <input type="date" name="tanggal" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" value="{{ old('tanggal', date('Y-m-d')) }}" max="{{ date('Y-m-d') }}" required>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>Kategori <span class="required">*</span></label>
-                    <select name="kategori" class="form-control" required>
-                        <option value="balita" {{ old('kategori') == 'balita' ? 'selected' : '' }}>Balita</option>
-                        <option value="bumil" {{ old('kategori') == 'bumil' ? 'selected' : '' }}>Ibu Hamil</option>
-                    </select>
-                </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-kia-900 mb-1.5">Keluhan / Diagnosis <span class="text-red-500">*</span></label>
+                        <textarea name="keluhan" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" rows="3" required placeholder="Deskripsi keluhan atau diagnosis">{{ old('keluhan') }}</textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label>Jenis Kelamin</label>
-                    <select name="jenis_kelamin" class="form-control">
-                        <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                        <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
-                    </select>
-                </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-kia-900 mb-1.5">Tindakan / Penanganan</label>
+                        <textarea name="tindakan" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" rows="2" placeholder="Tindakan yang telah diberikan">{{ old('tindakan') }}</textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label>Tanggal Pemeriksaan <span class="required">*</span></label>
-                    <input type="date" name="tanggal" class="form-control" value="{{ old('tanggal', date('Y-m-d')) }}" max="{{ date('Y-m-d') }}" required>
-                </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-kia-500 to-kia-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all">
+                        💾 Simpan Data Darurat
+                    </button>
+                </form>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label>Keluhan / Diagnosis <span class="required">*</span></label>
-                <textarea name="keluhan" class="form-control" rows="3" required placeholder="Deskripsi keluhan atau diagnosis">{{ old('keluhan') }}</textarea>
-                @error('keluhan') <small style="color: #ef4444;">{{ $message }}</small> @enderror
-            </div>
-
-            <div class="form-group">
-                <label>Tindakan / Penanganan</label>
-                <textarea name="tindakan" class="form-control" rows="3" placeholder="Tindakan yang telah diberikan">{{ old('tindakan') }}</textarea>
-            </div>
-
-            <div style="margin-top: 20px;">
-                <button type="submit" class="btn-primary">💾 Simpan Data Darurat</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- RIWAYAT -->
-    <div class="card">
-        <h2 class="card-title">📋 Riwayat Pemeriksaan Darurat ({{ $riwayat->count() }})</h2>
-
-        <div style="overflow-x: auto;">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Nama Pasien</th>
-                        <th>Kategori</th>
-                        <th>Keluhan</th>
-                        <th>Tindakan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($riwayat as $index => $r)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $r->tanggal->format('d M Y') }}</td>
-                        <td style="font-weight: 700; color: #831843;">{{ $r->nama_pasien }}</td>
-                        <td>
-                            <span class="badge {{ $r->kategori == 'balita' ? 'badge-info' : 'badge-warning' }}">
-                                {{ ucfirst($r->kategori) }}
-                            </span>
-                        </td>
-                        <td style="font-size: 0.85rem;">{{ Str::limit($r->keluhan, 50) }}</td>
-                        <td style="font-size: 0.85rem;">{{ Str::limit($r->tindakan ?? '-', 50) }}</td>
-                    </tr>
+        <!-- KOLOM KANAN: RIWAYAT (1/3 Lebar) -->
+        <div class="xl:col-span-1">
+            <div class="bg-white border border-kia-100 rounded-2xl shadow-sm p-5">
+                <h3 class="text-base font-bold text-kia-900 mb-4 border-b border-kia-100 pb-3">📋 Riwayat Terakhir</h3>
+                
+                <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                    @forelse($riwayat as $r)
+                        <div class="bg-kia-50/50 border border-kia-100 rounded-xl p-3 text-sm">
+                            <div class="flex justify-between items-start mb-1">
+                                <strong class="text-kia-900">{{ $r->nama_pasien }}</strong>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded {{ $r->kategori == 'balita' ? 'bg-blue-100 text-blue-700' : 'bg-pink-100 text-pink-700' }}">
+                                    {{ ucfirst($r->kategori) }}
+                                </span>
+                            </div>
+                            <div class="text-xs text-gray-500 mb-2">{{ $r->tanggal->format('d M Y') }}</div>
+                            <div class="text-xs text-gray-700 mb-2"><strong>Keluhan:</strong> {{ Str::limit($r->keluhan, 50) }}</div>
+                            <div class="text-xs text-gray-700"><strong>Tindakan:</strong> {{ Str::limit($r->tindakan ?? '-', 50) }}</div>
+                        </div>
                     @empty
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 40px; color: #9ca3af;">
-                            Belum ada data pemeriksaan darurat.
-                        </td>
-                    </tr>
+                        <div class="text-center py-6 text-gray-400 text-sm">
+                            Belum ada riwayat pemeriksaan darurat.
+                        </div>
                     @endforelse
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

@@ -21,7 +21,42 @@ class BidanController extends Controller
         $totalPending    = PemeriksaanBalita::where('status_review', 'pending')->count()
                          + PemeriksaanBumil::where('status_review', 'pending')->count();
 
-        return view('bidan.dashboard', compact('totalBalita', 'totalIbuHamil', 'totalPending'));
+        // Statistik Balita (Semua Posyandu)
+        $baseBalitaQuery = PemeriksaanBalita::where('status_review', 'disetujui');
+        
+        $giziBaik   = (clone $baseBalitaQuery)->where('status_bb_u', 'Berat Badan Normal')->count();
+        $giziKurang = (clone $baseBalitaQuery)->where('status_bb_u', 'Berat Badan Kurang')->count();
+        $giziLebih  = (clone $baseBalitaQuery)->where('status_bb_u', 'Risiko Berat Badan Lebih')->count();
+        $giziBuruk  = (clone $baseBalitaQuery)->where('status_bb_u', 'Berat Badan Sangat Kurang')->count();
+
+        $tbNormal      = (clone $baseBalitaQuery)->where('status_tb_u', 'Normal')->count();
+        $tbPendek      = (clone $baseBalitaQuery)->where('status_tb_u', 'Pendek')->count();
+        $tbSangatPendek= (clone $baseBalitaQuery)->where('status_tb_u', 'Sangat Pendek')->count();
+        $tbTinggi      = (clone $baseBalitaQuery)->where('status_tb_u', 'Tinggi')->count();
+
+        $bbtbNormal    = (clone $baseBalitaQuery)->where('status_bb_tb', 'Gizi Baik')->count();
+        $bbtbKurang    = (clone $baseBalitaQuery)->where('status_bb_tb', 'Gizi Kurang')->count();
+        $bbtbBuruk     = (clone $baseBalitaQuery)->where('status_bb_tb', 'Gizi Buruk')->count();
+        $bbtbLebih     = (clone $baseBalitaQuery)->where('status_bb_tb', 'Gizi Lebih')->count();
+        $bbtbObesitas  = (clone $baseBalitaQuery)->where('status_bb_tb', 'Obesitas')->count();
+
+        // Statistik Bumil
+        $baseBumilQuery = PemeriksaanBumil::where('status_review', 'disetujui');
+        
+        $bumilNormal = (clone $baseBumilQuery)->where('status_kek', 'Tidak Risiko')->where('status_anemia', 'Tidak Anemia')->count();
+        $bumilKEK    = (clone $baseBumilQuery)->where('status_kek', 'Risiko KEK')->count();
+        $bumilAnemia = (clone $baseBumilQuery)->where('status_anemia', 'Anemia')->count();
+        
+        // TD Hipertensi (jika dibutuhkan di grafik)
+        $tdHipertensi = (clone $baseBumilQuery)->where('status_td', 'Hipertensi')->count();
+
+        return view('bidan.dashboard', compact(
+            'totalBalita', 'totalIbuHamil', 'totalPending',
+            'giziBaik', 'giziKurang', 'giziLebih', 'giziBuruk',
+            'tbNormal', 'tbPendek', 'tbSangatPendek', 'tbTinggi',
+            'bbtbNormal', 'bbtbKurang', 'bbtbBuruk', 'bbtbLebih', 'bbtbObesitas',
+            'bumilNormal', 'bumilKEK', 'bumilAnemia', 'tdHipertensi'
+        ));
     }
 
     // ==========================================
@@ -323,7 +358,8 @@ class BidanController extends Controller
             $query->where('posyandu_id', $posyanduId);
         }
 
-        $laporans = $query->orderBy('kategori')->orderBy('id')->get();
+        // UBAH BAGIAN INI: Gunakan paginate()
+        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(20)->withQueryString();
 
         $posyandus = \App\Models\Posyandu::orderBy('rw')->get();
 
@@ -338,8 +374,14 @@ class BidanController extends Controller
         }
         sort($tahunList);
 
+        $bulanList = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
+        ];
+
         return view('laporan-posyandu.index', compact(
-            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId'
+            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId', 'bulanList'
         ));
     }
 }

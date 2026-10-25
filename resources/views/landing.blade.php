@@ -4,12 +4,9 @@
 
 @section('content')
 
-    {{-- ==========================================
-         HERO SECTION
-         ========================================== --}}
-    <section id="home" class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20">
+    {{-- HERO SECTION --}}
+    <section id="home" class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20 overflow-hidden">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-            
             <div class="text-center md:text-left order-2 md:order-1">
                 <div class="inline-flex items-center gap-2 bg-kia-100 text-kia-700 px-3 py-1.5 rounded-md text-xs font-semibold mb-5 border border-kia-300">
                     <span class="w-1.5 h-1.5 bg-kia-500 rounded-full"></span>
@@ -33,18 +30,15 @@
                 </a>
             </div>
 
-            <div class="flex justify-center items-center order-1 md:order-2">
-                <img src="{{ asset('images/Logo2.png') }}" alt="Ilustrasi Ibu dan Anak" class="w-48 md:w-full max-w-md">
+            <div class="flex justify-center items-center order-1 md:order-2 w-full">
+                <img src="{{ asset('images/Logo2.png') }}" alt="Ilustrasi Ibu dan Anak" class="w-48 md:w-full max-w-md mx-auto object-contain">
             </div>
         </div>
     </section>
 
-    {{-- ==========================================
-         INFORMASI & EDUKASI
-         ========================================== --}}
+    {{-- INFORMASI & EDUKASI --}}
     <section id="edukasi" class="bg-kia-100 border-y border-kia-200">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20">
-            
             <div class="text-center mb-8 md:mb-12">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-kia-900 mb-2 tracking-tight">
                     Informasi & Edukasi Kesehatan
@@ -55,7 +49,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-                
                 <div class="bg-white p-5 md:p-6 rounded-lg border border-kia-200 hover:border-kia-500 hover:shadow-md transition-all">
                     <svg class="w-9 h-9 md:w-10 md:h-10 text-kia-500 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -99,87 +92,84 @@
         </div>
     </section>
 
-    {{-- ==========================================
-         JADWAL POSYANDU
-         ========================================== --}}
-    <section id="jadwal" class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20">
-        
-        <div class="mb-6 md:mb-8">
+        {{-- JADWAL POSYANDU --}}
+        <section id="jadwal" class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20 overflow-hidden">
+        <div class="mb-6 md:mb-8 text-center md:text-left">
             <h2 class="text-2xl md:text-3xl font-extrabold text-kia-900 mb-2 tracking-tight">
                 Jadwal Posyandu
             </h2>
             <p class="text-sm md:text-base text-text-medium">
-                Pilih RW untuk melihat jadwal kegiatan posyandu di wilayah Anda
+                Silakan pilih RW terlebih dahulu untuk melihat jadwal kegiatan posyandu di wilayah Anda.
             </p>
         </div>
 
-        <form method="GET" action="{{ route('home') }}#jadwal" class="flex flex-col sm:flex-row gap-3 mb-5">
-            <select name="rw" class="w-full sm:max-w-xs px-4 py-2.5 text-sm border border-kia-300 rounded-md bg-white text-text-dark focus:border-kia-500 focus:ring-2 focus:ring-kia-200 outline-none transition-all" onchange="this.form.submit()">
-                <option value="">Semua RW</option>
+        <!-- Form Filter -->
+        <form method="GET" action="{{ route('home') }}#jadwal" class="flex flex-col sm:flex-row gap-3 mb-8 w-full max-w-md mx-auto md:mx-0">
+            <select name="rw" class="w-full px-4 py-2.5 text-sm border border-kia-300 rounded-xl bg-white text-text-dark focus:border-kia-500 focus:ring-2 focus:ring-kia-200 outline-none transition-all cursor-pointer">
+                <option value="">-- Pilih RW --</option>
                 @foreach($posyandus as $p)
                     <option value="{{ $p->rw }}" {{ $selectedRw == $p->rw ? 'selected' : '' }}>
                         RW {{ $p->rw }} — {{ $p->nama_posyandu }}
                     </option>
                 @endforeach
             </select>
-            <button type="submit" class="px-5 py-2.5 bg-kia-500 text-white text-sm font-semibold rounded-md hover:bg-kia-600 transition-all">
-                Filter
+            <button type="submit" class="px-6 py-2.5 bg-kia-500 text-white text-sm font-bold rounded-xl hover:bg-kia-600 shadow-sm transition-all w-full sm:w-auto">
+                Lihat Jadwal
             </button>
             @if($selectedRw)
-                <a href="{{ route('home') }}#jadwal" class="px-5 py-2.5 bg-white border-2 border-kia-300 text-kia-700 text-sm font-semibold rounded-md hover:border-kia-400 transition-all text-center">
+                <a href="{{ route('home') }}#jadwal" class="px-6 py-2.5 bg-white border-2 border-kia-300 text-kia-700 text-sm font-bold rounded-xl hover:bg-kia-50 transition-all text-center w-full sm:w-auto">
                     Reset
                 </a>
             @endif
         </form>
 
-        @if($jadwals->count() > 0)
-            <div class="border border-kia-200 rounded-lg overflow-hidden bg-white">
-                <div class="overflow-x-auto">
-                    <table class="w-full min-w-[700px]">
-                        <thead class="bg-kia-100">
+        <!-- Kondisi 1: Belum Pilih RW -->
+        @if(!$selectedRw)
+            <div class="text-center py-16 bg-kia-50 rounded-2xl border border-dashed border-kia-300">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-kia-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <p class="text-base font-bold text-kia-900">Belum Ada RW yang Dipilih</p>
+                <p class="text-sm text-text-medium mt-1">Silakan pilih RW pada menu di atas untuk menampilkan jadwal.</p>
+            </div>
+
+        <!-- Kondisi 2: Sudah Pilih RW & Ada Jadwal -->
+        @elseif($jadwals->count() > 0)
+            <!-- Tampilan Desktop (Tabel) -->
+            <div class="hidden md:block border border-kia-200 rounded-2xl bg-white w-full overflow-hidden shadow-sm">
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full min-w-[700px] text-left">
+                        <thead class="bg-kia-50">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-kia-900 uppercase tracking-wider">Tanggal</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-kia-900 uppercase tracking-wider">Nama Kegiatan</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-kia-900 uppercase tracking-wider">Waktu</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-kia-900 uppercase tracking-wider">Lokasi</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-kia-900 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-xs font-bold text-kia-900 uppercase tracking-wider border-b border-kia-100">Tanggal & Waktu</th>
+                                <th class="px-6 py-4 text-xs font-bold text-kia-900 uppercase tracking-wider border-b border-kia-100">Nama Kegiatan</th>
+                                <th class="px-6 py-4 text-xs font-bold text-kia-900 uppercase tracking-wider border-b border-kia-100">Lokasi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-kia-200">
+                        <tbody class="divide-y divide-kia-100">
                             @foreach($jadwals as $j)
-                                <tr class="hover:bg-kia-100/50 transition-colors">
-                                    <td class="px-4 py-4">
-                                        <div class="inline-flex flex-col items-center justify-center min-w-[52px] px-2 py-1.5 bg-kia-500 text-white rounded-md leading-tight">
-                                            <span class="text-base font-extrabold">{{ $j->tanggal->format('d') }}</span>
-                                            <span class="text-[10px] font-semibold uppercase tracking-wide opacity-90">{{ $j->tanggal->translatedFormat('M') }}</span>
+                                <tr class="hover:bg-kia-50/50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="inline-flex flex-col items-center justify-center min-w-[56px] px-2 py-1.5 bg-kia-500 text-white rounded-lg leading-tight">
+                                                <span class="text-lg font-extrabold">{{ $j->tanggal->format('d') }}</span>
+                                                <span class="text-[10px] font-bold uppercase tracking-wide opacity-90">{{ $j->tanggal->translatedFormat('M') }}</span>
+                                            </div>
+                                            <div class="text-sm font-medium text-gray-700">
+                                                {{ \Carbon\Carbon::parse($j->waktu_mulai)->format('H:i') }} - Selesai
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4">
-                                        <div class="text-sm font-semibold text-text-dark">{{ $j->kegiatan }}</div>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm font-bold text-kia-900">{{ $j->kegiatan }}</div>
                                         @if($j->keterangan)
-                                            <div class="text-xs text-text-light mt-1">{{ Str::limit($j->keterangan, 60) }}</div>
+                                            <div class="text-xs text-gray-500 mt-1">{{ Str::limit($j->keterangan, 60) }}</div>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-text-medium">
-                                        {{ \Carbon\Carbon::parse($j->waktu_mulai)->format('H:i') }}
-                                        @if($j->waktu_selesai)
-                                            — {{ \Carbon\Carbon::parse($j->waktu_selesai)->format('H:i') }}
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-4 text-sm text-text-medium">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-700">
                                         {{ $j->lokasi }}
-                                        @if($j->posyandu)
-                                            <div class="text-xs text-kia-500 mt-1 font-medium">RW {{ $j->posyandu->rw }}</div>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        @if($j->tanggal->isToday())
-                                            <span class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded">Hari Ini</span>
-                                        @elseif($j->tanggal->isFuture())
-                                            <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded">Tersedia</span>
-                                        @else
-                                            <span class="inline-block px-2.5 py-1 bg-kia-100 text-kia-700 text-xs font-semibold rounded">Selesai</span>
-                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -187,22 +177,43 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Tampilan Mobile (Card) -->
+            <div class="block md:hidden space-y-3">
+                @foreach($jadwals as $j)
+                    <div class="bg-white border border-kia-200 rounded-xl p-4 shadow-sm flex gap-4">
+                        <div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-14 bg-kia-500 text-white rounded-lg leading-tight">
+                            <span class="text-xl font-extrabold">{{ $j->tanggal->format('d') }}</span>
+                            <span class="text-[10px] font-bold uppercase">{{ $j->tanggal->translatedFormat('M') }}</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-kia-900 text-sm">{{ $j->kegiatan }}</h4>
+                            <div class="text-xs text-gray-600 mt-1">
+                                ⏰ {{ \Carbon\Carbon::parse($j->waktu_mulai)->format('H:i') }} WIB<br>
+                                📍 {{ $j->lokasi }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        <!-- Kondisi 3: Sudah Pilih RW tapi Tidak Ada Jadwal -->
         @else
-            <div class="text-center py-16 bg-kia-100 rounded-lg border border-dashed border-kia-300">
-                <svg class="w-12 h-12 text-kia-300 mx-auto mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                <p class="text-sm text-text-medium">Belum ada jadwal posyandu untuk periode ini.</p>
+            <div class="text-center py-16 bg-kia-50 rounded-2xl border border-dashed border-kia-300">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-kia-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <p class="text-base font-bold text-kia-900">Belum Ada Jadwal Mendatang</p>
+                <p class="text-sm text-text-medium mt-1">Saat ini belum ada jadwal kegiatan untuk RW yang Anda pilih.</p>
             </div>
         @endif
     </section>
 
-    {{-- ==========================================
-         KALKULATOR GIZI
-         ========================================== --}}
-    <section id="cek-gizi" class="max-w-3xl mx-auto px-4 md:px-6 pb-12 md:pb-20">
+    {{-- KALKULATOR GIZI --}}
+    <section id="cek-gizi" class="max-w-3xl mx-auto px-4 md:px-6 pb-12 md:pb-20 overflow-hidden">
         <div class="bg-white border border-kia-200 rounded-lg p-5 md:p-8 shadow-sm">
-            
             <div class="text-center mb-6 md:mb-8 pb-6 border-b border-kia-200">
                 <h2 class="text-xl md:text-2xl font-extrabold text-kia-900 mb-1.5 tracking-tight">
                     Kalkulator Status Gizi Mandiri
@@ -226,9 +237,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="mb-3">
                         <label for="gender" class="block text-xs font-semibold text-kia-800 mb-1.5">Jenis Kelamin</label>
-                        <select id="gender" class="w-full px-3.5 py-2.5 text-sm border border-kia-300 rounded-md bg-white text-text-dark focus:border-kia-500 focus:ring-2 focus:ring-kia-200 outline-none transition-all">
-                            <option value="male">Laki-Laki</option>
-                            <option value="female">Perempuan</option>
+                        <select id="gender" class="...">
+                            <option value="L">Laki-Laki</option>
+                            <option value="P">Perempuan</option>
                         </select>
                     </div>
                     <div class="mb-3">

@@ -2,48 +2,61 @@
 
 @section('title', 'Dashboard Kader')
 @section('page-title', 'Selamat Bekerja, Kader! 👋')
-@section('page-subtitle', 'Berikut ringkasan perkembangan kesehatan data berkala anak dan ibu hamil di wilayah Anda.')
+@section('page-subtitle', '')
 
 @section('content')
     <!-- Stat Cards -->
-    <div class="stat-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+        <!-- Card Total Balita -->
         <div class="stat-card">
             <div>
                 <span class="stat-label">Total Balita</span>
                 <div class="stat-value">{{ $totalBalita }}</div>
-                <div class="stat-sub">anak terdaftar di posyandu Anda</div>
+                <div class="stat-sub">anak terdaftar</div>
             </div>
-            <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
+            <div class="w-14 h-14 bg-kia-50 rounded-xl flex items-center justify-center text-kia-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             </div>
         </div>
 
+        <!-- Card Total Ibu Hamil -->
         <div class="stat-card">
             <div>
                 <span class="stat-label">Total Ibu Hamil</span>
                 <div class="stat-value">{{ $totalIbuHamil }}</div>
-                <div class="stat-sub">ibu hamil aktif dipantau</div>
+                <div class="stat-sub">ibu aktif dipantau</div>
             </div>
-            <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                </svg>
+            <div class="w-14 h-14 bg-kia-50 rounded-xl flex items-center justify-center text-kia-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </div>
         </div>
     </div>
 
-    <!-- Chart Status Gizi Balita -->
-    <div class="card">
-        <h2 class="card-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#ec4899">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-            </svg>
-            Grafik Status Gizi Balita
-        </h2>
-        <div style="position: relative; height: 320px;">
+    <!-- Chart Section Balita (Tab) -->
+    <div class="card mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3">
+            <h2 class="text-lg font-bold text-kia-900">Grafik Status Gizi Balita</h2>
+            
+            <!-- Tab Switcher -->
+            <div class="flex gap-2 bg-white border border-kia-200 p-1 rounded-lg">
+                <button onclick="switchChart('bbu')" id="tab-bbu" class="btn-tab btn-tab-active">BB/U</button>
+                <button onclick="switchChart('tbu')" id="tab-tbu" class="btn-tab btn-tab-inactive">TB/U</button>
+                <button onclick="switchChart('bbtb')" id="tab-bbtb" class="btn-tab btn-tab-inactive">BB/TB</button>
+            </div>
+        </div>
+        
+        <div class="relative h-[300px] w-full">
             <canvas id="chartGiziBalita"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart Section Ibu Hamil -->
+    <div class="card">
+        <h2 class="text-lg font-bold text-kia-900 mb-6 border-b border-kia-100 pb-3">Grafik Status Kesehatan Ibu Hamil</h2>
+        <div class="relative h-[300px] w-full flex justify-center">
+            <div class="w-full max-w-md">
+                <canvas id="chartBumil"></canvas>
+            </div>
         </div>
     </div>
 @endsection
@@ -51,47 +64,92 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('chartGiziBalita').getContext('2d');
+    let myChart = null;
 
-    const gradientBaik = ctx.createLinearGradient(0, 0, 0, 300);
-    gradientBaik.addColorStop(0, '#f472b6');
-    gradientBaik.addColorStop(1, '#fbcfe8');
+    // Data dari Controller untuk Balita
+    const dataBBU = {
+        labels: ['Berat Badan Normal', 'Berat Badan Kurang', 'Risiko Berat Badan Lebih', 'Berat Badan Sangat Kurang'],
+        values: [{{ $giziBaik ?? 0 }}, {{ $giziKurang ?? 0 }}, {{ $giziLebih ?? 0 }}, {{ $giziBuruk ?? 0 }}],
+        colors: ['#10b981', '#f59e0b', '#3b82f6', '#ef4444']
+    };
 
-    const gradientKurang = ctx.createLinearGradient(0, 0, 0, 300);
-    gradientKurang.addColorStop(0, '#fbbf24');
-    gradientKurang.addColorStop(1, '#fde68a');
+    const dataTBU = {
+        labels: ['Normal', 'Pendek', 'Sangat Pendek', 'Tinggi'],
+        values: [{{ $tbNormal ?? 0 }}, {{ $tbPendek ?? 0 }}, {{ $tbSangatPendek ?? 0 }}, {{ $tbTinggi ?? 0 }}],
+        colors: ['#10b981', '#f59e0b', '#ef4444', '#3b82f6']
+    };
 
-    const gradientLebih = ctx.createLinearGradient(0, 0, 0, 300);
-    gradientLebih.addColorStop(0, '#60a5fa');
-    gradientLebih.addColorStop(1, '#bfdbfe');
+    const dataBBTB = {
+        labels: ['Gizi Baik', 'Gizi Kurang', 'Gizi Buruk', 'Gizi Lebih', 'Obesitas'],
+        values: [{{ $bbtbNormal ?? 0 }}, {{ $bbtbKurang ?? 0 }}, {{ $bbtbBuruk ?? 0 }}, {{ $bbtbLebih ?? 0 }}, {{ $bbtbObesitas ?? 0 }}],
+        colors: ['#10b981', '#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6']
+    };
 
-    const gradientBuruk = ctx.createLinearGradient(0, 0, 0, 300);
-    gradientBuruk.addColorStop(0, '#f87171');
-    gradientBuruk.addColorStop(1, '#fecaca');
+    function renderChart(type) {
+        const ctx = document.getElementById('chartGiziBalita').getContext('2d');
+        let dataset = type === 'bbu' ? dataBBU : (type === 'tbu' ? dataTBU : dataBBTB);
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Gizi Baik', 'Gizi Kurang', 'Gizi Lebih', 'Gizi Buruk'],
-            datasets: [{
-                label: 'Jumlah Balita',
-                data: [{{ $giziBaik }}, {{ $giziKurang }}, {{ $giziLebih }}, {{ $giziBuruk }}],
-                backgroundColor: [gradientBaik, gradientKurang, gradientLebih, gradientBuruk],
-                borderColor: ['#ec4899', '#f59e0b', '#3b82f6', '#ef4444'],
-                borderWidth: 2,
-                borderRadius: 8,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        if (myChart) { myChart.destroy(); }
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataset.labels,
+                datasets: [{
+                    label: 'Jumlah Balita',
+                    data: dataset.values,
+                    backgroundColor: dataset.colors,
+                    borderRadius: 6,
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1, color: '#6b7280' }, grid: { color: '#f3f4f6' } },
+                    x: { ticks: { color: '#6b7280', font: { weight: '600', size: 10 } }, grid: { display: false } }
+                }
             }
-        }
+        });
+    }
+
+    function switchChart(type) {
+        ['bbu', 'tbu', 'bbtb'].forEach(t => {
+            document.getElementById('tab-' + t).className = 'btn-tab btn-tab-inactive';
+        });
+        document.getElementById('tab-' + type).className = 'btn-tab btn-tab-active';
+        
+        renderChart(type);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Render Chart Balita Default
+        renderChart('bbu');
+
+        // Render Chart Bumil (Doughnut)
+        const ctxBumil = document.getElementById('chartBumil').getContext('2d');
+        new Chart(ctxBumil, {
+            type: 'doughnut',
+            data: {
+                labels: ['Normal', 'Risiko KEK', 'Anemia'],
+                datasets: [{
+                    data: [{{ $bumilNormal ?? 0 }}, {{ $bumilKEK ?? 0 }}, {{ $bumilAnemia ?? 0 }}],
+                    backgroundColor: ['#10b981', '#fbbf24', '#ef4444'],
+                    borderWidth: 2, 
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true, 
+                maintainAspectRatio: false, 
+                cutout: '65%',
+                plugins: { 
+                    legend: { position: 'bottom', labels: { padding: 20, font: { size: 12 } } } 
+                }
+            }
+        });
     });
-});
 </script>
 @endpush

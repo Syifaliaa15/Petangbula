@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
-    <title>@yield('title', 'PETANGBULA - Pemantauan Tumbuh Kembang Ibu Hamil dan Balita')">
+    <title>@yield('title', 'PETANGBULA - Pemantauan Tumbuh Kembang Ibu Hamil dan Balita')</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,9 +34,7 @@
             <div class="flex items-center gap-2 md:gap-3">
                 @guest
                     <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3 md:px-5 py-2 border-2 border-kia-500 text-kia-500 rounded-md text-xs md:text-sm font-semibold hover:bg-kia-500 hover:text-white transition-all">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         <span class="hidden sm:inline">Login</span>
                     </a>
                 @else

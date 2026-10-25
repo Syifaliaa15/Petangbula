@@ -4,277 +4,133 @@
 @section('page-title', 'Laporan Posyandu')
 @section('page-subtitle', 'Rekapitulasi data yang sudah divalidasi Bidan')
 
-@section('sidebar-menu')
-    @if(auth()->user()->isKader())
-        <a href="{{ route('kader.dashboard') }}" class="menu-item">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-            Dashboard
-        </a>
-        <a href="{{ route('balita.index') }}" class="menu-item">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-            Kelola Data Balita
-        </a>
-        <a href="{{ route('ibu-hamil.index') }}" class="menu-item">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            Kelola Data Bumil
-        </a>
-        <a href="{{ route('kader.jadwal.index') }}" class="menu-item">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-            Jadwal Posyandu
-        </a>
-        <a href="{{ route('kader.laporan.posyandu') }}" class="menu-item active">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            Laporan Posyandu
-        </a>
-    @elseif(auth()->user()->isBidan())
-        <a href="{{ route('bidan.dashboard') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
-        <a href="{{ route('bidan.validasi.balita') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Validasi Data Balita</a>
-        <a href="{{ route('bidan.validasi.bumil') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Validasi Data Bumil</a>
-        <a href="{{ route('kader.jadwal.index') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg> Jadwal Posyandu</a>
-        <a href="{{ route('bidan.darurat') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Pemeriksaan Darurat</a>
-        <a href="{{ route('bidan.laporan.posyandu') }}" class="menu-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> Laporan Posyandu</a>
-        <a href="{{ route('bidan.laporan.darurat') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Laporan Darurat</a>
-    @elseif(auth()->user()->isAdmin())
-        <a href="{{ route('admin.dashboard') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
-        <a href="{{ route('admin.kelola-akun') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Kelola Akun</a>
-        <a href="{{ route('kader.jadwal.index') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg> Jadwal Posyandu</a>
-        <a href="{{ route('admin.laporan-posyandu') }}" class="menu-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> Laporan Posyandu</a>
-        <a href="{{ route('admin.laporan-darurat') }}" class="menu-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Laporan Darurat</a>
-    @endif
-@endsection
-
 @section('content')
     <!-- FILTER -->
-    <div class="card" style="margin-bottom: 20px;">
-        <form method="GET" action="" style="display: flex; gap: 12px; align-items: end; flex-wrap: wrap;">
-            <div class="form-group" style="margin-bottom: 0; min-width: 160px;">
-                <label style="font-size: 0.8rem;">Bulan</label>
-                <select name="bulan" class="form-control" onchange="this.form.submit()">
-                    @php
-                        $bulanList = [
-                            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-                            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-                            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
-                        ];
-                    @endphp
+    <div class="bg-white border border-kia-100 rounded-2xl p-5 shadow-sm mb-6 w-full">
+        <form method="GET" action="" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div>
+                <label class="block text-xs font-bold text-kia-800 mb-1.5 uppercase tracking-wide">Bulan</label>
+                <select name="bulan" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" onchange="this.form.submit()">
                     @foreach($bulanList as $num => $nama)
                         <option value="{{ $num }}" {{ $bulan == $num ? 'selected' : '' }}>{{ $nama }}</option>
                     @endforeach
                 </select>
             </div>
-
-            <div class="form-group" style="margin-bottom: 0; min-width: 120px;">
-                <label style="font-size: 0.8rem;">Tahun</label>
-                <select name="tahun" class="form-control" onchange="this.form.submit()">
+            <div>
+                <label class="block text-xs font-bold text-kia-800 mb-1.5 uppercase tracking-wide">Tahun</label>
+                <select name="tahun" class="w-full px-3 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none" onchange="this.form.submit()">
                     @foreach($tahunList as $t)
                         <option value="{{ $t }}" {{ $tahun == $t ? 'selected' : '' }}>{{ $t }}</option>
                     @endforeach
                 </select>
             </div>
-
-            @if(isset($posyandus) && auth()->user()->isBidan() || auth()->user()->isAdmin())
-                <div class="form-group" style="margin-bottom: 0; min-width: 200px;">
-                    <label style="font-size: 0.8rem;">Posyandu</label>
-                    <select name="posyandu_id" class="form-control" onchange="this.form.submit()">
-                        <option value="">Semua Posyandu</option>
-                        @foreach($posyandus as $p)
-                            <option value="{{ $p->id }}" {{ ($posyanduId ?? null) == $p->id ? 'selected' : '' }}>
-                                {{ $p->nama_posyandu }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            @endif
-
-            <a href="{{ url()->current() }}" class="btn-secondary" style="padding: 12px 20px;">Reset</a>
+            <div class="flex gap-2">
+                <a href="{{ url()->current() }}" class="w-full px-4 py-2.5 bg-white border border-kia-200 text-kia-700 text-sm font-bold rounded-xl hover:bg-kia-50 text-center transition-colors">Reset Filter</a>
+            </div>
         </form>
     </div>
 
     <!-- TOMBOL EXPORT -->
-<div class="card" style="margin-bottom: 20px; padding: 16px; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-color: #f9a8d4;">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div>
-            <strong style="color: #831843; font-size: 0.95rem;">📥 Export Laporan</strong>
-            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 4px;">
-                Download laporan periode {{ $bulanList[$bulan] ?? '-' }} {{ $tahun }}
-            </p>
+    <div class="bg-gradient-to-r from-kia-500 to-kia-600 rounded-2xl p-5 mb-6 flex flex-col md:flex-row justify-between items-center gap-3 shadow-md w-full">
+        <div class="text-center md:text-left text-white">
+            <strong class="block text-lg">Export Laporan</strong>
+            <span class="text-sm text-kia-100">Periode {{ $bulanList[$bulan] ?? '-' }} {{ $tahun }}</span>
         </div>
-        <div style="display: flex; gap: 8px;">
-            <a href="{{ route('laporan-posyandu.pdf', ['bulan' => $bulan, 'tahun' => $tahun, 'posyandu_id' => $posyanduId ?? null]) }}" 
-               class="btn-primary" 
-               style="background: linear-gradient(135deg, #dc2626, #b91c1c); display: inline-flex; align-items: center; gap: 6px; padding: 12px 20px;"
-               target="_blank">
-                📄 Download PDF
+        <div class="flex gap-2 w-full md:w-auto">
+            <a href="{{ route('laporan-posyandu.pdf', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-red-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm">
+                📄 PDF
             </a>
-            <a href="{{ route('laporan-posyandu.excel', ['bulan' => $bulan, 'tahun' => $tahun, 'posyandu_id' => $posyanduId ?? null]) }}" 
-               class="btn-primary" 
-               style="background: linear-gradient(135deg, #059669, #047857); display: inline-flex; align-items: center; gap: 6px; padding: 12px 20px;">
-                📊 Download Excel
+            <a href="{{ route('laporan-posyandu.excel', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-emerald-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm">
+                📊 Excel
             </a>
         </div>
     </div>
-</div>
 
-    <!-- SUMMARY -->
-    <div class="stat-grid" style="margin-bottom: 20px;">
-        <div class="stat-card">
-            <div>
-                <span class="stat-label">Total Laporan</span>
-                <div class="stat-value">{{ $laporans->count() }}</div>
-                <div class="stat-sub">data tervalidasi</div>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div>
-                <span class="stat-label">Balita</span>
-                <div class="stat-value">{{ $laporans->where('kategori', 'balita')->count() }}</div>
-                <div class="stat-sub">data</div>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div>
-                <span class="stat-label">Ibu Hamil</span>
-                <div class="stat-value">{{ $laporans->where('kategori', 'bumil')->count() }}</div>
-                <div class="stat-sub">data</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TABEL -->
-    <div class="card">
-        <h2 class="card-title">📊 Detail Laporan</h2>
-
-        @if($laporans->count() > 0)
-            <div style="overflow-x: auto;">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kategori</th>
-                            <th>Posyandu</th>
-                            <th>Identitas</th>
-                            <th>Data Pemeriksaan</th>
-                            <th>Status Gizi/Kesehatan</th>
-                            <th>Imunisasi</th>
-                            <th>Validasi</th>
+    <!-- ========================================== -->
+    <!-- TAMPILAN DESKTOP (TABEL) -->
+    <!-- ========================================== -->
+    <div class="hidden md:block bg-white border border-kia-100 rounded-2xl shadow-sm w-full overflow-hidden">
+        <div class="overflow-x-auto w-full">
+            <table class="w-full min-w-[800px] text-left border-collapse">
+                <thead class="bg-kia-50/80 border-b border-kia-100">
+                    <tr>
+                        <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Kategori</th>
+                        <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Identitas</th>
+                        <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa</th>
+                        <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Status Gizi</th>
+                        <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Validasi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-kia-50">
+                    @forelse($laporans as $l)
+                        @php $id = $l->identitas ?? []; $data = $l->data_pemeriksaan ?? []; $gizi = $l->status_gizi ?? []; @endphp
+                        <tr class="hover:bg-kia-50/50 transition-colors">
+                            <td class="px-6 py-4"><span class="px-2.5 py-1 bg-kia-100 text-kia-700 rounded-lg text-xs font-bold">{{ ucfirst($l->kategori) }}</span></td>
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-kia-900">{{ $id['nama'] ?? '-' }}</div>
+                                <div class="text-xs text-gray-500">NIK: {{ $id['nik'] ?? '-' }}</div>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-600">
+                                @if($l->kategori === 'balita')
+                                    BB: <strong class="text-gray-900">{{ $data['berat_badan'] ?? '-' }}</strong> kg | TB: <strong class="text-gray-900">{{ $data['tinggi_badan'] ?? '-' }}</strong> cm
+                                @else
+                                    BB: <strong class="text-gray-900">{{ $data['bb'] ?? '-' }}</strong> kg | LiLA: <strong class="text-gray-900">{{ $data['lila'] ?? '-' }}</strong> cm
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-xs">
+                                @if($l->kategori === 'balita')
+                                    <div class="mb-1 text-gray-700">BB/U: {{ $gizi['bb_u'] ?? '-' }}</div>
+                                    <div class="text-gray-700">TB/U: {{ $gizi['tb_u'] ?? '-' }}</div>
+                                @else
+                                    <div class="mb-1 text-gray-700">KEK: {{ $gizi['kek'] ?? '-' }}</div>
+                                    <div class="text-gray-700">HB: {{ $gizi['anemia'] ?? '-' }}</div>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-xs">
+                                <div class="text-emerald-600 font-bold">✅ Valid</div>
+                                <div class="text-gray-400">{{ $l->tanggal_validasi?->format('d/m/y H:i') }}</div>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($laporans as $index => $l)
-                            @php
-                                $id  = $l->identitas ?? [];
-                                $data = $l->data_pemeriksaan ?? [];
-                                $gizi = $l->status_gizi ?? [];
-                            @endphp
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>
-                                    <span class="badge {{ $l->kategori === 'balita' ? 'badge-info' : 'badge-warning' }}">
-                                        {{ ucfirst($l->kategori) }}
-                                    </span>
-                                </td>
-                                <td style="font-size: 0.8rem;">{{ $l->posyandu->nama_posyandu ?? '-' }}</td>
-                                <td>
-                                    <div style="font-weight: 700; color: #831843;">{{ $id['nama'] ?? '-' }}</div>
-                                    @if($l->kategori === 'balita')
-                                        <div style="font-size: 0.72rem; color: #9ca3af;">
-                                            NIK: {{ $id['nik'] ?? '-' }}<br>
-                                            Umur: {{ $id['umur_bulan'] ?? '-' }} bulan<br>
-                                            JK: {{ ($id['jenis_kelamin'] ?? '-') === 'L' ? 'Laki-laki' : 'Perempuan' }}<br>
-                                            Ibu: {{ $id['nama_ibu'] ?? '-' }}
-                                        </div>
-                                    @else
-                                        <div style="font-size: 0.72rem; color: #9ca3af;">
-                                            NIK: {{ $id['nik'] ?? '-' }}<br>
-                                            Umur: {{ $id['umur'] ?? '-' }} tahun<br>
-                                            Hamil Ke: {{ $id['hamil_ke'] ?? '-' }}<br>
-                                            Suami: {{ $id['nama_suami'] ?? '-' }}
-                                        </div>
-                                    @endif
-                                </td>
-                                <td style="font-size: 0.78rem;">
-                                    @if($l->kategori === 'balita')
-                                        <div>BB: <strong>{{ $data['berat_badan'] ?? '-' }} kg</strong></div>
-                                        <div>TB: <strong>{{ $data['tinggi_badan'] ?? '-' }} cm</strong></div>
-                                        <div>LK: <strong>{{ $data['lingkar_kepala'] ?? '-' }} cm</strong></div>
-                                        @if(!empty($data['vitamin_a']))
-                                            <div style="color: #f59e0b; font-weight: 700;">💊 Vitamin A ✓</div>
-                                        @endif
-                                    @else
-                                        <div>BB: <strong>{{ $data['bb'] ?? '-' }} kg</strong></div>
-                                        <div>LiLA: <strong>{{ $data['lila'] ?? '-' }} cm</strong></div>
-                                        <div>HB: <strong>{{ $data['hemoglobin'] ?? '-' }} g/dL</strong></div>
-                                        <div>TTD: <strong>{{ $data['tablet_tambah_darah'] ?? '-' }} Bks</strong></div>
-                                        <div>TD: <strong>{{ $data['tekanan_darah'] ?? '-' }}</strong></div>
-                                        <div>PMT: <strong>{{ !empty($data['pmt_pemulihan']) ? 'Ya' : 'Tidak' }}</strong></div>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                                        @if($l->kategori === 'balita')
-                                            @if(!empty($gizi['bb_u']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['bb_u']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    BB/U: {{ $gizi['bb_u'] }}
-                                                </span>
-                                            @endif
-                                            @if(!empty($gizi['tb_u']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['tb_u']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    TB/U: {{ $gizi['tb_u'] }}
-                                                </span>
-                                            @endif
-                                            @if(!empty($gizi['bb_tb']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['bb_tb']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    BB/TB: {{ $gizi['bb_tb'] }}
-                                                </span>
-                                            @endif
-                                        @else
-                                            @if(!empty($gizi['kek']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['kek']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    KEK: {{ $gizi['kek'] }}
-                                                </span>
-                                            @endif
-                                            @if(!empty($gizi['anemia']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['anemia']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    HB: {{ $gizi['anemia'] }}
-                                                </span>
-                                            @endif
-                                            @if(!empty($gizi['td']))
-                                                <span class="badge" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($gizi['td']) }}; color: #4a1d3a; font-size: 0.68rem;">
-                                                    TD: {{ $gizi['td'] }}
-                                                </span>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </td>
-                                <td style="font-size: 0.75rem;">
-                                    @if($l->kategori === 'balita' && !empty($l->imunisasi))
-                                        @foreach($l->imunisasi as $vaksin)
-                                            <div>💉 {{ $vaksin }}</div>
-                                        @endforeach
-                                    @else
-                                        <span style="color: #9ca3af;">-</span>
-                                    @endif
-                                </td>
-                                <td style="font-size: 0.72rem;">
-                                    <div style="font-weight: 700; color: #065f46;">✅ Disetujui</div>
-                                    <div style="color: #9ca3af;">Oleh: {{ $l->validator->name ?? '-' }}</div>
-                                    <div style="color: #9ca3af;">{{ $l->tanggal_validasi?->format('d M Y H:i') }}</div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @else
-            <div style="text-align: center; padding: 60px; color: #9ca3af;">
-                <div style="font-size: 3rem; margin-bottom: 12px;">📋</div>
-                <div style="font-weight: 700; color: #831843; margin-bottom: 4px;">
-                    Belum Ada Laporan
+                    @empty
+                        <tr><td colspan="5" class="text-center py-12 text-gray-400">Belum ada data laporan untuk periode ini.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAMPILAN MOBILE (CARD) -->
+    <!-- ========================================== -->
+    <div class="block md:hidden space-y-4 w-full">
+        @forelse($laporans as $l)
+            @php $id = $l->identitas ?? []; $data = $l->data_pemeriksaan ?? []; $gizi = $l->status_gizi ?? []; @endphp
+            <div class="bg-white border border-kia-100 rounded-2xl shadow-sm overflow-hidden">
+                <div class="bg-kia-50/50 px-4 py-3 border-b border-kia-100 flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold text-kia-500 uppercase tracking-wider">{{ ucfirst($l->kategori) }}</span>
+                        <h4 class="font-extrabold text-kia-900">{{ $id['nama'] ?? '-' }}</h4>
+                    </div>
+                    <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg">✅ Valid</span>
                 </div>
-                <div style="font-size: 0.85rem;">
-                    Belum ada data validasi untuk periode {{ $bulanList[$bulan] ?? '-' }} {{ $tahun }}.
+                <div class="p-4 grid grid-cols-2 gap-3 text-sm">
+                    @if($l->kategori === 'balita')
+                        <div><span class="text-gray-400 text-[10px] font-bold block">BB</span> <span class="font-medium">{{ $data['berat_badan'] ?? '-' }} kg</span></div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">TB</span> <span class="font-medium">{{ $data['tinggi_badan'] ?? '-' }} cm</span></div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">BB/U</span> {{ $gizi['bb_u'] ?? '-' }}</div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">TB/U</span> {{ $gizi['tb_u'] ?? '-' }}</div>
+                    @else
+                        <div><span class="text-gray-400 text-[10px] font-bold block">BB</span> <span class="font-medium">{{ $data['bb'] ?? '-' }} kg</span></div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">LiLA</span> <span class="font-medium">{{ $data['lila'] ?? '-' }} cm</span></div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">KEK</span> {{ $gizi['kek'] ?? '-' }}</div>
+                        <div><span class="text-gray-400 text-[10px] font-bold block">HB</span> {{ $gizi['anemia'] ?? '-' }}</div>
+                    @endif
                 </div>
             </div>
-        @endif
+        @empty
+            <div class="bg-white border border-kia-100 rounded-2xl p-8 text-center text-gray-500 shadow-sm">Belum ada data laporan.</div>
+        @endforelse
+        
+        <div class="mt-4">{{ $laporans->links() }}</div>
     </div>
 @endsection

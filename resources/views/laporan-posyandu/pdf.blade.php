@@ -14,34 +14,37 @@
             text-align: center;
             border-bottom: 3px solid #ec4899;
             padding-bottom: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .header h1 {
-            font-size: 16px;
+            font-size: 15px;
             color: #831843;
             font-weight: bold;
             margin-bottom: 4px;
         }
         .header p {
-            font-size: 10px;
+            font-size: 9px;
             color: #6b7280;
         }
-        .info-box {
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
             background: #fce7f3;
-            padding: 8px 12px;
+            margin-bottom: 10px;
             border-radius: 6px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 9px;
         }
-        .info-box strong { color: #831843; }
-        table {
+        .info-table td {
+            padding: 6px 10px;
+            font-size: 8.5px;
+        }
+        .info-table strong { color: #831843; }
+
+        table.data {
             width: 100%;
             border-collapse: collapse;
             font-size: 7.5px;
         }
-        th {
+        table.data th {
             background: #ec4899;
             color: #fff;
             padding: 5px 3px;
@@ -50,17 +53,18 @@
             border: 1px solid #be185d;
             font-size: 7px;
         }
-        td {
+        table.data td {
             padding: 4px 3px;
             border: 1px solid #fbcfe8;
             vertical-align: top;
         }
-        tr:nth-child(even) td { background: #fff5f8; }
-        .badge-baik    { color: #065f46; font-weight: bold; }
+        table.data tr:nth-child(even) td { background: #fff5f8; }
+
+        .badge-normal  { color: #065f46; font-weight: bold; }
         .badge-kurang  { color: #92400e; font-weight: bold; }
         .badge-buruk   { color: #991b1b; font-weight: bold; }
         .badge-lebih   { color: #1d4ed8; font-weight: bold; }
-        .badge-normal  { color: #065f46; font-weight: bold; }
+
         .footer {
             margin-top: 20px;
             padding-top: 10px;
@@ -74,41 +78,69 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+@php
+    // Helper badge class berdasarkan label Permenkes
+    $badgeClass = function ($label) {
+        $l = strtolower((string) $label);
+        if (str_contains($l, 'buruk') || str_contains($l, 'sangat')
+            || str_contains($l, 'anemia') || str_contains($l, 'hipertensi')) {
+            return 'buruk';
+        }
+        if (str_contains($l, 'lebih') || str_contains($l, 'obesitas')
+            || str_contains($l, 'tinggi')) {
+            return 'lebih';
+        }
+        if (str_contains($l, 'normal') || str_contains($l, 'baik')
+            || str_contains($l, 'tidak risiko') || str_contains($l, 'tidak anemia')) {
+            return 'normal';
+        }
+        return 'kurang';
+    };
+@endphp
+
+    {{-- HEADER --}}
     <div class="header">
         <h1>LAPORAN POSYANDU</h1>
         <p>Desa Sindangpanon - Sistem Informasi PETANGBULA</p>
     </div>
 
-    <!-- INFO BOX -->
-    <div class="info-box">
-        <div><strong>Periode:</strong> {{ $bulanLabel }} {{ $tahun }}</div>
-        <div><strong>Posyandu:</strong> {{ $posyanduLabel }}</div>
-        <div><strong>Total Data:</strong> {{ $laporans->count() }}</div>
-        <div><strong>Dicetak:</strong> {{ $tanggalCetak }}</div>
-    </div>
+    {{-- INFO BOX (pakai table, bukan flexbox) --}}
+    <table class="info-table">
+        <tr>
+            <td width="25%"><strong>Periode:</strong> {{ $bulanLabel }} {{ $tahun }}</td>
+            <td width="25%"><strong>Posyandu:</strong> {{ $posyanduLabel }}</td>
+            <td width="25%"><strong>Total Data:</strong> {{ $laporans->count() }}</td>
+            <td width="25%"><strong>Dicetak:</strong> {{ $tanggalCetak }}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Dicetak oleh:</strong> {{ $dicetakOleh }}
+            </td>
+        </tr>
+    </table>
 
-    <!-- TABEL -->
+    {{-- TABEL DATA --}}
     @if($laporans->count() > 0)
-        <table>
+        <table class="data">
             <thead>
                 <tr>
                     <th style="width: 20px;">No</th>
-                    <th style="width: 40px;">Kategori</th>
-                    <th style="width: 60px;">Posyandu</th>
-                    <th style="width: 90px;">Identitas</th>
-                    <th style="width: 70px;">Data Periksa</th>
-                    <th style="width: 80px;">Status Gizi</th>
-                    <th style="width: 60px;">Imunisasi/Vitamin</th>
-                    <th style="width: 60px;">Validasi</th>
+                    <th style="width: 42px;">Kategori</th>
+                    <th style="width: 55px;">Posyandu</th>
+                    <th style="width: 100px;">Identitas</th>
+                    <th style="width: 65px;">Data Periksa</th>
+                    <th style="width: 90px;">Status Gizi</th>
+                    <th style="width: 60px;">Imunisasi / Vitamin</th>
+                    <th style="width: 65px;">Validasi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($laporans as $index => $l)
                     @php
-                        $id   = $l->identitas ?? [];
-                        $data = $l->data_pemeriksaan ?? [];
-                        $gizi = $l->status_gizi ?? [];
+                        $id   = is_array($l->identitas ?? null)         ? $l->identitas         : [];
+                        $data = is_array($l->data_pemeriksaan ?? null)  ? $l->data_pemeriksaan  : [];
+                        $gizi = is_array($l->status_gizi ?? null)       ? $l->status_gizi       : [];
+                        $imun = is_array($l->imunisasi ?? null)         ? $l->imunisasi         : [];
                     @endphp
                     <tr>
                         <td class="text-center">{{ $index + 1 }}</td>
@@ -122,7 +154,7 @@
                             <strong>{{ $id['nama'] ?? '-' }}</strong><br>
                             NIK: {{ $id['nik'] ?? '-' }}<br>
                             @if($l->kategori === 'balita')
-                                {{ $id['umur_bulan'] ?? '-' }} bln · 
+                                {{ $id['umur_bulan'] ?? '-' }} bln ·
                                 {{ ($id['jenis_kelamin'] ?? '-') === 'L' ? 'L' : 'P' }}<br>
                                 Ibu: {{ $id['nama_ibu'] ?? '-' }}
                             @else
@@ -144,31 +176,31 @@
                         </td>
                         <td>
                             @if($l->kategori === 'balita')
-                                <span class="badge-{{ str_contains(strtolower($gizi['bb_u'] ?? ''), 'baik') ? 'baik' : (str_contains(strtolower($gizi['bb_u'] ?? ''), 'buruk') ? 'buruk' : (str_contains(strtolower($gizi['bb_u'] ?? ''), 'lebih') ? 'lebih' : 'kurang')) }}">
+                                <span class="badge-{{ $badgeClass($gizi['bb_u'] ?? '') }}">
                                     BB/U: {{ $gizi['bb_u'] ?? '-' }}
                                 </span><br>
-                                <span class="badge-{{ str_contains(strtolower($gizi['tb_u'] ?? ''), 'normal') ? 'normal' : 'kurang' }}">
+                                <span class="badge-{{ $badgeClass($gizi['tb_u'] ?? '') }}">
                                     TB/U: {{ $gizi['tb_u'] ?? '-' }}
                                 </span><br>
-                                <span class="badge-{{ str_contains(strtolower($gizi['bb_tb'] ?? ''), 'normal') ? 'normal' : 'kurang' }}">
+                                <span class="badge-{{ $badgeClass($gizi['bb_tb'] ?? '') }}">
                                     BB/TB: {{ $gizi['bb_tb'] ?? '-' }}
                                 </span>
                             @else
-                                <span class="badge-{{ str_contains(strtolower($gizi['kek'] ?? ''), 'tidak') ? 'normal' : 'kurang' }}">
+                                <span class="badge-{{ $badgeClass($gizi['kek'] ?? '') }}">
                                     KEK: {{ $gizi['kek'] ?? '-' }}
                                 </span><br>
-                                <span class="badge-{{ str_contains(strtolower($gizi['anemia'] ?? ''), 'tidak') ? 'normal' : 'buruk' }}">
+                                <span class="badge-{{ $badgeClass($gizi['anemia'] ?? '') }}">
                                     HB: {{ $gizi['anemia'] ?? '-' }}
                                 </span><br>
-                                <span class="badge-{{ str_contains(strtolower($gizi['td'] ?? ''), 'normal') ? 'normal' : 'kurang' }}">
+                                <span class="badge-{{ $badgeClass($gizi['td'] ?? '') }}">
                                     TD: {{ $gizi['td'] ?? '-' }}
                                 </span>
                             @endif
                         </td>
                         <td>
                             @if($l->kategori === 'balita')
-                                @if(!empty($l->imunisasi))
-                                    {{ implode(', ', $l->imunisasi) }}
+                                @if(!empty($imun))
+                                    {{ implode(', ', $imun) }}
                                 @else
                                     -
                                 @endif
@@ -194,7 +226,7 @@
         </div>
     @endif
 
-    <!-- FOOTER -->
+    {{-- FOOTER --}}
     <div class="footer">
         <p>Dicetak otomatis dari Sistem Informasi PETANGBULA &copy; {{ date('Y') }}</p>
     </div>

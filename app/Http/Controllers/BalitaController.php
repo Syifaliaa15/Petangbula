@@ -28,9 +28,7 @@ class BalitaController extends Controller
             $query->where('posyandu_id', $posyanduId);
         }
     
-        // ==========================================
         // SEARCH: nama / NIK / nama ibu
-        // ==========================================
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -40,23 +38,17 @@ class BalitaController extends Controller
             });
         }
     
-        // ==========================================
         // FILTER: Jenis Kelamin
-        // ==========================================
         if ($request->filled('jk')) {
             $query->where('jenis_kelamin', $request->jk);
         }
     
-        // ==========================================
         // FILTER: Posyandu (Bidan & Admin)
-        // ==========================================
         if (($user->isBidan() || $user->isAdmin()) && $request->filled('posyandu_id')) {
             $query->where('posyandu_id', $request->posyandu_id);
         }
     
-        // ==========================================
         // URUTKAN berdasarkan nama depan
-        // ==========================================
         $balitas = $query->orderBy('nama', 'asc')
             ->paginate(15)
             ->withQueryString();
@@ -82,26 +74,33 @@ class BalitaController extends Controller
             return back()->withErrors(['posyandu_id' => 'Akun Anda tidak terhubung ke Posyandu.'])->withInput();
         }
 
+        // VALIDASI KETAT
         $validated = $request->validate([
-            'nama'           => 'required|string|max:255',
-            'nik'            => 'nullable|string|unique:balita,nik|max:20',
-            'tanggal_lahir'  => 'required|date|before_or_equal:today',
+            'nama'           => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'nik'            => 'nullable|string|digits:16|unique:balita,nik',
+            'tanggal_lahir'  => 'required|date|before_or_equal:today|after_or_equal:' . now()->subYears(5)->format('Y-m-d'),
             'jenis_kelamin'  => 'required|in:L,P',
-            'nama_ibu'       => 'required|string|max:255',
-            'nama_ayah'      => 'nullable|string|max:255',
+            'nama_ibu'       => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'nama_ayah'      => 'nullable|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
             'alamat'         => 'nullable|string',
-            'rw'             => 'nullable|string|max:5',
             'rt'             => 'nullable|string|max:5',
+        ], [
+            'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'nik.digits' => 'NIK harus tepat 16 digit angka.',
+            'tanggal_lahir.after_or_equal' => 'Tanggal lahir tidak boleh lebih dari 5 tahun yang lalu (batas usia balita).',
+            'nama_ibu.regex' => 'Nama Ibu hanya boleh berisi huruf dan spasi.',
+            'nama_ayah.regex' => 'Nama Ayah hanya boleh berisi huruf dan spasi.',
         ]);
 
         $validated['posyandu_id'] = $user->posyandu_id;
         // Auto-set RW dari posyandu kader
-        if ($user->posyandu && !isset($validated['rw'])) {
+        if ($user->posyandu) {
             $validated['rw'] = $user->posyandu->rw;
         }
+        
         Balita::create($validated);
 
-        return redirect()->route('balita.index') ->with('success', 'Data Balita berhasil diregistrasi.');
+        return redirect()->route('balita.index')->with('success', 'Data Balita berhasil diregistrasi.');
     }
 
     public function show($id)
@@ -150,39 +149,53 @@ class BalitaController extends Controller
         return view('kader.balita.checkup', compact('balita', 'target_bulan', 'pemeriksaan'));
     }
 
-    public function storeCheckup(Request $request, $id)
+        public function storeCheckup(Request $request, $id)
     {
         $balita = Balita::findOrFail($id);
 
         $validated = $request->validate([
             'target_bulan'    => 'required|integer|between:0,59',
-            'tanggal_periksa' => 'required|date',
+            'tanggal_periksa' => 'required|date|before_or_equal:today',
             'berat_badan'     => 'required|numeric|min:0.5|max:50',
             'tinggi_badan'    => 'required|numeric|min:30|max:150',
             'lingkar_kepala'  => 'nullable|numeric|min:20|max:70',
             'imunisasi'       => 'nullable|array',
             'vitamin_a'       => 'nullable',
             'keterangan'      => 'nullable|string|max:500',
+        ], [
+            'berat_badan.min' => 'Berat badan tidak realistis (terlalu ringan).',
+            'berat_badan.max' => 'Berat badan tidak realistis (terlalu berat untuk balita).',
+            'tinggi_badan.min' => 'Tinggi badan tidak realistis.',
+            'tinggi_badan.max' => 'Tinggi badan tidak realistis untuk balita.',
+            'tanggal_periksa.before_or_equal' => 'Tanggal periksa tidak boleh di masa depan.',
         ]);
 
-        // Hitung semua status gizi dengan Helper
-        $statusBBU  = ZScoreHelper::statusBBU($balita->jenis_kelamin, $validated['target_bulan'], $validated['berat_badan']);
-        $statusTBU  = ZScoreHelper::statusTBU($balita->jenis_kelamin, $validated['target_bulan'], $validated['tinggi_badan']);
-        $statusBBTB = ZScoreHelper::statusBBTB($balita->jenis_kelamin, $validated['tinggi_badan'], $validated['berat_badan']);
+        // Hitung status gizi dengan Helper (revisi Permenkes)
+        $umur = (int) $validated['target_bulan'];
+        $gender = $balita->jenis_kelamin;
+
+        $statusBBU  = ZScoreHelper::statusBBU($gender, $umur, $validated['berat_badan']);
+        $statusTBU  = ZScoreHelper::statusTBU($gender, $umur, $validated['tinggi_badan']);
+        $statusBBTB = ZScoreHelper::statusBBTB(
+            $gender,
+            (float) $validated['tinggi_badan'],
+            (float) $validated['berat_badan'],
+            $umur
+        );
 
         $pemeriksaanExist = PemeriksaanBalita::where('balita_id', $balita->id)
-            ->where('umur_bulan', $validated['target_bulan'])
+            ->where('umur_bulan', $umur)
             ->first();
 
         $dataPemeriksaan = [
             'balita_id'       => $balita->id,
-            'umur_bulan'      => $validated['target_bulan'],
+            'umur_bulan'      => $umur,
             'tanggal_periksa' => $validated['tanggal_periksa'],
             'berat_badan'     => $validated['berat_badan'],
             'tinggi_badan'    => $validated['tinggi_badan'],
-            'panjang_badan'   => $validated['target_bulan'] < 24 ? $validated['tinggi_badan'] : null,
+            'panjang_badan'   => $umur < 24 ? $validated['tinggi_badan'] : null,
             'lingkar_kepala'  => $validated['lingkar_kepala'] ?? null,
-            'status_gizi'     => $statusBBU,
+            'status_gizi'     => $statusBBU,   // legacy, pakai BB/U
             'status_bb_u'     => $statusBBU,
             'status_tb_u'     => $statusTBU,
             'status_bb_tb'    => $statusBBTB,
@@ -194,11 +207,14 @@ class BalitaController extends Controller
         ];
 
         if ($pemeriksaanExist) {
+            if ($pemeriksaanExist->status_review === 'disetujui') {
+                return back()->with('error', 'Data yang sudah disetujui tidak dapat diubah.');
+            }
             $pemeriksaanExist->update($dataPemeriksaan);
-            $pesan = "Data pemeriksaan bulan ke-{$validated['target_bulan']} berhasil diperbarui!";
+            $pesan = "Data pemeriksaan bulan ke-{$umur} berhasil diperbarui!";
         } else {
             PemeriksaanBalita::create($dataPemeriksaan);
-            $pesan = "Data pemeriksaan bulan ke-{$validated['target_bulan']} berhasil disimpan!";
+            $pesan = "Data pemeriksaan bulan ke-{$umur} berhasil disimpan!";
         }
 
         return redirect()->route('balita.show', $balita->id)->with('success', $pesan);
@@ -210,7 +226,10 @@ class BalitaController extends Controller
 
         $request->validate([
             'jenis_vaksin'      => 'required|string',
-            'tanggal_vaksinasi' => 'required|date|before_or_equal:today',
+            'tanggal_vaksinasi' => 'required|date|before_or_equal:today|after_or_equal:' . $balita->tanggal_lahir->format('Y-m-d'),
+        ], [
+            'tanggal_vaksinasi.after_or_equal' => 'Tanggal vaksinasi tidak boleh sebelum tanggal lahir balita.',
+            'tanggal_vaksinasi.before_or_equal' => 'Tanggal vaksinasi tidak boleh di masa depan.'
         ]);
 
         $sudahAda = ImunisasiBalita::where('balita_id', $balita->id)
@@ -242,15 +261,19 @@ class BalitaController extends Controller
         $balita = Balita::findOrFail($id);
 
         $validated = $request->validate([
-            'nama'          => 'required|string|max:255',
-            'nik'           => 'nullable|string|unique:balita,nik,' . $balita->id . '|max:20',
-            'tanggal_lahir' => 'required|date|before_or_equal:today',
+            'nama'          => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'nik'           => 'nullable|string|digits:16|unique:balita,nik,' . $balita->id,
+            'tanggal_lahir' => 'required|date|before_or_equal:today|after_or_equal:' . now()->subYears(5)->format('Y-m-d'),
             'jenis_kelamin' => 'required|in:L,P',
-            'nama_ibu'      => 'required|string|max:255',
-            'nama_ayah'     => 'nullable|string|max:255',
+            'nama_ibu'      => 'required|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
+            'nama_ayah'     => 'nullable|string|max:255|regex:/^[a-zA-Z\s\.]+$/',
             'alamat'        => 'nullable|string',
-            'rw'            => 'nullable|string|max:5',
             'rt'            => 'nullable|string|max:5',
+        ], [
+            'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'nik.digits' => 'NIK harus tepat 16 digit angka.',
+            'tanggal_lahir.after_or_equal' => 'Tanggal lahir tidak boleh lebih dari 5 tahun yang lalu.',
+            'nama_ibu.regex' => 'Nama Ibu hanya boleh berisi huruf dan spasi.',
         ]);
 
         $balita->update($validated);
@@ -268,20 +291,17 @@ class BalitaController extends Controller
         return redirect()->route('balita.index')->with('success', 'Data Balita berhasil dihapus!');
     }
 
-    /**
-     * Hapus data pemeriksaan balita (hanya jika belum divalidasi bidan)
-     */
     public function hapusPemeriksaan($id)
     {
-        $pemeriksaan = PemeriksaanBalita::findOrFail($id);
-
-        // Cek authorization: hanya kader pembuat atau admin
+        // Tambahkan with('balita') untuk memvalidasi posyandu
+        $pemeriksaan = PemeriksaanBalita::with('balita')->findOrFail($id);
         $user = Auth::user();
-        if (!$user->isAdmin() && $pemeriksaan->kader_id !== $user->id) {
-            return back()->with('error', 'Anda tidak berhak menghapus data ini.');
+
+        // Validasi Keamanan: Kader hanya boleh hapus data posyandu-nya sendiri
+        if ($user->isKader() && $pemeriksaan->balita->posyandu_id !== $user->posyandu_id) {
+            abort(403, 'Anda tidak berhak menghapus data posyandu lain.');
         }
 
-        // Cek status review
         if ($pemeriksaan->status_review === 'disetujui') {
             return back()->with('error', 'Data yang sudah disetujui Bidan tidak dapat dihapus.');
         }

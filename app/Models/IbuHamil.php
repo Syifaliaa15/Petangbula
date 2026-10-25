@@ -55,10 +55,10 @@ class IbuHamil extends Model
         }
 
         $parts = [];
-        if ($minggu > 0) $parts[] = "{$minggu} minggu";
-        if ($hari > 0)   $parts[] = "{$hari} hari";
+        if ($minggu > 0) $parts[] = "{$minggu}mgg";
+        if ($hari > 0)   $parts[] = "{$hari}hr";
 
-        return implode(' ', $parts) ?: '0 hari';
+        return implode(' ', $parts) ?: '0hr';
     }
 
     /**

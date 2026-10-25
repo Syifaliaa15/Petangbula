@@ -4,47 +4,17 @@
 @section('page-title', 'Dashboard Bidan Desa')
 @section('page-subtitle', 'Pantau dan validasi data kesehatan dari seluruh posyandu')
 
-@section('sidebar-menu')
-    <a href="{{ route('bidan.dashboard') }}" class="menu-item {{ request()->routeIs('bidan.dashboard') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-        Dashboard
-    </a>
-    <a href="{{ route('bidan.validasi.balita') }}" class="menu-item {{ request()->routeIs('bidan.validasi.balita') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Validasi Data Balita
-    </a>
-    <a href="{{ route('bidan.validasi.bumil') }}" class="menu-item {{ request()->routeIs('bidan.validasi.bumil') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Validasi Data Bumil
-    </a>
-    <a href="{{ route('bidan.darurat') }}" class="menu-item {{ request()->routeIs('bidan.darurat') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        Pemeriksaan Darurat
-    </a>
-    <a href="{{ route('bidan.laporan.posyandu') }}" class="menu-item {{ request()->routeIs('bidan.laporan.posyandu') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        Laporan Posyandu
-    </a>
-    <a href="{{ route('bidan.laporan.darurat') }}" class="menu-item {{ request()->routeIs('bidan.laporan.darurat') ? 'active' : '' }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-        Laporan Darurat
-    </a>
-    <a href="{{ route('kader.jadwal.index') }}" class="menu-item {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-    Jadwal Posyandu
-    </a>
-@endsection
-
 @section('content')
-    <div class="stat-grid">
+    <!-- Stat Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
         <div class="stat-card">
             <div>
                 <span class="stat-label">Total Balita</span>
                 <div class="stat-value">{{ $totalBalita }}</div>
                 <div class="stat-sub">di seluruh posyandu</div>
             </div>
-            <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            <div class="w-14 h-14 bg-kia-50 rounded-xl flex items-center justify-center text-kia-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             </div>
         </div>
 
@@ -54,8 +24,8 @@
                 <div class="stat-value">{{ $totalIbuHamil }}</div>
                 <div class="stat-sub">ibu hamil aktif</div>
             </div>
-            <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <div class="w-14 h-14 bg-kia-50 rounded-xl flex items-center justify-center text-kia-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </div>
         </div>
 
@@ -65,18 +35,104 @@
                 <div class="stat-value" style="color: #78350f;">{{ $totalPending }}</div>
                 <div class="stat-sub" style="color: #92400e;">data perlu diverifikasi</div>
             </div>
-            <div class="stat-icon" style="background: #fde68a;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#92400e"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <div class="w-14 h-14 bg-amber-200 rounded-xl flex items-center justify-center text-amber-700">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
         </div>
     </div>
 
+    <!-- Chart Balita -->
+    <div class="card mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3">
+            <h2 class="text-lg font-bold text-kia-900">Grafik Status Gizi Balita</h2>
+            <div class="flex gap-2 bg-white border border-kia-200 p-1 rounded-lg">
+                <button onclick="switchChart('bbu')" id="tab-bbu" class="btn-tab btn-tab-active">BB/U</button>
+                <button onclick="switchChart('tbu')" id="tab-tbu" class="btn-tab btn-tab-inactive">TB/U</button>
+                <button onclick="switchChart('bbtb')" id="tab-bbtb" class="btn-tab btn-tab-inactive">BB/TB</button>
+            </div>
+        </div>
+        <div class="relative h-[300px] w-full">
+            <canvas id="chartGiziBalita"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart Bumil -->
     <div class="card">
-        <h2 class="card-title">📊 Selamat Datang, Bidan!</h2>
-        <p style="color: #6b7280; font-size: 0.9rem; line-height: 1.7;">
-            Anda dapat memvalidasi data pemeriksaan yang dikirim oleh Kader dari seluruh posyandu.
-            Klik menu <strong>"Validasi Data Balita"</strong> atau <strong>"Validasi Data Bumil"</strong>
-            untuk memulai proses verifikasi.
-        </p>
+        <h2 class="text-lg font-bold text-kia-900 mb-6 border-b border-kia-100 pb-3">Grafik Status Kesehatan Ibu Hamil</h2>
+        <div class="relative h-[300px] w-full flex justify-center">
+            <div class="w-full max-w-md">
+                <canvas id="chartBumil"></canvas>
+            </div>
+        </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let myChart = null;
+
+    const dataBBU = {
+        labels: ['Berat Badan Normal', 'Berat Badan Kurang', 'Risiko Berat Badan Lebih', 'Berat Badan Sangat Kurang'],
+        values: [{{ $giziBaik }}, {{ $giziKurang }}, {{ $giziLebih }}, {{ $giziBuruk }}],
+        colors: ['#10b981', '#f59e0b', '#3b82f6', '#ef4444']
+    };
+
+    const dataTBU = {
+        labels: ['Normal', 'Pendek', 'Sangat Pendek', 'Tinggi'],
+        values: [{{ $tbNormal }}, {{ $tbPendek }}, {{ $tbSangatPendek }}, {{ $tbTinggi }}],
+        colors: ['#10b981', '#f59e0b', '#ef4444', '#3b82f6']
+    };
+
+    const dataBBTB = {
+        labels: ['Gizi Baik', 'Gizi Kurang', 'Gizi Buruk', 'Gizi Lebih', 'Obesitas'],
+        values: [{{ $bbtbNormal }}, {{ $bbtbKurang }}, {{ $bbtbBuruk }}, {{ $bbtbLebih }}, {{ $bbtbObesitas }}],
+        colors: ['#10b981', '#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6']
+    };
+
+    function renderChart(type) {
+        const ctx = document.getElementById('chartGiziBalita').getContext('2d');
+        let dataset = type === 'bbu' ? dataBBU : (type === 'tbu' ? dataTBU : dataBBTB);
+
+        if (myChart) { myChart.destroy(); }
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataset.labels,
+                datasets: [{ data: dataset.values, backgroundColor: dataset.colors, borderRadius: 6 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+            }
+        });
+    }
+
+    function switchChart(type) {
+        ['bbu', 'tbu', 'bbtb'].forEach(t => {
+            document.getElementById('tab-' + t).className = 'btn-tab btn-tab-inactive';
+        });
+        document.getElementById('tab-' + type).className = 'btn-tab btn-tab-active';
+        renderChart(type);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        renderChart('bbu');
+
+        const ctxBumil = document.getElementById('chartBumil').getContext('2d');
+        new Chart(ctxBumil, {
+            type: 'doughnut',
+            data: {
+                labels: ['Normal', 'Risiko KEK', 'Anemia', 'Hipertensi'],
+                datasets: [{
+                    data: [{{ $bumilNormal }}, {{ $bumilKEK }}, {{ $bumilAnemia }}, {{ $tdHipertensi }}],
+                    backgroundColor: ['#10b981', '#fbbf24', '#ef4444', '#ec4899'],
+                    borderWidth: 2, borderColor: '#fff'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'bottom' } } }
+        });
+    });
+</script>
+@endpush

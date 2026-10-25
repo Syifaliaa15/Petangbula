@@ -31,10 +31,10 @@ class RoleMiddleware
 
         $response = $next($request);
 
-        return $response->withHeaders([
-            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, private',
-            'Pragma'        => 'no-cache',
-            'Expires'       => 'Sat, 01 Jan 2000 00:00:00 GMT',
-        ]);
+        $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, private');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+
+        return $response;
     }
 }

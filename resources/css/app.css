@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* ==========================================
-   PETANGBULA — MONOCHROMATIC PINK THEME
-   Terinspirasi dari Buku KIA
-   ========================================== */
 @theme {
     /* ===== Pink Scale (Single Hue) ===== */
     --color-kia-50:  #FEF7FB;
@@ -17,12 +13,12 @@
     --color-kia-800: #9D174D;
     --color-kia-900: #831843;
 
-    /* ===== Neutral (untuk text body) ===== */
+    /* ===== Neutral ===== */
     --color-text-dark:   #2D1B26;
     --color-text-medium: #6B4C5C;
     --color-text-light:  #A88B99;
 
-    /* ===== Status Colors (untuk badge gizi) ===== */
+    /* ===== Status ===== */
     --color-success: #059669;
     --color-warning: #D97706;
     --color-danger:  #DC2626;
@@ -33,36 +29,54 @@
 }
 
 /* ==========================================
-   BASE STYLES
+   FIX OVERFLOW MOBILE
    ========================================== */
 html, body {
     background-color: #FEF7FB;
+    /*overflow-x: hidden; /* Mencegah scroll ke samping */
+    width: 100%;
+    max-width: 100vw;
 }
 
 body {
     font-family: var(--font-sans);
     color: var(--color-text-dark);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==========================================
-   SCROLLBAR PINK
-   ========================================== */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #FDF2F8; }
+::-webkit-scrollbar-thumb { background: #F9A8D4; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #EC4899; }
 
-::-webkit-scrollbar-track {
-    background: #FDF2F8;
-}
+/* ... kode @theme Anda sebelumnya ... */
 
-::-webkit-scrollbar-thumb {
-    background: #F9A8D4;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #EC4899;
+@layer components {
+    .card {
+        @apply bg-white border border-kia-200 rounded-xl shadow-sm p-5 mb-5;
+    }
+    .card-title {
+        @apply text-base font-bold text-kia-900 mb-4 pb-3 border-b border-kia-100;
+    }
+    .stat-card {
+        @apply bg-white border border-kia-200 rounded-xl p-5 flex items-center justify-between shadow-sm;
+    }
+    .stat-label {
+        @apply text-[11px] font-bold text-kia-500 uppercase tracking-wider block mb-1;
+    }
+    .stat-value {
+        @apply text-3xl font-extrabold text-kia-900 mb-1;
+    }
+    .stat-sub {
+        @apply text-xs text-text-medium;
+    }
+    .btn-tab {
+        @apply px-4 py-2 text-sm font-semibold rounded-md transition-colors;
+    }
+    .btn-tab-active {
+        @apply bg-kia-500 text-white shadow-sm;
+    }
+    .btn-tab-inactive {
+        @apply bg-kia-50 text-kia-700 hover:bg-kia-100;
+    }
 }
