@@ -136,7 +136,11 @@
                                             bbu: '{{ $pemeriksaan->status_bb_u ?? "-" }}',
                                             tbu: '{{ $pemeriksaan->status_tb_u ?? "-" }}',
                                             bbtb: '{{ $pemeriksaan->status_bb_tb ?? "-" }}',
-                                            catatan: '{{ addslashes($pemeriksaan->catatan_bidan ?? "Tidak ada catatan.") }}'
+                                            lila: '{{ $pemeriksaan->lila ?? "-" }}',
+                                            cara_ukur: '{{ $pemeriksaan->cara_ukur == "berdiri" ? "Tinggi Badan (Berdiri)" : "Panjang Badan (Telentang)" }}',
+                                            asi_eksklusif: '{{ $pemeriksaan->asi_eksklusif ? "Ya" : "Tidak" }}',
+                                            catatan_kader: '{{ addslashes($pemeriksaan->keterangan ?? "Tidak ada catatan.") }}',
+                                            catatan_bidan: '{{ addslashes($pemeriksaan->catatan_bidan ?? "Belum ada catatan dari Bidan.") }}'
                                         })" class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-bold hover:bg-blue-200">🔍 Detail</button>
                                     @else
                                         <a href="{{ route('balita.checkup', ['id' => $balita->id, 'bulan_ke' => $bulan_ke]) }}" class="px-3 py-1.5 bg-kia-500 text-white rounded text-xs font-bold hover:bg-kia-600 w-full md:w-auto text-center transition-colors">+ Input Data</a>
@@ -162,15 +166,25 @@
                     <div><span class="text-text-light block text-xs">Berat Badan</span> <strong id="md-bb" class="text-kia-900"></strong> kg</div>
                     <div><span class="text-text-light block text-xs">Tinggi Badan</span> <strong id="md-tb" class="text-kia-900"></strong> cm</div>
                     <div><span class="text-text-light block text-xs">Lingkar Kepala</span> <strong id="md-lk" class="text-kia-900"></strong> cm</div>
+                    <div><span class="text-text-light block text-xs">LILA</span> <strong id="md-lila" class="text-kia-900"></strong> cm</div>
+                    <div><span class="text-text-light block text-xs">Cara Ukur</span> <strong id="md-cara-ukur" class="text-kia-900"></strong></div>
+                    <div><span class="text-text-light block text-xs">ASI Eksklusif</span> <strong id="md-asi" class="text-kia-900"></strong></div>
                 </div>
                 <div class="flex flex-col gap-2 mb-4">
                     <div class="flex justify-between border-b border-kia-100 pb-1"><span>BB/U:</span> <strong id="md-bbu"></strong></div>
                     <div class="flex justify-between border-b border-kia-100 pb-1"><span>TB/U:</span> <strong id="md-tbu"></strong></div>
                     <div class="flex justify-between border-b border-kia-100 pb-1"><span>BB/TB:</span> <strong id="md-bbtb"></strong></div>
                 </div>
+                
+                <!-- Kotak Catatan Kader -->
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-2">
+                    <span class="text-gray-700 font-bold block mb-1 text-xs">Catatan / Keluhan Kader:</span>
+                    <p id="md-catatan-kader" class="text-gray-800 italic text-xs"></p>
+                </div>
+                <!-- Kotak Catatan Bidan -->
                 <div class="bg-amber-50 p-3 rounded-lg border border-amber-200">
-                    <span class="text-amber-800 font-bold block mb-1 text-xs">Catatan Bidan:</span>
-                    <p id="md-catatan" class="text-amber-900 italic text-xs"></p>
+                    <span class="text-amber-800 font-bold block mb-1 text-xs">Catatan dari Bidan:</span>
+                    <p id="md-catatan-bidan" class="text-amber-900 italic text-xs"></p>
                 </div>
             </div>
         </div>
@@ -223,7 +237,11 @@ function bukaModalDetail(data) {
     document.getElementById('md-bbu').innerText = data.bbu;
     document.getElementById('md-tbu').innerText = data.tbu;
     document.getElementById('md-bbtb').innerText = data.bbtb;
-    document.getElementById('md-catatan').innerText = '"' + data.catatan + '"';
+    document.getElementById('md-lila').innerText = data.lila;
+    document.getElementById('md-cara-ukur').innerText = data.cara_ukur;
+    document.getElementById('md-asi').innerText = data.asi_eksklusif;
+    document.getElementById('md-catatan-kader').innerText = '"' + data.catatan_kader + '"';
+    document.getElementById('md-catatan-bidan').innerText = '"' + data.catatan_bidan + '"';
     document.getElementById('modal-detail').classList.replace('hidden', 'flex');
 }
 

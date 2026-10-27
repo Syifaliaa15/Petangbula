@@ -166,9 +166,6 @@
                 </tbody>
             </table>
         </div>
-        @if($users->hasPages())
-            <div class="px-6 py-4 border-t border-kia-100 bg-white">{{ $users->links() }}</div>
-        @endif
     </div>
 
     <!-- ========================================== -->
@@ -223,7 +220,6 @@
             <div class="text-center py-8 text-gray-500 bg-white rounded-2xl border border-kia-100 shadow-sm">Belum ada user terdaftar.</div>
         @endforelse
         
-        <div class="mt-4">{{ $users->links() }}</div>
     </div>
 @endsection
 

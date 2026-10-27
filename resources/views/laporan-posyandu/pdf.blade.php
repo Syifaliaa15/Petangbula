@@ -104,17 +104,17 @@
         <p>Desa Sindangpanon - Sistem Informasi PETANGBULA</p>
     </div>
 
-    {{-- INFO BOX (pakai table, bukan flexbox) --}}
+        <!-- INFO BOX -->
     <table class="info-table">
         <tr>
-            <td width="25%"><strong>Periode:</strong> {{ $bulanLabel }} {{ $tahun }}</td>
+            <td width="30%"><strong>Periode Laporan:</strong> {{ $periodeLabel }}</td>
             <td width="25%"><strong>Posyandu:</strong> {{ $posyanduLabel }}</td>
-            <td width="25%"><strong>Total Data:</strong> {{ $laporans->count() }}</td>
-            <td width="25%"><strong>Dicetak:</strong> {{ $tanggalCetak }}</td>
+            <td width="25%"><strong>Filter Data:</strong> {{ $filterInfo }}</td>
+            <td width="20%"><strong>Total Data:</strong> {{ $laporans->count() }}</td>
         </tr>
         <tr>
             <td colspan="4">
-                <strong>Dicetak oleh:</strong> {{ $dicetakOleh }}
+                <strong>Dicetak:</strong> {{ $tanggalCetak }} | <strong>Oleh:</strong> {{ $dicetakOleh }}
             </td>
         </tr>
     </table>

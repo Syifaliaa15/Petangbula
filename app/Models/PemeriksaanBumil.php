@@ -12,8 +12,10 @@ class PemeriksaanBumil extends Model
     protected $table = 'pemeriksaan_bumil';
     protected $fillable = [
         'ibu_hamil_id', 'minggu_ke', 'tanggal_periksa',
-        'bb', 'lila', 'hemoglobin', 'tablet_tambah_darah', 'pmt_pemulihan',
-        'tekanan_darah', 'status_gizi', 'status_kek', 'status_anemia', 'status_td',
+        'bb_pra_hamil', 'tinggi_badan', 'bb', 'lila', 'hemoglobin', 
+        'tfu', 'kategori_tfu', 'lingkar_perut', 'taksiran_bb_janin', 'kategori_janin',
+        'tablet_tambah_darah', 'pmt_pemulihan', 'tekanan_darah', 'keterangan',
+        'status_gizi', 'status_kek', 'status_anemia', 'status_td',
         'status_review', 'catatan_bidan', 'kader_id',
     ];
     protected $casts = [

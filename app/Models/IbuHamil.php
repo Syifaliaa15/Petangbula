@@ -13,7 +13,7 @@ class IbuHamil extends Model
     protected $table = 'ibu_hamil';
     protected $fillable = [
         'nama', 'nik', 'umur', 'hamil_ke', 'klmp_dasawisma',
-        'tanggal_pendaftaran', 'nama_suami', 'alamat', 'rw', 'rt', 'posyandu_id'
+        'tanggal_pendaftaran', 'no_hp', 'nama_suami', 'alamat', 'rw', 'rt', 'posyandu_id'
     ];
     protected $casts = ['tanggal_pendaftaran' => 'date'];
 

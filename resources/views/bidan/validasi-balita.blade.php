@@ -18,10 +18,8 @@
         <input type="hidden" name="aksi" id="bulk-aksi-balita" value="disetujui">
         <input type="hidden" name="catatan" id="bulk-catatan-balita" value="">
 
-        <!-- Panel Aksi Bulk -->
         <div class="bg-kia-50 border border-kia-200 rounded-2xl p-4 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
             <label class="flex items-center gap-2 cursor-pointer font-bold text-kia-900 text-sm">
-                <!-- CHECKBOX PILIH SEMUA -->
                 <input type="checkbox" id="check-all-balita" onclick="toggleAllBalita(this)" class="w-5 h-5 accent-kia-500 rounded">
                 Pilih Semua Data
             </label>
@@ -36,19 +34,16 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- TAMPILAN DESKTOP (TABEL) -->
-        <!-- ========================================== -->
+        <!-- DESKTOP -->
         <div class="hidden md:block bg-white border border-kia-100 rounded-2xl shadow-sm w-full overflow-hidden">
             <div class="overflow-x-auto w-full">
                 <table class="w-full min-w-[800px] text-left border-collapse">
                     <thead class="bg-kia-50/80 border-b border-kia-100">
                         <tr>
-                            <!-- Header Checkbox (Kosong) -->
-                            <th class="px-6 py-4 w-12 text-center"></th> 
+                            <th class="px-6 py-4 w-12 text-center"></th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Nama Balita / Ibu</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Posyandu</th>
-                            <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">BB / TB</th>
+                            <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa & Catatan</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Status Gizi (BB/U)</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase text-center w-32">Aksi</th>
                         </tr>
@@ -56,9 +51,8 @@
                     <tbody class="divide-y divide-kia-50">
                         @foreach($pemeriksaans as $p)
                         <tr class="hover:bg-kia-50/50 transition-colors">
-                            <!-- Checkbox Baris Desktop -->
                             <td class="px-6 py-4 text-center">
-                                <input type="checkbox" name="ids[]" value="{{ $p->id }}" class="check-item w-4 h-4 accent-kia-500 rounded" onclick="updateCount()">
+                                <input type="checkbox" name="ids[]" value="{{ $p->id }}" class="check-item-balita w-4 h-4 accent-kia-500 rounded" onclick="updateCountBalita()">
                             </td>
                             <td class="px-6 py-4">
                                 <div class="font-bold text-kia-900">{{ $p->balita->nama ?? '-' }}</div>
@@ -68,9 +62,9 @@
                                 <span class="inline-block px-2 py-1 bg-kia-50 border border-kia-100 text-kia-700 rounded text-xs font-bold">{{ $p->balita->posyandu->nama_posyandu ?? '-' }}</span>
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-700">
-                                <div>BB: <strong>{{ $p->berat_badan }} kg</strong></div>
-                                <div>TB: <strong>{{ $p->tinggi_badan }} cm</strong></div>
-                                <div class="text-xs text-gray-400 mt-1">Umur: {{ $p->umur_bulan }} bln</div>
+                                <div>BB: <strong>{{ $p->berat_badan }} kg</strong> | TB: <strong>{{ $p->tinggi_badan }} cm</strong></div>
+                                <div class="text-xs text-gray-500 mt-1 italic">Catatan: "{{ $p->keterangan ?? 'Tidak ada catatan' }}"</div>
+                                <div class="text-xs text-kia-500 mt-1">Umur: {{ $p->umur_bulan }} bln</div>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_bb_u) }}; border-color: rgba(0,0,0,0.1);">
@@ -88,7 +82,8 @@
                                     lk: '{{ $p->lingkar_kepala ?? "-" }}',
                                     bbu: '{{ $p->status_bb_u ?? "-" }}',
                                     tbu: '{{ $p->status_tb_u ?? "-" }}',
-                                    bbtb: '{{ $p->status_bb_tb ?? "-" }}'
+                                    bbtb: '{{ $p->status_bb_tb ?? "-" }}',
+                                    catatan_kader: '{{ addslashes($p->keterangan ?? "Tidak ada catatan.") }}'
                                 })" class="px-3 py-1.5 bg-kia-500 text-white rounded-lg text-xs font-bold hover:bg-kia-600 transition-colors shadow-sm">
                                     🔍 Review
                                 </button>
@@ -100,9 +95,7 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- TAMPILAN MOBILE (CARD) -->
-        <!-- ========================================== -->
+        <!-- MOBILE -->
         <div class="block md:hidden space-y-4">
             @foreach($pemeriksaans as $p)
             <div class="bg-white border border-kia-100 rounded-2xl shadow-sm overflow-hidden">
@@ -111,8 +104,7 @@
                         <h3 class="font-extrabold text-kia-900 text-lg">{{ $p->balita->nama ?? '-' }}</h3>
                         <p class="text-xs text-gray-500 font-medium">Ibu: {{ $p->balita->nama_ibu ?? '-' }}</p>
                     </div>
-                    <!-- Checkbox Mobile -->
-                    <input type="checkbox" name="ids[]" value="{{ $p->id }}" class="check-item w-5 h-5 accent-kia-500 rounded" onclick="updateCount()">
+                    <input type="checkbox" name="ids[]" value="{{ $p->id }}" class="check-item-balita w-5 h-5 accent-kia-500 rounded" onclick="updateCountBalita()">
                 </div>
                 <div class="p-4">
                     <div class="grid grid-cols-2 gap-3 text-sm mb-3">
@@ -129,12 +121,19 @@
                             <span class="font-medium text-gray-800">{{ $p->berat_badan }} kg / {{ $p->tinggi_badan }} cm</span>
                         </div>
                     </div>
+
+                    <div class="bg-gray-50 border border-gray-100 p-2 rounded-lg mb-3">
+                        <span class="text-[10px] text-gray-500 font-bold block mb-1">CATATAN KADER</span>
+                        <p class="text-xs text-gray-700 italic">"{{ $p->keterangan ?? 'Tidak ada catatan' }}"</p>
+                    </div>
+
                     <div class="bg-kia-50/50 border border-kia-100 rounded-xl p-3 mb-4">
                         <span class="text-[10px] text-gray-500 font-bold block mb-1">STATUS BB/U</span>
                         <span class="inline-block px-2 py-1 rounded-md text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_bb_u) }}; border-color: rgba(0,0,0,0.1);">
                             {{ $p->status_bb_u ?? '-' }}
                         </span>
                     </div>
+                    
                     <button type="button" onclick="bukaModalValidasi({
                         id: '{{ $p->id }}',
                         nama: '{{ addslashes($p->balita->nama ?? '-') }}',
@@ -145,7 +144,8 @@
                         lk: '{{ $p->lingkar_kepala ?? "-" }}',
                         bbu: '{{ $p->status_bb_u ?? "-" }}',
                         tbu: '{{ $p->status_tb_u ?? "-" }}',
-                        bbtb: '{{ $p->status_bb_tb ?? "-" }}'
+                        bbtb: '{{ $p->status_bb_tb ?? "-" }}',
+                        catatan_kader: '{{ addslashes($p->keterangan ?? "Tidak ada catatan.") }}'
                     })" class="w-full py-2 bg-gradient-to-r from-kia-500 to-kia-600 text-white rounded-xl text-sm font-bold shadow-sm">
                         🔍 Review Data
                     </button>
@@ -162,7 +162,7 @@
         </div>
     @endif
 
-    <!-- MODAL VALIDASI (Tailwind Murni) -->
+    <!-- MODAL VALIDASI -->
     <div id="modal-validasi" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
             <div class="bg-gradient-to-r from-kia-500 to-kia-600 p-4 flex justify-between items-center text-white">
@@ -175,12 +175,18 @@
                 <input type="hidden" name="aksi" id="input-aksi" value="disetujui">
 
                 <div class="p-5">
-                    <div class="grid grid-cols-2 gap-4 bg-kia-50/50 p-4 rounded-xl border border-kia-100 mb-5 text-sm">
+                    <div class="grid grid-cols-2 gap-4 bg-kia-50/50 p-4 rounded-xl border border-kia-100 mb-4 text-sm">
                         <div><span class="text-gray-400 text-xs block mb-0.5">Tanggal</span> <strong id="mv-tgl"></strong></div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Umur</span> <strong id="mv-umur"></strong> bulan</div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Berat Badan</span> <strong id="mv-bb"></strong> kg</div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Tinggi Badan</span> <strong id="mv-tb"></strong> cm</div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Lingkar Kepala</span> <strong id="mv-lk"></strong> cm</div>
+                    </div>
+
+                    <!-- CATATAN KADER DI MODAL -->
+                    <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-4">
+                        <span class="text-xs text-gray-500 font-bold block mb-1">Catatan / Keluhan dari Kader:</span>
+                        <p id="mv-catatan-kader" class="text-sm text-gray-800 italic"></p>
                     </div>
 
                     <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-5">
@@ -210,22 +216,20 @@
 @push('scripts')
 <script>
 function toggleAllBalita(el) {
-    // Mencentang semua checkbox yang memiliki class 'check-item' (baik desktop maupun mobile)
-    document.querySelectorAll('.check-item').forEach(cb => cb.checked = el.checked);
-    updateCount();
+    document.querySelectorAll('.check-item-balita').forEach(cb => cb.checked = el.checked);
+    updateCountBalita();
 }
 
-function updateCount() {
-    const count = document.querySelectorAll('.check-item:checked').length;
+function updateCountBalita() {
+    const count = document.querySelectorAll('.check-item-balita:checked').length;
     document.getElementById('count-selected-balita').innerText = count;
-    
-    const total = document.querySelectorAll('.check-item').length;
+    const total = document.querySelectorAll('.check-item-balita').length;
     const checkAll = document.getElementById('check-all-balita');
     if(checkAll) checkAll.checked = (count === total && total > 0);
 }
 
 function bulkActionBalita(aksi) {
-    const selected = document.querySelectorAll('.check-item:checked');
+    const selected = document.querySelectorAll('.check-item-balita:checked');
     if (selected.length === 0) {
         alert('Pilih minimal satu data terlebih dahulu.');
         return;
@@ -255,6 +259,7 @@ function bukaModalValidasi(data) {
     document.getElementById('mv-bb').innerText = data.bb;
     document.getElementById('mv-tb').innerText = data.tb;
     document.getElementById('mv-lk').innerText = data.lk;
+    document.getElementById('mv-catatan-kader').innerText = '"' + data.catatan_kader + '"';
     document.getElementById('mv-bbu').innerText = data.bbu;
     document.getElementById('mv-tbu').innerText = data.tbu;
     document.getElementById('mv-bbtb').innerText = data.bbtb;

@@ -81,6 +81,12 @@
                         @error('nama_suami') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-kia-800 mb-1">No. HP (Opsional)</label>
+                        <input type="text" name="no_hp" value="{{ old('no_hp', $ibuHamil->no_hp ?? '') }}" placeholder="Contoh: 08123456789"
+                            class="w-full px-3 py-1.5 text-sm border border-kia-300 rounded-md focus:border-kia-500 focus:ring-1 focus:ring-kia-500 outline-none transition-all">
+                    </div>
+
                     <div class="mb-4">
                         <label class="block text-sm font-bold text-kia-900 mb-1.5">Alamat (RT & Dusun)</label>
                         <div class="flex gap-2">

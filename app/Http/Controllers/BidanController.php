@@ -165,6 +165,9 @@ class BidanController extends Controller
                 'tinggi_badan'    => $pemeriksaan->tinggi_badan,
                 'panjang_badan'   => $pemeriksaan->panjang_badan,
                 'lingkar_kepala'  => $pemeriksaan->lingkar_kepala,
+                'lila'            => $pemeriksaan->lila,              
+                'asi_eksklusif'   => $pemeriksaan->asi_eksklusif,     
+                'cara_ukur'       => $pemeriksaan->cara_ukur,         
                 'vitamin_a'       => $pemeriksaan->vitamin_a,
                 'keterangan'      => $pemeriksaan->keterangan,
             ],
@@ -279,14 +282,21 @@ class BidanController extends Controller
                 'rt'                  => $bumil->rt,
             ],
             'data_pemeriksaan' => [
-                'tanggal_periksa'      => $pemeriksaan->tanggal_periksa->format('Y-m-d'),
-                'minggu_ke'            => $pemeriksaan->minggu_ke,
-                'bb'                   => $pemeriksaan->bb,
-                'lila'                 => $pemeriksaan->lila,
-                'hemoglobin'           => $pemeriksaan->hemoglobin,
-                'tablet_tambah_darah'  => $pemeriksaan->tablet_tambah_darah,
-                'pmt_pemulihan'        => $pemeriksaan->pmt_pemulihan,
-                'tekanan_darah'        => $pemeriksaan->tekanan_darah,
+                'tanggal_periksa'     => $pemeriksaan->tanggal_periksa->format('Y-m-d'),
+                'minggu_ke'           => $pemeriksaan->minggu_ke,
+                'bb_pra_hamil'        => $pemeriksaan->bb_pra_hamil,       
+                'tinggi_badan'        => $pemeriksaan->tinggi_badan,       
+                'bb'                  => $pemeriksaan->bb,
+                'lila'                => $pemeriksaan->lila,
+                'lingkar_perut'       => $pemeriksaan->lingkar_perut,      
+                'hemoglobin'          => $pemeriksaan->hemoglobin,
+                'tfu'                 => $pemeriksaan->tfu,                
+                'kategori_tfu'        => $pemeriksaan->kategori_tfu,       
+                'taksiran_bb_janin'   => $pemeriksaan->taksiran_bb_janin,   
+                'kategori_janin'      => $pemeriksaan->kategori_janin,      
+                'tablet_tambah_darah' => $pemeriksaan->tablet_tambah_darah,
+                'pmt_pemulihan'       => $pemeriksaan->pmt_pemulihan,
+                'tekanan_darah'       => $pemeriksaan->tekanan_darah,
             ],
             'status_gizi' => [
                 'kek'    => $pemeriksaan->status_kek,
@@ -340,38 +350,53 @@ class BidanController extends Controller
         return view('bidan.laporan-darurat', compact('laporans'));
     }
 
-    // ==========================================
-    // LAPORAN POSYANDU
-    // ==========================================
-
     public function laporanPosyandu(Request $request)
     {
-        $bulan      = $request->query('bulan', now()->month);
-        $tahun      = $request->query('tahun', now()->year);
-        $posyanduId = $request->query('posyandu_id');
+        $bulan = $request->query('bulan', now()->month);
+        $tahun = $request->query('tahun', now()->year);
+        $tipe_periode = $request->query('tipe_periode', 'bulanan');
+        $kategori = $request->query('kategori');
+        $status_gizi = $request->query('status_gizi');
+        $posyanduId = $request->query('posyandu_id'); // <-- FILTER BARU
 
-        $query = LaporanPosyandu::with(['posyandu', 'validator'])
-            ->where('periode_bulan', $bulan)
-            ->where('periode_tahun', $tahun);
+        $query = LaporanPosyandu::with(['posyandu', 'validator']);
 
+        // Filter Periode
+        if ($tipe_periode === 'tahunan') {
+            $query->where('periode_tahun', $tahun);
+        } else {
+            $query->where('periode_bulan', $bulan)->where('periode_tahun', $tahun);
+        }
+
+        // Filter Posyandu / RW
         if ($posyanduId) {
             $query->where('posyandu_id', $posyanduId);
         }
 
-        // UBAH BAGIAN INI: Gunakan paginate()
-        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(20)->withQueryString();
-
-        $posyandus = \App\Models\Posyandu::orderBy('rw')->get();
-
-        $tahunList = LaporanPosyandu::select('periode_tahun')
-            ->distinct()
-            ->orderBy('periode_tahun', 'desc')
-            ->pluck('periode_tahun')
-            ->toArray();
-
-        if (!in_array(now()->year, $tahunList)) {
-            $tahunList[] = now()->year;
+        // Filter Kategori
+        if ($kategori) {
+            $query->where('kategori', $kategori);
         }
+
+        // Filter Status Gizi Negatif
+        if ($status_gizi === 'negatif') {
+            $query->where(function($q) {
+                $q->where('status_gizi->bb_u', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->tb_u', 'like', '%Pendek%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Buruk%')
+                  ->orWhere('status_gizi->kek', 'Risiko KEK')
+                  ->orWhere('status_gizi->anemia', 'Anemia')
+                  ->orWhere('status_gizi->td', 'Hipertensi');
+            });
+        }
+
+        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(50)->withQueryString();
+        
+        // Data untuk Dropdown
+        $posyandus = \App\Models\Posyandu::orderBy('rw')->get();
+        $tahunList = LaporanPosyandu::select('periode_tahun')->distinct()->orderBy('periode_tahun', 'desc')->pluck('periode_tahun')->toArray();
+        if (!in_array(now()->year, $tahunList)) $tahunList[] = now()->year;
         sort($tahunList);
 
         $bulanList = [
@@ -380,8 +405,6 @@ class BidanController extends Controller
             9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
         ];
 
-        return view('laporan-posyandu.index', compact(
-            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId', 'bulanList'
-        ));
+        return view('laporan-posyandu.index', compact('laporans', 'bulan', 'tahun', 'tahunList', 'bulanList', 'tipe_periode', 'kategori', 'status_gizi', 'posyandus', 'posyanduId'));
     }
 }

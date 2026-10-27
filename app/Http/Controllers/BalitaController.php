@@ -158,7 +158,10 @@ class BalitaController extends Controller
             'tanggal_periksa' => 'required|date|before_or_equal:today',
             'berat_badan'     => 'required|numeric|min:0.5|max:50',
             'tinggi_badan'    => 'required|numeric|min:30|max:150',
-            'lingkar_kepala'  => 'nullable|numeric|min:20|max:70',
+            'lingkar_kepala'  => 'required|numeric|min:20|max:70', 
+            'lila'            => 'required|numeric|min:10|max:30',  
+            'asi_eksklusif'   => 'nullable|boolean',                
+            'cara_ukur'       => 'required|in:tidur,berdiri',      
             'imunisasi'       => 'nullable|array',
             'vitamin_a'       => 'nullable',
             'keterangan'      => 'nullable|string|max:500',
@@ -168,6 +171,8 @@ class BalitaController extends Controller
             'tinggi_badan.min' => 'Tinggi badan tidak realistis.',
             'tinggi_badan.max' => 'Tinggi badan tidak realistis untuk balita.',
             'tanggal_periksa.before_or_equal' => 'Tanggal periksa tidak boleh di masa depan.',
+            'lingkar_kepala.required' => 'Lingkar Kepala (LIKA) wajib diisi.',
+            'lila.required' => 'Lingkar Lengan Atas (LILA) wajib diisi.',
         ]);
 
         // Hitung status gizi dengan Helper (revisi Permenkes)
@@ -194,8 +199,11 @@ class BalitaController extends Controller
             'berat_badan'     => $validated['berat_badan'],
             'tinggi_badan'    => $validated['tinggi_badan'],
             'panjang_badan'   => $umur < 24 ? $validated['tinggi_badan'] : null,
-            'lingkar_kepala'  => $validated['lingkar_kepala'] ?? null,
-            'status_gizi'     => $statusBBU,   // legacy, pakai BB/U
+            'lingkar_kepala'  => $validated['lingkar_kepala'], 
+            'lila'            => $validated['lila'],           
+            'asi_eksklusif'   => isset($validated['asi_eksklusif']) && $validated['asi_eksklusif'] == '1',
+            'cara_ukur'       => $validated['cara_ukur'],
+            'status_gizi'     => $statusBBU,
             'status_bb_u'     => $statusBBU,
             'status_tb_u'     => $statusTBU,
             'status_bb_tb'    => $statusBBTB,

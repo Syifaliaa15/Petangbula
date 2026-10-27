@@ -13,6 +13,7 @@ class PemeriksaanBalita extends Model
     protected $fillable = [
         'balita_id', 'umur_bulan', 'tanggal_periksa',
         'berat_badan', 'tinggi_badan', 'panjang_badan', 'lingkar_kepala',
+        'lila', 'asi_eksklusif', 'cara_ukur', 
         'status_gizi', 'status_bb_u', 'status_tb_u', 'status_bb_tb',
         'imunisasi', 'vitamin_a', 'keterangan',
         'kader_id', 'status_review', 'catatan_bidan',

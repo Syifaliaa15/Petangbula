@@ -94,50 +94,58 @@ class KaderController extends Controller
     public function laporanPosyandu(Request $request)
     {
         $user = Auth::user();
-        if (!$user->posyandu_id) {
-            return redirect()->route('kader.dashboard')
-                ->with('error', 'Akun Anda belum terhubung ke Posyandu.');
-        }
+        if (!$user->posyandu_id) return redirect()->route('kader.dashboard')->with('error', 'Akun belum terhubung ke Posyandu.');
 
         $bulan = $request->query('bulan', now()->month);
         $tahun = $request->query('tahun', now()->year);
+        $tipe_periode = $request->query('tipe_periode', 'bulanan'); // 'bulanan' atau 'tahunan'
+        $kategori = $request->query('kategori'); // 'balita', 'bumil', atau null (semua)
+        $status_gizi = $request->query('status_gizi'); // 'negatif' atau null
 
         $query = LaporanPosyandu::with(['posyandu', 'validator'])
-            ->where('posyandu_id', $user->posyandu_id)
-            ->where('periode_bulan', $bulan)
-            ->where('periode_tahun', $tahun);
+            ->where('posyandu_id', $user->posyandu_id);
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('identitas->nama', 'like', "%{$search}%")
-                ->orWhere('identitas->nik', 'like', "%{$search}%");
+        // Filter Periode
+        if ($tipe_periode === 'tahunan') {
+            $query->where('periode_tahun', $tahun);
+        } else {
+            $query->where('periode_bulan', $bulan)->where('periode_tahun', $tahun);
+        }
+
+        // Filter Kategori (Balita/Bumil)
+        if ($kategori) {
+            $query->where('kategori', $kategori);
+        }
+
+        // Filter Status Gizi Negatif
+        if ($status_gizi === 'negatif') {
+            $query->where(function($q) {
+                // Untuk Balita (BB/U, TB/U, BB/TB bermasalah)
+                $q->where('status_gizi->bb_u', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->tb_u', 'like', '%Pendek%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Buruk%')
+                  // Untuk Bumil (KEK, Anemia, Hipertensi)
+                  ->orWhere('status_gizi->kek', 'Risiko KEK')
+                  ->orWhere('status_gizi->anemia', 'Anemia')
+                  ->orWhere('status_gizi->td', 'Hipertensi');
             });
         }
 
-        if ($request->filled('kategori')) {
-            $query->where('kategori', $request->kategori);
-        }
-
-        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(20)->withQueryString();
+        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(50)->withQueryString();
 
         $tahunList = LaporanPosyandu::where('posyandu_id', $user->posyandu_id)
             ->select('periode_tahun')->distinct()->orderBy('periode_tahun', 'desc')
             ->pluck('periode_tahun')->toArray();
-
-        if (!in_array(now()->year, $tahunList)) {
-            $tahunList[] = now()->year;
-        }
+        if (!in_array(now()->year, $tahunList)) $tahunList[] = now()->year;
         sort($tahunList);
 
-        // TAMBAHKAN INI:
         $bulanList = [
             1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
             5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
             9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
         ];
 
-        // PASTIKAN $bulanList DIMASUKKAN KE COMPACT:
-        return view('laporan-posyandu.index', compact('laporans', 'bulan', 'tahun', 'tahunList', 'bulanList'));
+        return view('laporan-posyandu.index', compact('laporans', 'bulan', 'tahun', 'tahunList', 'bulanList', 'tipe_periode', 'kategori', 'status_gizi'));
     }
 }

@@ -89,6 +89,11 @@
                                             HB: {{ $pemeriksaan->status_anemia }}
                                         </span>
                                     @endif
+                                    @if($pemeriksaan->status_td)
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($pemeriksaan->status_td) }}; border-color: rgba(0,0,0,0.1);">
+                                            TD: {{ $pemeriksaan->status_td }}
+                                        </span>
+                                    @endif
                                 </div>
                             @endif
                         </div>
@@ -121,7 +126,8 @@
                                     kek: '{{ $pemeriksaan->status_kek ?? "-" }}',
                                     anemia: '{{ $pemeriksaan->status_anemia ?? "-" }}',
                                     statusTd: '{{ $pemeriksaan->status_td ?? "-" }}',
-                                    catatan: '{{ addslashes($pemeriksaan->catatan_bidan ?? "Tidak ada catatan.") }}'
+                                    catatan_kader: '{{ addslashes($pemeriksaan->keterangan ?? "Tidak ada catatan.") }}',
+                                    catatan_bidan: '{{ addslashes($pemeriksaan->catatan_bidan ?? "Belum ada catatan dari Bidan.") }}'
                                 })" class="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold hover:bg-blue-200">🔍 Detail</button>
                             @else
                                 <a href="{{ route('ibu-hamil.checkup', ['id' => $ibuHamil->id, 'minggu_ke' => $m]) }}" class="px-3 py-1.5 bg-kia-500 text-white rounded-lg text-xs font-bold hover:bg-kia-600 w-full md:w-auto text-center transition-colors">+ Input Data</a>
@@ -154,9 +160,13 @@
                     <div class="flex justify-between border-b border-kia-100 pb-1"><span>Anemia:</span> <strong id="md-anemia"></strong></div>
                     <div class="flex justify-between border-b border-kia-100 pb-1"><span>Status TD:</span> <strong id="md-status-td"></strong></div>
                 </div>
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-2">
+                    <span class="text-gray-700 font-bold block mb-1 text-xs">Catatan / Keluhan Kader:</span>
+                    <p id="md-catatan-kader" class="text-gray-800 italic text-xs"></p>
+                </div>
                 <div class="bg-amber-50 p-3 rounded-lg border border-amber-200">
-                    <span class="text-amber-800 font-bold block mb-1 text-xs">Catatan Bidan:</span>
-                    <p id="md-catatan" class="text-amber-900 italic text-xs"></p>
+                    <span class="text-amber-800 font-bold block mb-1 text-xs">Catatan dari Bidan:</span>
+                    <p id="md-catatan-bidan" class="text-amber-900 italic text-xs"></p>
                 </div>
             </div>
         </div>
@@ -198,7 +208,8 @@ function bukaModalDetail(data) {
     document.getElementById('md-kek').innerText = data.kek;
     document.getElementById('md-anemia').innerText = data.anemia;
     document.getElementById('md-status-td').innerText = data.statusTd;
-    document.getElementById('md-catatan').innerText = '"' + data.catatan + '"';
+    document.getElementById('md-catatan-kader').innerText = '"' + data.catatan_kader + '"';
+    document.getElementById('md-catatan-bidan').innerText = '"' + data.catatan_bidan + '"';
     document.getElementById('modal-detail').classList.replace('hidden', 'flex');
 }
 

@@ -46,7 +46,7 @@
                             <th class="px-6 py-4 w-12 text-center"></th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Nama Ibu Hamil</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Posyandu</th>
-                            <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa</th>
+                            <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa & Catatan</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Status Kesehatan</th>
                             <th class="px-6 py-4 text-[11px] font-extrabold text-kia-800 uppercase text-center w-32">Aksi</th>
                         </tr>
@@ -66,8 +66,9 @@
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-700">
                                 <div>BB: <strong>{{ $p->bb }} kg</strong> | LiLA: <strong>{{ $p->lila }} cm</strong></div>
-                                <div>HB: <strong>{{ $p->hemoglobin ?? '-' }} g/dL</strong></div>
-                                <div class="text-xs text-gray-400 mt-1">Minggu: {{ $p->minggu_ke }}</div>
+                                <div>HB: <strong>{{ $p->hemoglobin ?? '-' }} g/dL</strong> | TD: <strong>{{ $p->tekanan_darah ?? '-' }}</strong></div>
+                                <div class="text-xs text-gray-500 mt-1 italic">Catatan: "{{ $p->keterangan ?? 'Tidak ada catatan' }}"</div>
+                                <div class="text-xs text-kia-500 mt-1">Minggu Ke: {{ $p->minggu_ke }}</div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex flex-col gap-1.5 items-start">
@@ -77,6 +78,11 @@
                                     <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_anemia) }}; border-color: rgba(0,0,0,0.1);">
                                         HB: {{ $p->status_anemia ?? '-' }}
                                     </span>
+                                    @if($p->status_td)
+                                    <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_td) }}; border-color: rgba(0,0,0,0.1);">
+                                        TD: {{ $p->status_td }}
+                                    </span>
+                                    @endif
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-center">
@@ -91,6 +97,7 @@
                                     td: '{{ $p->tekanan_darah ?? "-" }}',
                                     ttd: '{{ $p->tablet_tambah_darah }}',
                                     pmt: '{{ $p->pmt_pemulihan ? "Ya" : "Tidak" }}',
+                                    catatan_kader: '{{ addslashes($p->keterangan ?? "Tidak ada catatan.") }}',
                                     kek: '{{ $p->status_kek ?? "-" }}',
                                     anemia: '{{ $p->status_anemia ?? "-" }}',
                                     statusTd: '{{ $p->status_td ?? "-" }}'
@@ -133,10 +140,17 @@
                             <span class="font-medium text-gray-800">{{ $p->bb }} kg / {{ $p->lila }} cm</span>
                         </div>
                         <div>
-                            <span class="text-gray-400 text-[10px] font-bold block">HB</span>
-                            <span class="font-medium text-gray-800">{{ $p->hemoglobin ?? '-' }} g/dL</span>
+                            <span class="text-gray-400 text-[10px] font-bold block">HB / TD</span>
+                            <span class="font-medium text-gray-800">{{ $p->hemoglobin ?? '-' }} / {{ $p->tekanan_darah ?? '-' }}</span>
                         </div>
                     </div>
+
+                    <!-- CATATAN KADER -->
+                    <div class="bg-gray-50 border border-gray-100 p-2 rounded-lg mb-3">
+                        <span class="text-[10px] text-gray-500 font-bold block mb-1">CATATAN KADER</span>
+                        <p class="text-xs text-gray-700 italic">"{{ $p->keterangan ?? 'Tidak ada catatan' }}"</p>
+                    </div>
+
                     <div class="bg-kia-50/50 border border-kia-100 rounded-xl p-3 mb-4 flex flex-col gap-2">
                         <span class="text-[10px] text-gray-500 font-bold block">STATUS KESEHATAN</span>
                         <div class="flex flex-wrap gap-2">
@@ -146,6 +160,11 @@
                             <span class="inline-block px-2 py-1 rounded-md text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_anemia) }}; border-color: rgba(0,0,0,0.1);">
                                 HB: {{ $p->status_anemia ?? '-' }}
                             </span>
+                            @if($p->status_td)
+                            <span class="inline-block px-2 py-1 rounded-md text-xs font-bold border" style="background: {{ \App\Helpers\ZScoreHelper::getColorForStatus($p->status_td) }}; border-color: rgba(0,0,0,0.1);">
+                                TD: {{ $p->status_td }}
+                            </span>
+                            @endif
                         </div>
                     </div>
                     <button type="button" onclick="bukaModalValidasiBumil({
@@ -159,6 +178,7 @@
                         td: '{{ $p->tekanan_darah ?? "-" }}',
                         ttd: '{{ $p->tablet_tambah_darah }}',
                         pmt: '{{ $p->pmt_pemulihan ? "Ya" : "Tidak" }}',
+                        catatan_kader: '{{ addslashes($p->keterangan ?? "Tidak ada catatan.") }}',
                         kek: '{{ $p->status_kek ?? "-" }}',
                         anemia: '{{ $p->status_anemia ?? "-" }}',
                         statusTd: '{{ $p->status_td ?? "-" }}'
@@ -191,7 +211,7 @@
                 <input type="hidden" name="aksi" id="input-aksi-bumil" value="disetujui">
 
                 <div class="p-5">
-                    <div class="grid grid-cols-2 gap-4 bg-kia-50/50 p-4 rounded-xl border border-kia-100 mb-5 text-sm">
+                    <div class="grid grid-cols-2 gap-4 bg-kia-50/50 p-4 rounded-xl border border-kia-100 mb-4 text-sm">
                         <div><span class="text-gray-400 text-xs block mb-0.5">Minggu Ke</span> <strong id="mv-minggu"></strong></div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Tanggal</span> <strong id="mv-tgl"></strong></div>
                         <div><span class="text-gray-400 text-xs block mb-0.5">Berat Badan</span> <strong id="mv-bb"></strong> kg</div>
@@ -202,8 +222,14 @@
                         <div><span class="text-gray-400 text-xs block mb-0.5">PMT</span> <strong id="mv-pmt"></strong></div>
                     </div>
 
+                    <!-- Catatan Kader di dalam Modal -->
+                    <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-4">
+                        <span class="text-xs text-gray-500 font-bold block mb-1">Catatan / Keluhan dari Kader:</span>
+                        <p id="mv-catatan-kader" class="text-sm text-gray-800 italic"></p>
+                    </div>
+
                     <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-5">
-                        <h4 class="font-bold text-kia-900 mb-2 border-b border-gray-200 pb-2">Status Kesehatan</h4>
+                        <h4 class="font-bold text-kia-900 mb-2 border-b border-gray-200 pb-2">Status Kesehatan (Sistem)</h4>
                         <div class="flex flex-col gap-2 text-sm">
                             <div class="flex justify-between"><span>Status KEK</span> <strong id="mv-kek" class="text-kia-700"></strong></div>
                             <div class="flex justify-between"><span>Status Anemia</span> <strong id="mv-anemia" class="text-kia-700"></strong></div>
@@ -275,6 +301,7 @@ function bukaModalValidasiBumil(data) {
     document.getElementById('mv-td').innerText = data.td;
     document.getElementById('mv-ttd').innerText = data.ttd;
     document.getElementById('mv-pmt').innerText = data.pmt;
+    document.getElementById('mv-catatan-kader').innerText = '"' + data.catatan_kader + '"';
     document.getElementById('mv-kek').innerText = data.kek;
     document.getElementById('mv-anemia').innerText = data.anemia;
     document.getElementById('mv-status-td').innerText = data.statusTd;

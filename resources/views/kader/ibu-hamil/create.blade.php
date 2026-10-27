@@ -85,8 +85,14 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="block text-xs font-bold text-kia-800 mb-1">No. HP (Opsional)</label>
+                        <input type="text" name="no_hp" value="{{ old('no_hp', $ibuHamil->no_hp ?? '') }}" placeholder="Contoh: 08123456789"
+                            class="w-full px-3 py-1.5 text-sm border border-kia-300 rounded-md focus:border-kia-500 focus:ring-1 focus:ring-kia-500 outline-none transition-all">
+                    </div>
+
+                    <div class="mb-3">
                         <label class="block text-xs font-bold text-kia-800 mb-1">Alamat (RT & Dusun)</label>
-                        <!-- Perbaikan Grid Alamat -->
+                        
                         <div class="grid grid-cols-4 gap-2">
                             <input type="text" name="rt" value="{{ old('rt') }}" placeholder="RT" class="col-span-1 px-3 py-1.5 text-sm border border-kia-300 rounded-md focus:border-kia-500 focus:ring-1 focus:ring-kia-500 outline-none transition-all text-center">
                             <input type="text" name="alamat" value="{{ old('alamat') }}" placeholder="Nama Dusun / Jalan" class="col-span-3 px-3 py-1.5 text-sm border border-kia-300 rounded-md focus:border-kia-500 focus:ring-1 focus:ring-kia-500 outline-none transition-all w-full">

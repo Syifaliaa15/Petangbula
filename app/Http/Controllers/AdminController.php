@@ -12,6 +12,7 @@ use App\Models\PemeriksaanDarurat;
 use App\Models\LaporanPosyandu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -293,48 +294,62 @@ class AdminController extends Controller
         return back()->with('success', "User berhasil {$status}!");
     }
 
-    // ==========================================
-    // LAPORAN POSYANDU
-    // ==========================================
     public function laporanPosyandu(Request $request)
     {
-        $bulan      = $request->query('bulan', now()->month);
-        $tahun      = $request->query('tahun', now()->year);
-        $posyanduId = $request->query('posyandu_id');
+        $bulan = $request->query('bulan', now()->month);
+        $tahun = $request->query('tahun', now()->year);
+        $tipe_periode = $request->query('tipe_periode', 'bulanan');
+        $kategori = $request->query('kategori');
+        $status_gizi = $request->query('status_gizi');
+        $posyanduId = $request->query('posyandu_id'); // <-- FILTER BARU
 
-        $query = LaporanPosyandu::with(['posyandu', 'validator'])
-            ->where('periode_bulan', $bulan)
-            ->where('periode_tahun', $tahun);
+        $query = LaporanPosyandu::with(['posyandu', 'validator']);
 
+        // Filter Periode
+        if ($tipe_periode === 'tahunan') {
+            $query->where('periode_tahun', $tahun);
+        } else {
+            $query->where('periode_bulan', $bulan)->where('periode_tahun', $tahun);
+        }
+
+        // Filter Posyandu / RW
         if ($posyanduId) {
             $query->where('posyandu_id', $posyanduId);
         }
 
-        // Gunakan paginate
-        $laporans  = $query->orderBy('kategori')->orderBy('id')->paginate(20)->withQueryString();
-        $posyandus = Posyandu::orderBy('rw')->get();
-
-        $tahunList = LaporanPosyandu::select('periode_tahun')
-            ->distinct()
-            ->orderBy('periode_tahun', 'desc')
-            ->pluck('periode_tahun')
-            ->toArray();
-
-        if (!in_array(now()->year, $tahunList)) {
-            $tahunList[] = now()->year;
+        // Filter Kategori
+        if ($kategori) {
+            $query->where('kategori', $kategori);
         }
+
+        // Filter Status Gizi Negatif
+        if ($status_gizi === 'negatif') {
+            $query->where(function($q) {
+                $q->where('status_gizi->bb_u', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->tb_u', 'like', '%Pendek%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Kurang%')
+                  ->orWhere('status_gizi->bb_tb', 'like', '%Buruk%')
+                  ->orWhere('status_gizi->kek', 'Risiko KEK')
+                  ->orWhere('status_gizi->anemia', 'Anemia')
+                  ->orWhere('status_gizi->td', 'Hipertensi');
+            });
+        }
+
+        $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(50)->withQueryString();
+        
+        // Data untuk Dropdown
+        $posyandus = \App\Models\Posyandu::orderBy('rw')->get();
+        $tahunList = LaporanPosyandu::select('periode_tahun')->distinct()->orderBy('periode_tahun', 'desc')->pluck('periode_tahun')->toArray();
+        if (!in_array(now()->year, $tahunList)) $tahunList[] = now()->year;
         sort($tahunList);
 
-        // TAMBAHKAN INI:
         $bulanList = [
             1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
             5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
             9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
         ];
 
-        return view('laporan-posyandu.index', compact(
-            'laporans', 'posyandus', 'bulan', 'tahun', 'tahunList', 'posyanduId', 'bulanList'
-        ));
+        return view('laporan-posyandu.index', compact('laporans', 'bulan', 'tahun', 'tahunList', 'bulanList', 'tipe_periode', 'kategori', 'status_gizi', 'posyandus', 'posyanduId'));
     }
 
     // ==========================================
