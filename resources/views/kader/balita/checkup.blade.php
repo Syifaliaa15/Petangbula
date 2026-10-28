@@ -45,7 +45,7 @@
                 <label class="block text-sm font-bold text-kia-900 mb-2">Cara Ukur Tinggi Badan <span class="text-red-500">*</span></label>
                 <div class="flex gap-4">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="cara_ukur" value="tidur" {{ old('cara_ukur', $pemeriksaan->cara_ukur ?? 'tidur') == 'tidur' ? 'checked' : '' }} required class="w-4 h-4 accent-kia-500">
+                        <input type="radio" name="cara_ukur" value="telentang" {{ old('cara_ukur', $pemeriksaan->cara_ukur ?? 'telentang') == 'telentang' ? 'checked' : '' }} required class="w-4 h-4 accent-kia-500">
                         <span class="text-sm text-gray-700">Telentang (Panjang Badan / PB)</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">

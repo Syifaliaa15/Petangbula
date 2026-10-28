@@ -11,6 +11,7 @@ use App\Http\Controllers\BalitaController;
 use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\JadwalPosyanduController;
 use App\Http\Controllers\LaporanExportController;
+use App\Http\Controllers\C45Controller;
 
 // PUBLIC
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -98,4 +99,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan-posyandu', [AdminController::class, 'laporanPosyandu'])->name('laporan-posyandu');
         Route::get('/laporan-darurat', [AdminController::class, 'laporanDarurat'])->name('laporan-darurat');
     });
+
+    Route::post('/c45/latih', [C45Controller::class, 'latih'])->name('c45.latih');
+    Route::get('/c45/pohon/{nama}', [C45Controller::class, 'pohon'])->whereIn('nama', ['balita', 'bumil'])->name('c45.pohon');
+    Route::post('/c45/prediksi/balita', [C45Controller::class, 'prediksiBalita'])->name('c45.prediksiBalita');
+    Route::post('/c45/prediksi/bumil', [C45Controller::class, 'prediksiBumil'])->name('c45.prediksiBumil');
 });

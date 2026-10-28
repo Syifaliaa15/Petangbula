@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Rekapitulasi data yang sudah divalidasi Bidan')
 
 @section('content')
-               <!-- FILTER -->
+    <!-- FILTER -->
     <div class="bg-white border border-kia-100 rounded-2xl p-4 shadow-sm mb-6 w-full">
         <form method="GET" action="" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
             <div>
@@ -34,8 +34,7 @@
                 </select>
             </div>
 
-            <!-- FILTER RW / POSYANDU (Hanya untuk Bidan & Admin) -->
-            @if(auth()->user()->isBidan() || auth()->user()->isAdmin())
+            @if(isset($posyandus) && (auth()->user()->isBidan() || auth()->user()->isAdmin()))
             <div>
                 <label class="block text-[10px] font-bold text-kia-800 mb-1 uppercase tracking-wider">Posyandu</label>
                 <select name="posyandu_id" class="w-full text-xs px-3 py-2 border border-kia-200 rounded-lg bg-kia-50/50 focus:bg-white focus:ring-1 focus:ring-kia-500 outline-none" onchange="this.form.submit()">
@@ -70,52 +69,37 @@
         </form>
     </div>
 
-        <!-- TOMBOL EXPORT -->
+    <!-- TOMBOL EXPORT -->
     <div class="bg-gradient-to-r from-kia-50 to-white border border-kia-200 rounded-xl p-4 mb-6 flex flex-col md:flex-row justify-between items-center gap-3">
         <div class="text-center md:text-left">
             <strong class="text-kia-900 block">Export Laporan</strong>
             <span class="text-xs text-gray-500">
                 Periode: {{ $tipe_periode == 'tahunan' ? 'Tahun '.$tahun : ($bulanList[$bulan] ?? '-').' '.$tahun }}
-                {{ $kategori ? '| Kategori: '.ucfirst($kategori) : '' }}
-                {{ $status_gizi ? '| Status: Gizi Bermasalah' : '' }}
             </span>
         </div>
         <div class="flex gap-2 w-full md:w-auto">
-            <a href="{{ route('laporan-posyandu.pdf', [
-                'bulan' => $bulan, 
-                'tahun' => $tahun, 
-                'tipe_periode' => $tipe_periode,
-                'kategori' => $kategori,
-                'status_gizi' => $status_gizi,
-                'posyandu_id' => $posyanduId ?? null
-            ]) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-red-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm border border-red-200">
+            <a href="{{ route('laporan-posyandu.pdf', request()->all()) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-red-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm border border-red-200">
                 📄 PDF
             </a>
-            <a href="{{ route('laporan-posyandu.excel', [
-                'bulan' => $bulan, 
-                'tahun' => $tahun, 
-                'tipe_periode' => $tipe_periode,
-                'kategori' => $kategori,
-                'status_gizi' => $status_gizi,
-                'posyandu_id' => $posyanduId ?? null
-            ]) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-emerald-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm border border-emerald-200">
+            <a href="{{ route('laporan-posyandu.excel', request()->all()) }}" class="flex-1 md:flex-none px-4 py-2 bg-white text-emerald-600 rounded-lg font-bold hover:bg-gray-50 flex items-center justify-center gap-2 shadow-sm text-sm border border-emerald-200">
                 📊 Excel
             </a>
         </div>
     </div>
 
-        <!-- ========================================== -->
+    <!-- ========================================== -->
     <!-- TAMPILAN DESKTOP (TABEL) -->
     <!-- ========================================== -->
     <div class="hidden md:block bg-white border border-kia-100 rounded-2xl shadow-sm w-full overflow-hidden">
         <div class="overflow-x-auto w-full">
-            <table class="w-full min-w-[1100px] text-left border-collapse">
+            <table class="w-full min-w-[1200px] text-left border-collapse">
                 <thead class="bg-kia-50/80 border-b border-kia-100">
                     <tr>
                         <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Kategori</th>
                         <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Posyandu & Identitas</th>
-                        <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa & KIA</th>
-                        <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Status Gizi / Kesehatan</th>
+                        <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Data Periksa</th>
+                        <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Status Gizi</th>
+                        <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Tindakan Bidan</th>
                         <th class="px-4 py-4 text-[11px] font-extrabold text-kia-800 uppercase">Validasi</th>
                     </tr>
                 </thead>
@@ -142,19 +126,14 @@
                                     <div>LIKA: <strong>{{ $data['lingkar_kepala'] ?? '-' }}</strong> cm | LILA: <strong>{{ $data['lila'] ?? '-' }}</strong> cm</div>
                                     <div class="mt-1 text-gray-600">
                                         Ukur: {{ ($data['cara_ukur'] ?? '') == 'berdiri' ? 'Berdiri' : 'Telentang' }} | 
-                                        ASI Eksklusif: {{ !empty($data['asi_eksklusif']) ? 'Ya' : 'Tidak' }}
+                                        ASI: {{ !empty($data['asi_eksklusif']) ? 'Ya' : 'Tidak' }}
                                     </div>
-                                    @if(!empty($imun) || !empty($data['vitamin_a']))
-                                        <div class="mt-1 text-[10px] text-amber-600 font-bold">
-                                            {{ implode(', ', $imun) }} {{ !empty($data['vitamin_a']) ? '| Vit A' : '' }}
-                                        </div>
-                                    @endif
                                 @else
                                     <div>BB: <strong>{{ $data['bb'] ?? '-' }}</strong> kg | TB: <strong>{{ $data['tinggi_badan'] ?? '-' }}</strong> cm | LP: <strong>{{ $data['lingkar_perut'] ?? '-' }}</strong> cm</div>
                                     <div>LiLA: <strong>{{ $data['lila'] ?? '-' }}</strong> cm | HB: <strong>{{ $data['hemoglobin'] ?? '-' }}</strong> | TD: <strong>{{ $data['tekanan_darah'] ?? '-' }}</strong></div>
                                     <div class="mt-1 text-gray-600">
-                                        TFU: {{ $data['tfu'] ?? '-' }} cm ({{ $data['kategori_tfu'] ?? '-' }}) | 
-                                        TBJ: {{ $data['taksiran_bb_janin'] ?? '-' }} gr ({{ $data['kategori_janin'] ?? '-' }})
+                                        TFU: {{ $data['tfu'] ?? '-' }} cm | 
+                                        TBJ: {{ $data['taksiran_bb_janin'] ?? '-' }} gr
                                     </div>
                                 @endif
                             </td>
@@ -170,15 +149,26 @@
                                 @endif
                             </td>
                             <td class="px-4 py-4 text-xs">
+                                @if(!empty($data['tindakan_bidan']) && is_array($data['tindakan_bidan']))
+                                    <ul class="list-disc pl-4 text-kia-700 font-medium">
+                                        @foreach($data['tindakan_bidan'] as $tindakan)
+                                            <li>{{ $tindakan }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-gray-400 italic">-</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-4 text-xs">
                                 <div class="text-emerald-600 font-bold flex items-center gap-1 mb-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Valid
                                 </div>
-                                <div class="text-gray-600 truncate max-w-[100px]">{{ $l->validator->name ?? '-' }}</div>
+                                <div class="text-gray-500 truncate max-w-[120px]">{{ $l->validator->name ?? '-' }}</div>
                                 <div class="text-gray-400 mt-0.5">{{ $l->tanggal_validasi?->format('d/m/y H:i') }}</div>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="text-center py-12 text-gray-400">Belum ada data laporan sesuai filter.</td></tr>
+                        <tr><td colspan="6" class="text-center py-12 text-gray-400">Belum ada data laporan sesuai filter.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -260,6 +250,20 @@
                             </span>
                         </div>
                     @endif
+
+                    <!-- Tindakan Bidan (Mobile) -->
+                    <div class="col-span-2 border-t border-gray-100 pt-3 mt-1">
+                        <span class="text-gray-400 text-[10px] font-bold block mb-1">TINDAKAN BIDAN</span>
+                        @if(!empty($data['tindakan_bidan']) && is_array($data['tindakan_bidan']))
+                            <ul class="list-disc pl-4 text-kia-700 font-medium text-xs">
+                                @foreach($data['tindakan_bidan'] as $tindakan)
+                                    <li>{{ $tindakan }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <span class="text-gray-400 italic text-xs">Belum ada tindakan.</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         @empty

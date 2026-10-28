@@ -16,12 +16,13 @@ class PemeriksaanBalita extends Model
         'lila', 'asi_eksklusif', 'cara_ukur', 
         'status_gizi', 'status_bb_u', 'status_tb_u', 'status_bb_tb',
         'imunisasi', 'vitamin_a', 'keterangan',
-        'kader_id', 'status_review', 'catatan_bidan',
+        'kader_id', 'status_review', 'catatan_bidan', 'tindakan_bidan',
     ];
     protected $casts = [
         'tanggal_periksa' => 'date',
         'vitamin_a' => 'boolean',
         'imunisasi' => 'array',
+        'tindakan_bidan' => 'array',
     ];
 
     public function balita() { return $this->belongsTo(Balita::class, 'balita_id'); }

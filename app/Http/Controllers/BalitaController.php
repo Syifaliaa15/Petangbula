@@ -161,7 +161,7 @@ class BalitaController extends Controller
             'lingkar_kepala'  => 'required|numeric|min:20|max:70', 
             'lila'            => 'required|numeric|min:10|max:30',  
             'asi_eksklusif'   => 'nullable|boolean',                
-            'cara_ukur'       => 'required|in:tidur,berdiri',      
+            'cara_ukur'       => 'required|in:telentang,berdiri',      
             'imunisasi'       => 'nullable|array',
             'vitamin_a'       => 'nullable',
             'keterangan'      => 'nullable|string|max:500',

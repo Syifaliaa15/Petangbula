@@ -35,22 +35,26 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
             'Posyandu',
             'Nama',
             'NIK',
-            'Jenis Kelamin',
+            'JK',
             'Umur',
             'Nama Ibu/Suami',
             'Tanggal Periksa',
             'BB (kg)',
-            'TB/LiLA (cm)',
-            'LK/HB',
-            'Tekanan Darah',
+            'TB (cm)',
+            'LIKA / LP (cm)',
+            'LILA (cm)',
+            'Cara Ukur',
+            'ASI / PMT',
+            'HB / TD',
+            'TFU (cm)',
+            'TBJ (gr)',
             'Status BB/U',
             'Status TB/U',
             'Status BB/TB',
             'Status KEK',
             'Status Anemia',
             'Status TD',
-            'Vitamin A',
-            'Imunisasi',
+            'Tindakan Bidan',
             'Tanggal Validasi',
         ];
     }
@@ -63,9 +67,11 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
         $id   = is_array($l->identitas ?? null)        ? $l->identitas        : [];
         $data = is_array($l->data_pemeriksaan ?? null) ? $l->data_pemeriksaan : [];
         $gizi = is_array($l->status_gizi ?? null)      ? $l->status_gizi      : [];
-        $imun = is_array($l->imunisasi ?? null)        ? $l->imunisasi        : [];
-
+        
         $isBalita = $l->kategori === 'balita';
+        
+        $tindakan = $data['tindakan_bidan'] ?? [];
+        $tindakanText = (!empty($tindakan) && is_array($tindakan)) ? implode(', ', $tindakan) : '-';
 
         return [
             $no,
@@ -73,25 +79,28 @@ class LaporanPosyanduExport implements FromCollection, WithHeadings, WithMapping
             $l->posyandu->nama_posyandu ?? '-',
             $id['nama'] ?? '-',
             $id['nik'] ?? '-',
-            ($id['jenis_kelamin'] ?? '') === 'L' ? 'Laki-laki'
-                : ((($id['jenis_kelamin'] ?? '') === 'P') ? 'Perempuan' : '-'),
-            $isBalita
-                ? (($id['umur_bulan'] ?? '-') . ' bln')
-                : (($id['umur'] ?? '-') . ' thn'),
+            ($id['jenis_kelamin'] ?? '') === 'L' ? 'Laki-laki' : ((($id['jenis_kelamin'] ?? '') === 'P') ? 'Perempuan' : '-'),
+            $isBalita ? (($id['umur_bulan'] ?? '-') . ' bln') : (($id['umur'] ?? '-') . ' thn'),
             $isBalita ? ($id['nama_ibu'] ?? '-') : ($id['nama_suami'] ?? '-'),
             $data['tanggal_periksa'] ?? '-',
             $isBalita ? ($data['berat_badan'] ?? '-') : ($data['bb'] ?? '-'),
-            $isBalita ? ($data['tinggi_badan'] ?? '-') : ($data['lila'] ?? '-'),
-            $isBalita ? ($data['lingkar_kepala'] ?? '-') : ($data['hemoglobin'] ?? '-'),
-            $data['tekanan_darah'] ?? '-',
+            $isBalita ? ($data['tinggi_badan'] ?? '-') : ($data['tinggi_badan'] ?? '-'),
+            $isBalita ? ($data['lingkar_kepala'] ?? '-') : ($data['lingkar_perut'] ?? '-'),
+            $isBalita ? ($data['lila'] ?? '-') : ($data['lila'] ?? '-'),
+            $isBalita ? ($data['cara_ukur'] ?? '-') : '-',
+            $isBalita 
+                ? (!empty($data['asi_eksklusif']) ? 'ASI: Ya' : 'ASI: Tidak') 
+                : (!empty($data['pmt_pemulihan']) ? 'PMT: Ya' : 'PMT: Tidak'),
+            $isBalita ? '-' : ($data['hemoglobin'] ?? '-') . ' / ' . ($data['tekanan_darah'] ?? '-'),
+            $isBalita ? '-' : ($data['tfu'] ?? '-'),
+            $isBalita ? '-' : ($data['taksiran_bb_janin'] ?? '-'),
             $gizi['bb_u'] ?? '-',
             $gizi['tb_u'] ?? '-',
             $gizi['bb_tb'] ?? '-',
             $gizi['kek'] ?? '-',
             $gizi['anemia'] ?? '-',
             $gizi['td'] ?? '-',
-            $isBalita ? (!empty($data['vitamin_a']) ? 'Ya' : 'Tidak') : '-',
-            $isBalita && !empty($imun) ? implode(', ', $imun) : '-',
+            $tindakanText,
             $l->tanggal_validasi ? $l->tanggal_validasi->format('d/m/Y H:i') : '-',
         ];
     }

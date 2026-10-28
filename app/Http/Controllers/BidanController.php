@@ -10,6 +10,7 @@ use App\Models\LaporanPosyandu;
 use App\Models\PemeriksaanDarurat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\C45\C45ModelRepository;
 use Carbon\Carbon;
 
 class BidanController extends Controller
@@ -47,7 +48,6 @@ class BidanController extends Controller
         $bumilKEK    = (clone $baseBumilQuery)->where('status_kek', 'Risiko KEK')->count();
         $bumilAnemia = (clone $baseBumilQuery)->where('status_anemia', 'Anemia')->count();
         
-        // TD Hipertensi (jika dibutuhkan di grafik)
         $tdHipertensi = (clone $baseBumilQuery)->where('status_td', 'Hipertensi')->count();
 
         return view('bidan.dashboard', compact(
@@ -70,23 +70,56 @@ class BidanController extends Controller
             ->latest()
             ->get();
 
+        $repo = app(C45ModelRepository::class);
+
+        // Generate fitur C4.5 untuk setiap balita
+        foreach ($pemeriksaans as $p) {
+            // 1. Tren BB
+            $prev = PemeriksaanBalita::where('balita_id', $p->balita_id)
+                ->where('umur_bulan', '<', $p->umur_bulan)
+                ->latest('umur_bulan')->first();
+            $tren = ($prev && $p->berat_badan < $prev->berat_badan) ? 'Turun' : 'Naik';
+
+            // 2. Fitur lainnya
+            $fitur = [
+                'Tren_BB'       => $tren,
+                'Kelompok_Usia' => ($p->umur_bulan < 24) ? '< 24 bulan' : '>= 24 bulan',
+                'Status_Gizi'   => $p->status_bb_tb ?? $p->status_bb_u, 
+                'LILA'          => ($p->lila && $p->lila < 12.5) ? 'Kurang' : 'Cukup',
+            ];
+
+            // 3. Simpan hasil prediksi
+            $p->rekomendasi_1 = $repo->prediksi('balita', $fitur, 'Prioritas_1')['kelas'] ?? '-';
+            $p->rekomendasi_2 = $repo->prediksi('balita', $fitur, 'Prioritas_2')['kelas'] ?? '-';
+            $p->rekomendasi_3 = $repo->prediksi('balita', $fitur, 'Prioritas_3')['kelas'] ?? '-';
+        }
+
         return view('bidan.validasi-balita', compact('pemeriksaans'));
     }
 
     public function prosesValidasiBalita(Request $request, $id)
-    {
+    {   
         $request->validate([
             'aksi'    => 'required|in:disetujui,perbaikan',
             'catatan' => 'nullable|string|max:500',
         ]);
 
         $pemeriksaan = PemeriksaanBalita::with('balita.posyandu')->findOrFail($id);
-
         $status = $request->aksi === 'disetujui' ? 'disetujui' : 'butuh_perbaikan';
 
+        // Tangkap data checkbox tindakan
+        $tindakan = $request->input('tindakan_bidan', []);
+        
+        // Jika bidan memilih "Lainnya" dan mengisi teks
+        if (in_array('Lainnya', $tindakan) && $request->filled('catatan_tindakan_lain')) {
+            $key = array_search('Lainnya', $tindakan);
+            $tindakan[$key] = 'Lainnya: ' . $request->catatan_tindakan_lain;
+        }
+
         $pemeriksaan->update([
-            'status_review' => $status,
-            'catatan_bidan' => $request->catatan,
+            'status_review'   => $status,
+            'catatan_bidan'   => $request->catatan,
+            'tindakan_bidan'  => $tindakan, 
         ]);
 
         if ($status === 'disetujui') {
@@ -115,6 +148,7 @@ class BidanController extends Controller
             $p->update([
                 'status_review' => $status,
                 'catatan_bidan' => $request->catatan,
+                'tindakan_bidan' => [], // Bulk action tidak punya checkbox
             ]);
 
             if ($status === 'disetujui') {
@@ -170,6 +204,7 @@ class BidanController extends Controller
                 'cara_ukur'       => $pemeriksaan->cara_ukur,         
                 'vitamin_a'       => $pemeriksaan->vitamin_a,
                 'keterangan'      => $pemeriksaan->keterangan,
+                'tindakan_bidan'  => $pemeriksaan->tindakan_bidan, // <-- PASTIKAN INI ADA
             ],
             'status_gizi' => [
                 'bb_u'  => $pemeriksaan->status_bb_u,
@@ -192,6 +227,33 @@ class BidanController extends Controller
             ->latest()
             ->get();
 
+        $repo = app(C45ModelRepository::class);
+
+        foreach ($pemeriksaans as $p) {
+            $trimester = 'Trimester 1';
+            if ($p->minggu_ke > 13 && $p->minggu_ke <= 27) $trimester = 'Trimester 2';
+            elseif ($p->minggu_ke > 27) $trimester = 'Trimester 3';
+
+            $tensi = 'Normal';
+            if ($p->tekanan_darah) {
+                $td = explode('/', $p->tekanan_darah);
+                if (count($td) == 2 && ((int)$td[0] >= 140 || (int)$td[1] >= 90)) {
+                    $tensi = 'Hipertensi';
+                }
+            }
+
+            $fitur = [
+                'Trimester' => $trimester,
+                'LILA'      => ($p->lila < 23.5) ? 'Risiko KEK' : 'Normal',
+                'Hb'        => ($p->hemoglobin && $p->hemoglobin < 11.0) ? 'Anemia' : 'Normal',
+                'Tensi'     => $tensi,
+            ];
+
+            $p->rekomendasi_1 = $repo->prediksi('bumil', $fitur, 'Prioritas_1')['kelas'] ?? '-';
+            $p->rekomendasi_2 = $repo->prediksi('bumil', $fitur, 'Prioritas_2')['kelas'] ?? '-';
+            $p->rekomendasi_3 = $repo->prediksi('bumil', $fitur, 'Prioritas_3')['kelas'] ?? '-';
+        }
+
         return view('bidan.validasi-bumil', compact('pemeriksaans'));
     }
 
@@ -203,12 +265,19 @@ class BidanController extends Controller
         ]);
 
         $pemeriksaan = PemeriksaanBumil::with('ibuHamil.posyandu')->findOrFail($id);
-
         $status = $request->aksi === 'disetujui' ? 'disetujui' : 'butuh_perbaikan';
 
+        $tindakan = $request->input('tindakan_bidan', []);
+        
+        if (in_array('Lainnya', $tindakan) && $request->filled('catatan_tindakan_lain')) {
+            $key = array_search('Lainnya', $tindakan);
+            $tindakan[$key] = 'Lainnya: ' . $request->catatan_tindakan_lain;
+        }
+
         $pemeriksaan->update([
-            'status_review' => $status,
-            'catatan_bidan' => $request->catatan,
+            'status_review'   => $status,
+            'catatan_bidan'   => $request->catatan,
+            'tindakan_bidan'  => $tindakan, 
         ]);
 
         if ($status === 'disetujui') {
@@ -237,6 +306,7 @@ class BidanController extends Controller
             $p->update([
                 'status_review' => $status,
                 'catatan_bidan' => $request->catatan,
+                'tindakan_bidan' => [],
             ]);
 
             if ($status === 'disetujui') {
@@ -297,6 +367,7 @@ class BidanController extends Controller
                 'tablet_tambah_darah' => $pemeriksaan->tablet_tambah_darah,
                 'pmt_pemulihan'       => $pemeriksaan->pmt_pemulihan,
                 'tekanan_darah'       => $pemeriksaan->tekanan_darah,
+                'tindakan_bidan'      => $pemeriksaan->tindakan_bidan, // <-- PASTIKAN INI ADA
             ],
             'status_gizi' => [
                 'kek'    => $pemeriksaan->status_kek,
@@ -357,28 +428,24 @@ class BidanController extends Controller
         $tipe_periode = $request->query('tipe_periode', 'bulanan');
         $kategori = $request->query('kategori');
         $status_gizi = $request->query('status_gizi');
-        $posyanduId = $request->query('posyandu_id'); // <-- FILTER BARU
+        $posyanduId = $request->query('posyandu_id');
 
         $query = LaporanPosyandu::with(['posyandu', 'validator']);
 
-        // Filter Periode
         if ($tipe_periode === 'tahunan') {
             $query->where('periode_tahun', $tahun);
         } else {
             $query->where('periode_bulan', $bulan)->where('periode_tahun', $tahun);
         }
 
-        // Filter Posyandu / RW
         if ($posyanduId) {
             $query->where('posyandu_id', $posyanduId);
         }
 
-        // Filter Kategori
         if ($kategori) {
             $query->where('kategori', $kategori);
         }
 
-        // Filter Status Gizi Negatif
         if ($status_gizi === 'negatif') {
             $query->where(function($q) {
                 $q->where('status_gizi->bb_u', 'like', '%Kurang%')
@@ -393,7 +460,6 @@ class BidanController extends Controller
 
         $laporans = $query->orderBy('kategori')->orderBy('id')->paginate(50)->withQueryString();
         
-        // Data untuk Dropdown
         $posyandus = \App\Models\Posyandu::orderBy('rw')->get();
         $tahunList = LaporanPosyandu::select('periode_tahun')->distinct()->orderBy('periode_tahun', 'desc')->pluck('periode_tahun')->toArray();
         if (!in_array(now()->year, $tahunList)) $tahunList[] = now()->year;

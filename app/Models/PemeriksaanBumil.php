@@ -16,11 +16,12 @@ class PemeriksaanBumil extends Model
         'tfu', 'kategori_tfu', 'lingkar_perut', 'taksiran_bb_janin', 'kategori_janin',
         'tablet_tambah_darah', 'pmt_pemulihan', 'tekanan_darah', 'keterangan',
         'status_gizi', 'status_kek', 'status_anemia', 'status_td',
-        'status_review', 'catatan_bidan', 'kader_id',
+        'status_review', 'catatan_bidan', 'kader_id', 'tindakan_bidan',
     ];
     protected $casts = [
         'tanggal_periksa' => 'date',
         'pmt_pemulihan' => 'boolean',
+        'tindakan_bidan' => 'array',
     ];
 
     public function ibuHamil() { return $this->belongsTo(IbuHamil::class, 'ibu_hamil_id'); }
