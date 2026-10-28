@@ -1,0 +1,561 @@
+Tren_BB,Kelompok_Usia,Status_Gizi,LILA,Prioritas_1,Prioritas_2,Prioritas_3
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Pendek,Kurang,Program PMT,Rujuk Puskesmas/RS,Konseling Gizi
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,>= 24 bulan,Gizi Kurang,Cukup,Program PMT,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Turun,>= 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,BB Kurang,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Program PMT
+Naik,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Rujuk Puskesmas/RS,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Sangat Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Turun,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Naik,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,BB Kurang,Cukup,Program PMT,Konseling Gizi,Pendampingan Bidan
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Rujuk Puskesmas/RS
+Naik,< 24 bulan,Gizi Buruk,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Gizi Kurang,Kurang,Rujuk Puskesmas/RS,Program PMT,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,>= 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Gizi Buruk,Kurang,Rujuk Puskesmas/RS,Pendampingan Bidan,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Pendek,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,< 24 bulan,BB Sangat Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Obesitas,Cukup,Konseling Gizi,Pemantauan Rutin (Home Visit),Pendampingan Bidan
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Naik,>= 24 bulan,Gizi Kurang,Kurang,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Turun,< 24 bulan,Sangat Pendek,Cukup,Rujuk Puskesmas/RS,Konseling Gizi,Pendampingan Bidan
+Turun,< 24 bulan,BB Kurang,Kurang,Program PMT,Rujuk Puskesmas/RS,Pendampingan Bidan
+Naik,< 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Naik,< 24 bulan,Obesitas,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Pemantauan Rutin (Home Visit)
+Naik,>= 24 bulan,Sangat Pendek,Kurang,Rujuk Puskesmas/RS,Konseling Gizi,Program PMT
+Turun,< 24 bulan,Pendek,Cukup,Konseling Gizi,Pendampingan Bidan,Rujuk Puskesmas/RS
+Turun,< 24 bulan,BB Sangat Kurang,Cukup,Rujuk Puskesmas/RS,Program PMT,Pendampingan Bidan
+Naik,< 24 bulan,Gizi Kurang,Cukup,Program PMT,Konseling Gizi,Pemantauan Rutin (Home Visit)
