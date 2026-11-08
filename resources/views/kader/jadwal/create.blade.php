@@ -5,11 +5,11 @@
 @section('page-subtitle', 'Buat jadwal kegiatan posyandu baru')
 
 @section('content')
-    <div class="card" style="max-width: 800px; margin: 0 auto;">
+    <div class="max-w-2xl mx-auto">
         @if($errors->any())
-            <div class="alert alert-error" style="flex-direction: column; align-items: flex-start;">
-                <strong>⚠️ Terdapat kesalahan:</strong>
-                <ul style="margin: 4px 0 0 20px;">
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-xl mb-6 shadow-sm">
+                <div class="font-bold mb-1">Terdapat kesalahan:</div>
+                <ul class="list-disc list-inside text-sm">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -17,50 +17,54 @@
             </div>
         @endif
 
-        <form action="{{ route('kader.jadwal.store') }}" method="POST">
+        <form action="{{ route('kader.jadwal.store') }}" method="POST" class="bg-white border border-kia-100 rounded-2xl shadow-sm p-6 md:p-8">
             @csrf
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Tanggal <span class="required">*</span></label>
-                    <input type="date" name="tanggal" class="form-control" 
-                           value="{{ old('tanggal') }}" min="{{ date('Y-m-d') }}" required>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Kegiatan <span class="text-red-500">*</span></label>
+                    <input type="text" name="kegiatan" value="{{ old('kegiatan') }}" placeholder="Contoh: Penimbangan Balita" required
+                           class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">
                 </div>
 
-                <div class="form-group">
-                    <label>Kegiatan <span class="required">*</span></label>
-                    <input type="text" name="kegiatan" class="form-control" 
-                           value="{{ old('kegiatan') }}" placeholder="Contoh: Penimbangan Balita" required>
+                <div>
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Tanggal <span class="text-red-500">*</span></label>
+                    <input type="date" name="tanggal" value="{{ old('tanggal') }}" min="{{ date('Y-m-d') }}" required
+                           class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">
                 </div>
 
-                <div class="form-group">
-                    <label>Waktu Mulai <span class="required">*</span></label>
-                    <input type="time" name="waktu_mulai" class="form-control" 
-                           value="{{ old('waktu_mulai', '08:00') }}" required>
+                <div>
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Lokasi <span class="text-red-500">*</span></label>
+                    <input type="text" name="lokasi" value="{{ old('lokasi') }}" placeholder="Contoh: Balai RW 01" required
+                           class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">
                 </div>
 
-                <div class="form-group">
-                    <label>Waktu Selesai</label>
-                    <input type="time" name="waktu_selesai" class="form-control" 
-                           value="{{ old('waktu_selesai', '11:00') }}">
+                <div>
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Waktu Mulai <span class="text-red-500">*</span></label>
+                    <input type="time" name="waktu_mulai" value="{{ old('waktu_mulai', '08:00') }}" required
+                           class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">
                 </div>
 
-                <div class="form-group" style="grid-column: span 2;">
-                    <label>Lokasi <span class="required">*</span></label>
-                    <input type="text" name="lokasi" class="form-control" 
-                           value="{{ old('lokasi') }}" placeholder="Contoh: Balai RW 01" required>
+                <div>
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Waktu Selesai</label>
+                    <input type="time" name="waktu_selesai" value="{{ old('waktu_selesai', '11:00') }}"
+                           class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-kia-900 mb-1.5">Keterangan (Opsional)</label>
+                    <textarea name="keterangan" rows="3" placeholder="Catatan tambahan..."
+                              class="w-full px-4 py-2.5 text-sm border border-kia-200 rounded-xl bg-kia-50/50 focus:bg-white focus:ring-2 focus:ring-kia-500 outline-none transition-all">{{ old('keterangan') }}</textarea>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Keterangan (Opsional)</label>
-                <textarea name="keterangan" class="form-control" rows="3" 
-                          placeholder="Catatan tambahan">{{ old('keterangan') }}</textarea>
-            </div>
-
-            <div style="display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #fbcfe8;">
-                <button type="submit" class="btn-primary" style="flex: 1;">💾 Simpan Jadwal</button>
-                <a href="{{ route('kader.jadwal.index') }}" class="btn-secondary" style="flex: 1;">Batal</a>
+            <div class="mt-8 pt-6 border-t border-kia-100 flex flex-col md:flex-row gap-3">
+                <button type="submit" class="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-kia-500 to-kia-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all">
+                    Simpan Jadwal
+                </button>
+                <a href="{{ route('kader.jadwal.index') }}" class="w-full md:w-auto px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors text-center border border-gray-200">
+                    Batal
+                </a>
             </div>
         </form>
     </div>

@@ -21,7 +21,6 @@ class JadwalPosyanduController extends Controller
         $query = JadwalPosyandu::with(['posyandu', 'kader'])
             ->where('posyandu_id', $user->posyandu_id);
     
-        // SEARCH: kegiatan / lokasi
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -30,7 +29,6 @@ class JadwalPosyanduController extends Controller
             });
         }
     
-        // FILTER: Status
         if ($request->filled('status')) {
             if ($request->status === 'upcoming') {
                 $query->where('tanggal', '>=', now());
@@ -52,7 +50,6 @@ class JadwalPosyanduController extends Controller
     {
         $query = JadwalPosyandu::with(['posyandu', 'kader']);
     
-        // SEARCH
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -104,7 +101,7 @@ class JadwalPosyanduController extends Controller
             'keterangan'    => 'nullable|string|max:1000',
         ]);
 
-        // CEK DUPLIKASI (Tahap 5 - sekaligus dikerjakan)
+        // CEK DUPLIKASI
         $duplikat = JadwalPosyandu::where('posyandu_id', $user->posyandu_id)
             ->where('tanggal', $validated['tanggal'])
             ->where('waktu_mulai', $validated['waktu_mulai'])
@@ -121,7 +118,8 @@ class JadwalPosyanduController extends Controller
 
         JadwalPosyandu::create($validated);
 
-        return redirect()->route('jadwal.index')
+        // PERBAIKAN ROUTE: kader.jadwal.index
+        return redirect()->route('kader.jadwal.index')
             ->with('success', 'Jadwal posyandu berhasil ditambahkan!');
     }
 
@@ -164,7 +162,8 @@ class JadwalPosyanduController extends Controller
 
         $jadwal->update($validated);
 
-        return redirect()->route('jadwal.index')
+        // PERBAIKAN ROUTE: kader.jadwal.index
+        return redirect()->route('kader.jadwal.index')
             ->with('success', 'Jadwal posyandu berhasil diperbarui!');
     }
 
@@ -175,13 +174,11 @@ class JadwalPosyanduController extends Controller
 
         $jadwal->delete();
 
-        return redirect()->route('jadwal.index')
+        // PERBAIKAN ROUTE: kader.jadwal.index
+        return redirect()->route('kader.jadwal.index')
             ->with('success', 'Jadwal posyandu berhasil dihapus!');
     }
 
-    /**
-     * Cek hak akses: hanya kader pemilik posyandu yang bisa edit/hapus
-     */
     private function authorizeKader(JadwalPosyandu $jadwal): void
     {
         $user = Auth::user();
